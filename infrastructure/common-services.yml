@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  db:
+    image: "mysql:latest"
+    container_name: accountable-mysql-db
+    ports:
+      - "3306:3306"
+    volumes:
+      - accountable-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u${MYSQL_USER} -p${MYSQL_PASSWORD}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_DATABASE: "${DB_NAME}"
+
+volumes:
+  accountable-mysql-data:

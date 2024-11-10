@@ -20,13 +20,6 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
-    /**
-     * Handle {@link NotFoundException}.
-     *
-     * @param ex      Exception to handle.
-     * @param request Web request.
-     * @return RFC-7807 {@link ProblemDetail} wrapped in {@link ResponseEntity} with HTTP status 404.
-     */
     @ExceptionHandler(value = NotFoundException.class)
     public ResponseEntity<ProblemDetail> handleStockNotFound(NotFoundException ex, WebRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
@@ -36,13 +29,25 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(problemDetail, HttpStatus.NOT_FOUND);
     }
 
-    /**
-     * Handle Bad input.
-     *
-     * @param ex      Exception to handle.
-     * @param request Web request.
-     * @return RFC-7807 {@link ProblemDetail} wrapped in {@link ResponseEntity} with HTTP status 400.
-     */
+    @ExceptionHandler(value = BadRequestException.class)
+    public ResponseEntity<ProblemDetail> handleStockNotFound(BadRequestException ex, WebRequest request) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problemDetail.setTitle("Bad request");
+        problemDetail.setInstance(URI.create(((ServletWebRequest) request).getRequest().getRequestURI()));
+
+        return new ResponseEntity<>(problemDetail, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = AuthException.class)
+    public ResponseEntity<ProblemDetail> handleStockNotFound(AuthException ex, WebRequest request) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
+        problemDetail.setTitle("Unauthorized");
+        problemDetail.setInstance(URI.create(((ServletWebRequest) request).getRequest().getRequestURI()));
+
+        return new ResponseEntity<>(problemDetail, HttpStatus.UNAUTHORIZED);
+    }
+
+
     @ExceptionHandler({ConstraintViolationException.class, IllegalArgumentException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<ProblemDetail> handleConstraintViolation(Exception ex, WebRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
@@ -52,13 +57,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(problemDetail, HttpStatus.BAD_REQUEST);
     }
 
-    /**
-     * Handle invalid requests thrown with {@link MethodArgumentNotValidException }.
-     *
-     * @param ex      Exception to handle.
-     * @param request Web request.
-     * @return RFC-7807 {@link ProblemDetail} wrapped in {@link ResponseEntity} with HTTP status 400.
-     */
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,

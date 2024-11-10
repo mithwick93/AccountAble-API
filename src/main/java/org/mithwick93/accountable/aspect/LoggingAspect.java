@@ -22,6 +22,11 @@ import java.util.Arrays;
 public class LoggingAspect {
     private static final String MASK = "***";
 
+    private static boolean isSensitiveEndpoint(HttpServletRequest request) {
+        return request.getRequestURI().contains("/login")
+                || request.getRequestURI().contains("/register");
+    }
+
     @Pointcut("within(org.mithwick93.accountable..*)" + " && within(@org.springframework.web.bind.annotation.RestController *)")
     @lombok.Generated
     public void controllerPointcut() {
@@ -109,10 +114,5 @@ public class LoggingAspect {
                 request.getRequestURI(),
                 JsonUtil.getJsonString(returnValue)
         );
-    }
-
-    private static boolean isSensitiveEndpoint(HttpServletRequest request) {
-        return request.getRequestURI().contains("/login")
-                || request.getRequestURI().contains("/register");
     }
 }

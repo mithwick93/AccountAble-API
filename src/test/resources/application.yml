@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: test
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  datasource:
+    url: jdbc:mysql://${MYSQL_CONTAINER_HOST}:${MYSQL_CONTAINER_PORT}/accountable?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: testuser
+    password: testpassword
+  flyway:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+  sql:
+    init:
+      platform: mysql
+application:
+  title: AccountAble
+  description: Manage personal finances
+  version: V1
+rsa:
+  private-key: ${keyPath:classpath:certs}/private-test-key.pem
+  public-key: ${keyPath:classpath:certs}/public-test-key.pem

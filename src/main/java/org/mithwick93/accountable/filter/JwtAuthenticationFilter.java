@@ -30,7 +30,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain chain
     ) throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+
+        if (shouldExtractAuthHeader(request)) {
             String token = authorizationHeader.substring(7);
             try {
                 Jwt jwt = jwtDecoder.decode(token);
@@ -46,5 +47,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         chain.doFilter(request, response);
+    }
+
+    private boolean shouldExtractAuthHeader(HttpServletRequest request) {
+        String authorizationHeader = request.getHeader("Authorization");
+        String path = request.getServletPath();
+
+        return authorizationHeader != null &&
+                authorizationHeader.startsWith("Bearer ") &&
+                !path.contains("/register") &&
+                !path.contains("/login");
     }
 }

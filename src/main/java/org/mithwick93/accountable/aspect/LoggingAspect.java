@@ -20,6 +20,8 @@ import java.util.Arrays;
 @Component
 @Slf4j
 public class LoggingAspect {
+    private static final String MASK = "***";
+
     @Pointcut("within(org.mithwick93.accountable..*)" + " && within(@org.springframework.web.bind.annotation.RestController *)")
     @lombok.Generated
     public void controllerPointcut() {
@@ -40,13 +42,20 @@ public class LoggingAspect {
     @Before("controllerPointcut()")
     public void beforeEndpoint(JoinPoint joinPoint) throws JsonProcessingException {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        boolean isSensitiveEndpoints = isSensitiveEndpoint(request);
+        String params = isSensitiveEndpoints
+                ? MASK
+                : JsonUtil.getJsonString(request.getParameterMap());
+        String args = isSensitiveEndpoints
+                ? MASK
+                : Arrays.toString(joinPoint.getArgs());
 
         log.info(
                 "[Request] Endpoint: [{}] {}, Params: {}, Args: {}",
                 request.getMethod(),
                 request.getRequestURI(),
-                JsonUtil.getJsonString(request.getParameterMap()),
-                Arrays.toString(joinPoint.getArgs())
+                params,
+                args
         );
     }
 
@@ -56,12 +65,15 @@ public class LoggingAspect {
     @AfterReturning(pointcut = "controllerPointcut()", returning = "returnValue")
     public void afterEndpoint(Object returnValue) throws JsonProcessingException {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String responseBody = isSensitiveEndpoint(request)
+                ? MASK
+                : JsonUtil.getJsonString(returnValue);
 
         log.info(
                 "[Response] Endpoint: [{}] {}, Returned: {}",
                 request.getMethod(),
                 request.getRequestURI(),
-                JsonUtil.getJsonString(returnValue)
+                responseBody
         );
     }
 
@@ -97,5 +109,10 @@ public class LoggingAspect {
                 request.getRequestURI(),
                 JsonUtil.getJsonString(returnValue)
         );
+    }
+
+    private static boolean isSensitiveEndpoint(HttpServletRequest request) {
+        return request.getRequestURI().contains("/login")
+                || request.getRequestURI().contains("/register");
     }
 }

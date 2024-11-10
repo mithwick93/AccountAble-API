@@ -46,7 +46,7 @@ public class OpenAPIConfiguration {
                 )
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .paths(new Paths()
-                        .addPathItem("/api/user/register", new PathItem())
-                        .addPathItem("/api/user/login", new PathItem()));
+                        .addPathItem("/api/auth/register", new PathItem())
+                        .addPathItem("/api/auth/login", new PathItem()));
     }
 }

@@ -1,0 +1,61 @@
+# Server
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  sql:
+    init:
+      platform: mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${dbUrl}
+    username: ${dbUsername}
+    password: ${dbPassword}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+  flyway:
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    baseline-on-migrate: true
+    table: schema_version
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+      enabled: true
+
+# Swagger
+application:
+  title: AccountAble
+  description: Manage personal finances
+  version: V1
+springdoc:
+  swagger-ui:
+    oauth:
+      appName: ${application.title}
+    operationsSorter: alpha
+  show-actuator: true
+
+# JWT
+rsa:
+  private-key: ${keyPath:classpath:certs}/private-key.pem
+  public-key: ${keyPath:classpath:certs}/public-key.pem

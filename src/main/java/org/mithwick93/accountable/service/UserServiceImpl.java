@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = {Throwable.class})
     public String createUser(User user) {
-        if (userRepository.existsByUsername(user.username())) {
-            throw new BadRequestException("User name: %s already exists".formatted(user.username()));
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new BadRequestException("User name: %s already exists".formatted(user.getUsername()));
         }
 
         User newUser = userRepository.save(user);
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(INVALID_USER_NAME_PASSWORD);
 
-        if (!passwordEncoder.matches(password, user.passwordHash())) {
+        if (!passwordEncoder.matches(password, user.getPasswordHash())) {
             throw INVALID_USER_NAME_PASSWORD.get();
         }
 
@@ -61,10 +61,10 @@ public class UserServiceImpl implements UserService {
     private String generateToken(User user) {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuedAt(Instant.now())
-                .subject(String.valueOf(user.id()))
-                .claim("username", user.username())
-                .claim("firstName", user.firstName())
-                .claim("lastName", user.lastName())
+                .subject(String.valueOf(user.getId()))
+                .claim("username", user.getUsername())
+                .claim("firstName", user.getFirstName())
+                .claim("lastName", user.getLastName())
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

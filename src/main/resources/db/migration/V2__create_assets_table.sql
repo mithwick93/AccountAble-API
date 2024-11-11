@@ -17,6 +17,7 @@ CREATE TABLE assets
 (
     id          INT PRIMARY KEY AUTO_INCREMENT,
     type_id     INT            NOT NULL,
+    name        VARCHAR(100)   NOT NULL,
     description TEXT           NOT NULL,
     balance     DECIMAL(19, 4) NOT NULL,
     currency_id INT            NOT NULL,

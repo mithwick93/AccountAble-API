@@ -9,14 +9,12 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 @Entity
 @Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Accessors(fluent = true)
 public class User {
 
     @Id
@@ -29,7 +27,7 @@ public class User {
     @Column(name = "last_name", length = 50, nullable = false)
     private String lastName;
 
-    @Column(name = "user_name", length = 50, unique = true, nullable = false)
+    @Column(name = "user_name", length = 50, unique = true, nullable = false, updatable = false)
     private String username;
 
     @Column(name = "password_hash", nullable = false)

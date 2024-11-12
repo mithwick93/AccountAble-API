@@ -56,6 +56,8 @@ springdoc:
   show-actuator: true
 
 # JWT
+jwt:
+  expire-in-seconds: 3600
 rsa:
   private-key: ${keyPath:classpath:certs}/private-key.pem
   public-key: ${keyPath:classpath:certs}/public-key.pem

@@ -20,8 +20,17 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(value = Throwable.class)
+    public ResponseEntity<ProblemDetail> handleThrowable(WebRequest request) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        problemDetail.setTitle("Internal server error");
+        problemDetail.setInstance(URI.create(((ServletWebRequest) request).getRequest().getRequestURI()));
+
+        return new ResponseEntity<>(problemDetail, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(value = NotFoundException.class)
-    public ResponseEntity<ProblemDetail> handleStockNotFound(NotFoundException ex, WebRequest request) {
+    public ResponseEntity<ProblemDetail> handleNotFoundException(NotFoundException ex, WebRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
         problemDetail.setTitle("Not found");
         problemDetail.setInstance(URI.create(((ServletWebRequest) request).getRequest().getRequestURI()));
@@ -30,7 +39,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = BadRequestException.class)
-    public ResponseEntity<ProblemDetail> handleStockNotFound(BadRequestException ex, WebRequest request) {
+    public ResponseEntity<ProblemDetail> handleBadRequestException(BadRequestException ex, WebRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
         problemDetail.setTitle("Bad request");
         problemDetail.setInstance(URI.create(((ServletWebRequest) request).getRequest().getRequestURI()));
@@ -39,7 +48,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = AuthException.class)
-    public ResponseEntity<ProblemDetail> handleStockNotFound(AuthException ex, WebRequest request) {
+    public ResponseEntity<ProblemDetail> handleAuthException(AuthException ex, WebRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());
         problemDetail.setTitle("Unauthorized");
         problemDetail.setInstance(URI.create(((ServletWebRequest) request).getRequest().getRequestURI()));

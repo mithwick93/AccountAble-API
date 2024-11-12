@@ -13,10 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.function.Supplier;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseService implements UserService {
     public static final Supplier<AuthException> INVALID_USER_NAME_PASSWORD
             = AuthException.supplier("Invalid user name / password");
     private final UserRepository userRepository;
@@ -56,6 +57,11 @@ public class UserServiceImpl implements UserService {
         }
 
         return generateToken(user);
+    }
+
+    @Override
+    public List<User> listUsers() {
+        return userRepository.findAllById(List.of((long) getAuthenticatedUserId()));
     }
 
     private String generateToken(User user) {

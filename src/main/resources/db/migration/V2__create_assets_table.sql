@@ -27,11 +27,3 @@ CREATE TABLE assets
     FOREIGN KEY (currency_id) REFERENCES currencies (id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
-
-INSERT INTO asset_types (id, name, description)
-VALUES (1, 'Savings Account', 'A traditional savings account for storing money'),
-       (2, 'Investment', 'An investment account for growing wealth');
-
-INSERT INTO currencies (id, name, description, code)
-VALUES (1, 'Sri Lankan Rupee', 'The official currency of Sri Lanka', 'LKR'),
-       (2, 'Swedish Krona', 'The official currency of Sweden', 'SEK');

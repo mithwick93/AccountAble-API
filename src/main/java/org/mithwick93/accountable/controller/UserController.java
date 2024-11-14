@@ -4,6 +4,7 @@ import org.mithwick93.accountable.controller.dto.response.UserResponse;
 import org.mithwick93.accountable.controller.mapper.UserMapper;
 import org.mithwick93.accountable.model.User;
 import org.mithwick93.accountable.service.UserService;
+import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,16 +18,22 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
+    private final JwtUtil jwtUtil;
 
     @Autowired
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(
+            UserService userService,
+            UserMapper userMapper,
+            JwtUtil jwtUtil
+    ) {
         this.userService = userService;
         this.userMapper = userMapper;
+        this.jwtUtil = jwtUtil;
     }
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> listUsers() {
-        List<User> users = userService.listUsers();
+        List<User> users = userService.listUsers(jwtUtil.getAuthenticatedUserId());
         List<UserResponse> userResponses = userMapper.toUserResponses(users);
         return ResponseEntity.ok(userResponses);
     }

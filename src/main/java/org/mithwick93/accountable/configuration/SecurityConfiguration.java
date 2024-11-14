@@ -49,6 +49,7 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 "/api/auth/register",
                                 "/api/auth/login",
+                                "/api/auth/refresh-token",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
@@ -58,12 +59,11 @@ public class SecurityConfiguration {
                 .sessionManagement(sessionManagementConfigurer -> sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oAuth2ResourceServerConfigurer -> oAuth2ResourceServerConfigurer
                         .jwt(jwt -> jwt.decoder(jwtDecoder))
-                        .accessDeniedHandler(authExceptionHandler)
+                        .authenticationEntryPoint(authExceptionHandler)
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtDecoder), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer
                         .authenticationEntryPoint(authExceptionHandler)
-                        .accessDeniedHandler(authExceptionHandler)
                 );
 
         return http.build();

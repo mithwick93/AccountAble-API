@@ -1,8 +1,6 @@
 package org.mithwick93.accountable.configuration;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.PathItem;
-import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
@@ -27,6 +25,7 @@ public class OpenAPIConfiguration {
                 .bearerFormat("JWT")
                 .in(In.HEADER)
                 .name("Authorization");
+
         return new OpenAPI()
                 .info(
                         new Info()
@@ -43,10 +42,6 @@ public class OpenAPIConfiguration {
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new io.swagger.v3.oas.models.Components()
                         .addSecuritySchemes("bearerAuth", bearerAuth)
-                )
-                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-                .paths(new Paths()
-                        .addPathItem("/api/auth/register", new PathItem())
-                        .addPathItem("/api/auth/login", new PathItem()));
+                );
     }
 }

@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 public class Asset {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Convert(converter = AssetTypeConverter.class)
     @Column(name = "type_id", nullable = false, updatable = false)

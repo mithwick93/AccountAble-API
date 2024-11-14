@@ -58,6 +58,8 @@ springdoc:
 # JWT
 jwt:
   expire-in-seconds: 3600
+refresh-token:
+  expire-in-seconds: 864000
 rsa:
   private-key: ${keyPath:classpath:certs}/private-key.pem
   public-key: ${keyPath:classpath:certs}/public-key.pem

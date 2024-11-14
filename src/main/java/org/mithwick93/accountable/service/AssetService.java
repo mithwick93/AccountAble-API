@@ -27,7 +27,7 @@ public class AssetService {
     }
 
     @Transactional(readOnly = true)
-    public Asset getAsset(Long assetId) {
+    public Asset getAsset(int assetId) {
         return assetRepository.findByIdAndUserId(assetId, jwtUtil.getAuthenticatedUserId())
                 .orElseThrow(NotFoundException.supplier("Asset with id " + assetId + " not found"));
     }
@@ -39,7 +39,7 @@ public class AssetService {
     }
 
     @Transactional
-    public Asset updateAsset(Long assetId, Asset updatedAsset) {
+    public Asset updateAsset(int assetId, Asset updatedAsset) {
         Asset existingAsset = getAsset(assetId);
 
         updatedAsset.setId(existingAsset.getId());
@@ -49,7 +49,7 @@ public class AssetService {
     }
 
     @Transactional
-    public void deleteAsset(Long assetId) {
+    public void deleteAsset(int assetId) {
         Asset existingAsset = getAsset(assetId);
         assetRepository.delete(existingAsset);
     }

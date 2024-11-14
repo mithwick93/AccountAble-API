@@ -40,7 +40,7 @@ public class UserService {
     }
 
     public List<User> listUsers(int userId) {
-        return userRepository.findAllById(List.of((long) userId));
+        return userRepository.findAllById(List.of(userId));
     }
 
     private User validateUser(User user, String password) {

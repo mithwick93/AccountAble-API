@@ -44,7 +44,7 @@ public class AssetController {
     }
 
     @GetMapping("/{assetId}")
-    public ResponseEntity<AssetResponse> getAsset(@PathVariable Long assetId) {
+    public ResponseEntity<AssetResponse> getAsset(@PathVariable int assetId) {
         Asset asset = assetService.getAsset(assetId);
         AssetResponse assetResponse = assetMapper.toAssetResponse(asset);
         return ResponseEntity.ok(assetResponse);
@@ -60,7 +60,7 @@ public class AssetController {
 
     @PutMapping("/{assetId}")
     public ResponseEntity<AssetResponse> updateAsset(
-            @PathVariable Long assetId,
+            @PathVariable int assetId,
             @Valid @RequestBody AssetRequest updateAssetRequest
     ) {
         Asset updateAsset = assetMapper.toAsset(updateAssetRequest);
@@ -70,7 +70,7 @@ public class AssetController {
     }
 
     @DeleteMapping("/{assetId}")
-    public ResponseEntity<Void> deleteAsset(@PathVariable Long assetId) {
+    public ResponseEntity<Void> deleteAsset(@PathVariable int assetId) {
         assetService.deleteAsset(assetId);
         return ResponseEntity.noContent().build();
     }

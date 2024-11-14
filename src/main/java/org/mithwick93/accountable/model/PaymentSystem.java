@@ -1,47 +1,46 @@
 package org.mithwick93.accountable.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.mithwick93.accountable.model.converter.AssetTypeConverter;
-import org.mithwick93.accountable.model.converter.CurrencyConverter;
-
-import java.math.BigDecimal;
+import org.mithwick93.accountable.model.converter.PaymentSystemTypeConverter;
 
 @Entity
-@Table(name = "assets")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "type_id", discriminatorType = DiscriminatorType.INTEGER)
+@Table(name = "payment_systems")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Asset {
+public abstract class PaymentSystem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Convert(converter = AssetTypeConverter.class)
-    @Column(name = "type_id", nullable = false, updatable = false)
-    private AssetType type;
-
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
+    @Nullable
     private String description;
 
-    @Column(nullable = false)
-    private BigDecimal balance;
-
-    @Convert(converter = CurrencyConverter.class)
-    @Column(name = "currency_id", nullable = false)
-    private Currency currency;
+    @Convert(converter = PaymentSystemTypeConverter.class)
+    @Column(name = "type_id", nullable = false, updatable = false)
+    private PaymentSystemType type;
 
     @Column(name = "user_id", nullable = false, updatable = false)
     private int userId;
+
 }

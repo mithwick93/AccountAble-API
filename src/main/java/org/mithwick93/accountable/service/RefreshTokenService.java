@@ -53,7 +53,7 @@ public class RefreshTokenService {
     @Transactional
     public void deleteByUserId(int userId) {
         userRepository
-                .findById((long) userId)
+                .findById(userId)
                 .map(refreshTokenRepository::deleteByUser)
                 .orElseThrow(() -> new AuthException("User with id " + userId + " not found"));
     }

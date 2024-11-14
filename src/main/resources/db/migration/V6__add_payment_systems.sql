@@ -11,8 +11,10 @@ CREATE TABLE payment_systems
     name        VARCHAR(255) NOT NULL,
     description TEXT,
     type_id     INT          NOT NULL,
+    currency_id INT          NOT NULL,
     user_id     INT          NOT NULL,
     FOREIGN KEY (type_id) REFERENCES payment_system_types (id),
+    FOREIGN KEY (currency_id) REFERENCES currencies (id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 

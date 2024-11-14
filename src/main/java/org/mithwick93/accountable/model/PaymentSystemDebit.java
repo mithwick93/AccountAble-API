@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class PaymentSystemDebit extends PaymentSystem {
 
-    @Column(name = "asset_id", nullable = false)
+    @Column(name = "asset_id", nullable = false, updatable = false)
     private int assetId;
 
     @Column(name = "daily_limit")

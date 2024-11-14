@@ -15,7 +15,8 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.mithwick93.accountable.model.converter.PaymentSystemTypeConverter;
+import org.mithwick93.accountable.model.converter.CurrencyConverter;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -36,9 +37,9 @@ public abstract class PaymentSystem {
     @Nullable
     private String description;
 
-    @Convert(converter = PaymentSystemTypeConverter.class)
-    @Column(name = "type_id", nullable = false, updatable = false)
-    private PaymentSystemType type;
+    @Convert(converter = CurrencyConverter.class)
+    @Column(name = "currency_id", nullable = false, updatable = false)
+    private Currency currency;
 
     @Column(name = "user_id", nullable = false, updatable = false)
     private int userId;

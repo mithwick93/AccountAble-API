@@ -30,9 +30,9 @@ CREATE TABLE payment_system_debits
 CREATE TABLE payment_system_credits
 (
     id              INT AUTO_INCREMENT PRIMARY KEY,
-    credit_limit    DECIMAL(19, 4) NOT NULL,
+    credit_limit    DECIMAL(19, 4)   NOT NULL,
     utilized_amount DECIMAL(19, 4) DEFAULT 0,
-    statement_date  DATE,
-    due_date        DATE,
+    statement_day   TINYINT UNSIGNED NOT NULL CHECK (statement_day BETWEEN 1 AND 31),
+    due_day         TINYINT UNSIGNED NOT NULL CHECK (due_day BETWEEN 1 AND 31),
     FOREIGN KEY (id) REFERENCES payment_systems (id)
 );

@@ -1,6 +1,5 @@
 package org.mithwick93.accountable.model;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -11,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Entity
 @DiscriminatorValue("2")
@@ -28,12 +26,10 @@ public class PaymentSystemCredit extends PaymentSystem {
     @Column(name = "utilized_amount")
     private BigDecimal utilizedAmount;
 
-    @Column(name = "statement_date")
-    @Nullable
-    private LocalDate statementDate;
+    @Column(name = "statement_date", nullable = false)
+    private byte statementDate;
 
-    @Column(name = "due_date")
-    @Nullable
-    private LocalDate dueDate;
+    @Column(name = "due_date", nullable = false)
+    private byte dueDate;
 
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 
 @Component
-public class JwtUtil {
+public final class JwtUtil {
     private final JwtEncoder jwtEncoder;
 
     private long expireInSeconds;

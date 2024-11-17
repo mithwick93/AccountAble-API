@@ -14,6 +14,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.mithwick93.accountable.model.converter.CurrencyConverter;
 
@@ -22,9 +23,10 @@ import org.mithwick93.accountable.model.converter.CurrencyConverter;
 @DiscriminatorColumn(name = "type_id", discriminatorType = DiscriminatorType.INTEGER)
 @Table(name = "payment_systems")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class PaymentSystem {
+public abstract class PaymentSystem extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -42,5 +44,4 @@ public abstract class PaymentSystem {
 
     @Column(name = "user_id", nullable = false, updatable = false)
     private int userId;
-
 }

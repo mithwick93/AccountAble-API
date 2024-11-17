@@ -1,6 +1,7 @@
 package org.mithwick93.accountable.controller.dto.response;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public record AssetResponse(
         Long id,
@@ -9,6 +10,8 @@ public record AssetResponse(
         String description,
         BigDecimal balance,
         String currency,
-        int userId
+        int userId,
+        LocalDateTime created,
+        LocalDateTime modified
 ) {
 }

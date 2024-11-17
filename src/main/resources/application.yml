@@ -4,11 +4,6 @@ server:
 spring:
   profiles:
     active: dev
-  jackson:
-    deserialization:
-      fail-on-unknown-properties: true
-    serialization:
-      WRITE_DATES_AS_TIMESTAMPS: false
   sql:
     init:
       platform: mysql

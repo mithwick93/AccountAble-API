@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.mithwick93.accountable.model.converter.AssetTypeConverter;
 import org.mithwick93.accountable.model.converter.CurrencyConverter;
@@ -18,9 +19,10 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "assets")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Asset {
+public class Asset extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -39,7 +41,7 @@ public class Asset {
     private BigDecimal balance;
 
     @Convert(converter = CurrencyConverter.class)
-    @Column(name = "currency_id", nullable = false)
+    @Column(name = "currency_id", nullable = false, updatable = false)
     private Currency currency;
 
     @Column(name = "user_id", nullable = false, updatable = false)

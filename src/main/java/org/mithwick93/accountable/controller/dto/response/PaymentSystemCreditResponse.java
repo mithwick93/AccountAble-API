@@ -3,6 +3,7 @@ package org.mithwick93.accountable.controller.dto.response;
 import org.mithwick93.accountable.model.Currency;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public record PaymentSystemCreditResponse(
         int id,
@@ -13,6 +14,8 @@ public record PaymentSystemCreditResponse(
         BigDecimal utilizedAmount,
         byte statementDay,
         byte dueDay,
-        int userId
+        int userId,
+        LocalDateTime created,
+        LocalDateTime modified
 ) {
 }

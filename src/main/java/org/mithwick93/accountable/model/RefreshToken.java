@@ -10,6 +10,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
@@ -17,21 +18,21 @@ import java.time.Instant;
 @Entity
 @Table(name = "refresh_tokens")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class RefreshToken {
+public class RefreshToken extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false)
     private User user;
 
-    @Column(name = "token", nullable = false, unique = true)
+    @Column(name = "token", nullable = false, unique = true, updatable = false)
     private String token;
 
-    @Column(name = "expiry_date", nullable = false)
+    @Column(name = "expiry_date", nullable = false, updatable = false)
     private Instant expiryDate;
-
 }

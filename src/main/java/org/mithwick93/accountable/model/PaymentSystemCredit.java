@@ -26,10 +26,10 @@ public class PaymentSystemCredit extends PaymentSystem {
     @Column(name = "utilized_amount")
     private BigDecimal utilizedAmount;
 
-    @Column(name = "statement_date", nullable = false)
-    private byte statementDate;
+    @Column(name = "statement_day", nullable = false)
+    private byte statementDay;
 
-    @Column(name = "due_date", nullable = false)
-    private byte dueDate;
+    @Column(name = "due_day", nullable = false)
+    private byte dueDay;
 
 }

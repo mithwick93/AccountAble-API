@@ -11,8 +11,8 @@ public record PaymentSystemCreditResponse(
         Currency currency,
         BigDecimal creditLimit,
         BigDecimal utilizedAmount,
-        byte statementDate,
-        byte dueDate,
+        byte statementDay,
+        byte dueDay,
         int userId
 ) {
 }

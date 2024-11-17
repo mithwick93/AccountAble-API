@@ -25,14 +25,14 @@ public record PaymentSystemCreditRequest(
         @DecimalMin(value = "0.0", message = "Utilized amount must be non-negative")
         BigDecimal utilizedAmount,
 
-        @NotNull(message = "Statement date is required")
-        @Min(value = 1, message = "Statement date should be greater than or equal to 1")
-        @Max(value = 31, message = "Statement date should be less than or equal to 31")
-        byte statementDate,
+        @NotNull(message = "Statement day is required")
+        @Min(value = 1, message = "Statement day should be greater than or equal to 1")
+        @Max(value = 31, message = "Statement day should be less than or equal to 31")
+        byte statementDay,
 
-        @NotNull(message = "Due date is required")
-        @Min(value = 1, message = "Due date should be greater than or equal to 1")
-        @Max(value = 31, message = "Due date should be less than or equal to 31")
-        byte dueDate
+        @NotNull(message = "Due day is required")
+        @Min(value = 1, message = "Due day should be greater than or equal to 1")
+        @Max(value = 31, message = "Due day should be less than or equal to 31")
+        byte dueDay
 ) {
 }

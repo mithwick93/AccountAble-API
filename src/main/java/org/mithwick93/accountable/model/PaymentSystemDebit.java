@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-
 @Entity
 @DiscriminatorValue("1")
 @Table(name = "payment_system_debits")

@@ -18,7 +18,6 @@ public abstract class PaymentSystemMapper {
 
     public abstract List<PaymentSystemCreditResponse> toPaymentSystemCreditResponses(List<PaymentSystemCredit> models);
 
-
     public abstract PaymentSystemDebit toPaymentSystemDebit(PaymentSystemDebitRequest request);
 
     public abstract PaymentSystemDebitResponse toPaymentSystemDebitResponse(PaymentSystemDebit model);

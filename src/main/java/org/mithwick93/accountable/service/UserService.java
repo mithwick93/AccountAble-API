@@ -24,7 +24,6 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     public void createUser(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new BadRequestException("User name: %s already exists".formatted(user.getUsername()));

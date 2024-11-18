@@ -1,6 +1,5 @@
 package org.mithwick93.accountable.aspect;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -45,41 +44,45 @@ public class LoggingAspect {
      * @param joinPoint Join point for advice
      */
     @Before("controllerPointcut()")
-    public void beforeEndpoint(JoinPoint joinPoint) throws JsonProcessingException {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        boolean isSensitiveEndpoints = isSensitiveEndpoint(request);
-        String params = isSensitiveEndpoints
-                ? MASK
-                : JsonUtil.getJsonString(request.getParameterMap());
-        String args = isSensitiveEndpoints
-                ? MASK
-                : Arrays.toString(joinPoint.getArgs());
+    public void beforeEndpoint(JoinPoint joinPoint) {
+        executeWithExceptionHandling(() -> {
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+            boolean isSensitiveEndpoints = isSensitiveEndpoint(request);
+            String params = isSensitiveEndpoints
+                    ? MASK
+                    : JsonUtil.getJsonString(request.getParameterMap());
+            String args = isSensitiveEndpoints
+                    ? MASK
+                    : Arrays.toString(joinPoint.getArgs());
 
-        log.info(
-                "[Request] Endpoint: [{}] {}, Params: {}, Args: {}",
-                request.getMethod(),
-                request.getRequestURI(),
-                params,
-                args
-        );
+            log.info(
+                    "[Request] Endpoint: [{}] {}, Params: {}, Args: {}",
+                    request.getMethod(),
+                    request.getRequestURI(),
+                    params,
+                    args
+            );
+        });
     }
 
     /**
      * Advice that logs when a controller method is exited.
      */
     @AfterReturning(pointcut = "controllerPointcut()", returning = "returnValue")
-    public void afterEndpoint(Object returnValue) throws JsonProcessingException {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        String responseBody = isSensitiveEndpoint(request)
-                ? MASK
-                : JsonUtil.getJsonString(returnValue);
+    public void afterEndpoint(Object returnValue) {
+        executeWithExceptionHandling(() -> {
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+            String responseBody = isSensitiveEndpoint(request)
+                    ? MASK
+                    : JsonUtil.getJsonString(returnValue);
 
-        log.info(
-                "[Response] Endpoint: [{}] {}, Returned: {}",
-                request.getMethod(),
-                request.getRequestURI(),
-                responseBody
-        );
+            log.info(
+                    "[Response] Endpoint: [{}] {}, Returned: {}",
+                    request.getMethod(),
+                    request.getRequestURI(),
+                    responseBody
+            );
+        });
     }
 
     /**
@@ -89,30 +92,42 @@ public class LoggingAspect {
      */
     @AfterThrowing(pointcut = "controllerPointcut()", throwing = "e")
     public void afterThrow(Exception e) {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        executeWithExceptionHandling(() -> {
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 
-        log.error(
-                "[Response Exception] Endpoint: [{}] {}, Exception: {}, Message: {}",
-                request.getMethod(),
-                request.getRequestURI(),
-                e.getClass().getSimpleName(),
-                e.getMessage(),
-                e
-        );
+            log.error(
+                    "[Response Exception] Endpoint: [{}] {}, Exception: {}, Message: {}",
+                    request.getMethod(),
+                    request.getRequestURI(),
+                    e.getClass().getSimpleName(),
+                    e.getMessage(),
+                    e
+            );
+        });
     }
 
     /**
      * Advice that logs when a controller advice method is exited.
      */
     @AfterReturning(pointcut = "controllerAdvisorPointcut()", returning = "returnValue")
-    public void afterExceptionHandle(Object returnValue) throws JsonProcessingException {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+    public void afterExceptionHandle(Object returnValue) {
+        executeWithExceptionHandling(() -> {
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 
-        log.error(
-                "[Exception Handler] Endpoint: [{}] {}, Returned: {}",
-                request.getMethod(),
-                request.getRequestURI(),
-                JsonUtil.getJsonString(returnValue)
-        );
+            log.error(
+                    "[Exception Handler] Endpoint: [{}] {}, Returned: {}",
+                    request.getMethod(),
+                    request.getRequestURI(),
+                    JsonUtil.getJsonString(returnValue)
+            );
+        });
+    }
+
+    private static void executeWithExceptionHandling(Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (Throwable e) {
+            log.error("An error occurred while executing the logger aspect: {}", e.getMessage(), e);
+        }
     }
 }

@@ -18,12 +18,20 @@ import java.util.Arrays;
 @Aspect
 @Component
 @Slf4j
-public class LoggingAspect {
+public final class LoggingAspect {
     private static final String MASK = "***";
 
     private static boolean isSensitiveEndpoint(HttpServletRequest request) {
         return request.getRequestURI().contains("/login")
                 || request.getRequestURI().contains("/register");
+    }
+
+    private static void executeWithExceptionHandling(Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (Throwable e) {
+            log.error("An error occurred while executing the logger aspect: {}", e.getMessage(), e);
+        }
     }
 
     @Pointcut("within(org.mithwick93.accountable..*)" + " && within(@org.springframework.web.bind.annotation.RestController *)")
@@ -121,13 +129,5 @@ public class LoggingAspect {
                     JsonUtil.getJsonString(returnValue)
             );
         });
-    }
-
-    private static void executeWithExceptionHandling(Runnable runnable) {
-        try {
-            runnable.run();
-        } catch (Throwable e) {
-            log.error("An error occurred while executing the logger aspect: {}", e.getMessage(), e);
-        }
     }
 }

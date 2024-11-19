@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface AssetRepository extends JpaRepository<Asset, Integer> {
     List<Asset> findAllByUserId(int userId);
 
-    Optional<Asset> findByIdAndUserId(int assetId, int userId);
+    Optional<Asset> findByIdAndUserId(int id, int userId);
 }

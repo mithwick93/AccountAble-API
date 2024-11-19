@@ -1,5 +1,6 @@
 package org.mithwick93.accountable.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -19,11 +20,11 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentSystemCredit extends PaymentSystem {
-
-    @Column(name = "credit_limit", nullable = false)
+    @Column(name = "credit_limit", nullable = false, precision = 19, scale = 4)
     private BigDecimal creditLimit;
 
-    @Column(name = "utilized_amount")
+    @Column(name = "utilized_amount", precision = 19, scale = 4)
+    @Nullable
     private BigDecimal utilizedAmount;
 
     @Column(name = "statement_day", nullable = false)

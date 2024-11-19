@@ -34,12 +34,12 @@ public abstract class PaymentSystem extends AuditableEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 500)
     @Nullable
     private String description;
 
     @Convert(converter = CurrencyConverter.class)
-    @Column(name = "currency_id", nullable = false, updatable = false)
+    @Column(name = "currency_id", nullable = false)
     private Currency currency;
 
     @Column(name = "user_id", nullable = false, updatable = false)

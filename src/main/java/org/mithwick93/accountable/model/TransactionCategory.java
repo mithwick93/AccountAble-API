@@ -2,6 +2,8 @@ package org.mithwick93.accountable.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,25 +14,23 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "users")
+@Table(name = "transaction_categories")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends AuditableEntity {
+public class TransactionCategory extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "first_name", length = 50, nullable = false)
-    private String firstName;
+    @Column(nullable = false, length = 100)
+    private String name;
 
-    @Column(name = "last_name", length = 50, nullable = false)
-    private String lastName;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TransactionType type;
 
-    @Column(name = "user_name", length = 50, unique = true, nullable = false, updatable = false)
-    private String username;
-
-    @Column(name = "password_hash", nullable = false)
-    private String passwordHash;
+    @Column(name = "user_id", nullable = false, updatable = false)
+    private int userId;
 }

@@ -28,20 +28,20 @@ public class Asset extends AuditableEntity {
     private int id;
 
     @Convert(converter = AssetTypeConverter.class)
-    @Column(name = "type_id", nullable = false, updatable = false)
+    @Column(name = "type_id", nullable = false, length = 100)
     private AssetType type;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 500)
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 19, scale = 4)
     private BigDecimal balance;
 
     @Convert(converter = CurrencyConverter.class)
-    @Column(name = "currency_id", nullable = false, updatable = false)
+    @Column(name = "currency_id", nullable = false)
     private Currency currency;
 
     @Column(name = "user_id", nullable = false, updatable = false)

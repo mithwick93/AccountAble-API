@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface PaymentSystemCreditRepository extends JpaRepository<PaymentSystemCredit, Integer> {
     List<PaymentSystemCredit> findAllByUserId(int userId);
 
-    Optional<PaymentSystemCredit> findByIdAndUserId(int paymentSystemId, int userId);
+    Optional<PaymentSystemCredit> findByIdAndUserId(int id, int userId);
 }

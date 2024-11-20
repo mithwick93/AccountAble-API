@@ -6,12 +6,9 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,10 +42,9 @@ public class Transaction extends AuditableEntity {
     @Column(nullable = false)
     private TransactionType type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @Column(name = "category_id")
     @Nullable
-    private TransactionCategory category;
+    private Integer categoryId;
 
     @Column(nullable = false, precision = 19, scale = 4)
     private BigDecimal amount;
@@ -60,25 +56,21 @@ public class Transaction extends AuditableEntity {
     @Column(nullable = false)
     private LocalDateTime date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_asset_id")
+    @Column(name = "from_asset_id")
     @Nullable
-    private Asset fromAsset; // For TRANSFER: asset being transferred from
+    private Integer fromAssetId; // For TRANSFER: asset being transferred from
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "to_asset_id")
+    @Column(name = "to_asset_id")
     @Nullable
-    private Asset toAsset; // For TRANSFER or INCOME: asset being transferred to
+    private Integer toAssetId; // For TRANSFER or INCOME: asset being transferred to
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_payment_system_id")
+    @Column(name = "from_payment_system_id")
     @Nullable
-    private PaymentSystem fromPaymentSystem; // For EXPENSE or TRANSFER: debited payment system
+    private Integer fromPaymentSystemId; // For EXPENSE or TRANSFER: debited payment system
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "to_payment_system_id")
+    @Column(name = "to_payment_system_id")
     @Nullable
-    private PaymentSystem toPaymentSystem; // For TRANSFER: credited payment system
+    private Integer toPaymentSystemId; // For TRANSFER: credited payment system
 
     @Column(name = "user_id", nullable = false, updatable = false)
     private int userId;

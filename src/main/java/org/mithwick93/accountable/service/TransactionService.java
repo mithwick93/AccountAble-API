@@ -1,9 +1,11 @@
 package org.mithwick93.accountable.service;
 
 import lombok.RequiredArgsConstructor;
+import org.mithwick93.accountable.dal.repository.TransactionCategoryRepository;
 import org.mithwick93.accountable.dal.repository.TransactionRepository;
 import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.model.Transaction;
+import org.mithwick93.accountable.model.TransactionCategory;
 import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,27 +20,28 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
 
+    private final TransactionCategoryRepository transactionCategoryRepository;
+
     private final JwtUtil jwtUtil;
 
     @Transactional(readOnly = true)
-    public List<Transaction> getAll() {
+    public List<Transaction> getAllTransactions() {
         return transactionRepository.findAllByUserId(jwtUtil.getAuthenticatedUserId());
     }
 
     @Transactional(readOnly = true)
-    public Transaction getById(long id) {
+    public Transaction getTransactionById(long id) {
         return transactionRepository.findByIdAndUserId(id, jwtUtil.getAuthenticatedUserId())
                 .orElseThrow(NotFoundException.supplier("Transaction with id " + id + " not found"));
     }
 
-    @Transactional(readOnly = true)
-    public Transaction create(Transaction transaction) {
+    public Transaction createTransaction(Transaction transaction) {
         transaction.setUserId(jwtUtil.getAuthenticatedUserId());
         return transactionRepository.save(transaction);
     }
 
-    public Transaction update(long id, Transaction updatedTransaction) {
-        Transaction existingTransaction = getById(id);
+    public Transaction updateTransaction(long id, Transaction updatedTransaction) {
+        Transaction existingTransaction = getTransactionById(id);
 
         updatedTransaction.setId(existingTransaction.getId());
         updatedTransaction.setUserId(existingTransaction.getUserId());
@@ -46,9 +49,39 @@ public class TransactionService {
         return transactionRepository.save(updatedTransaction);
     }
 
-    public void delete(long id) {
-        Transaction existingTransaction = getById(id);
+    public void deleteTransaction(long id) {
+        Transaction existingTransaction = getTransactionById(id);
         transactionRepository.delete(existingTransaction);
+    }
+
+    @Transactional(readOnly = true)
+    public List<TransactionCategory> getAllTransactionCategories() {
+        return transactionCategoryRepository.findAllByUserId(jwtUtil.getAuthenticatedUserId());
+    }
+
+    @Transactional(readOnly = true)
+    public TransactionCategory getTransactionCategoryById(int id) {
+        return transactionCategoryRepository.findByIdAndUserId(id, jwtUtil.getAuthenticatedUserId())
+                .orElseThrow(NotFoundException.supplier("Transaction category with id " + id + " not found"));
+    }
+
+    public TransactionCategory createTransactionCategory(TransactionCategory transactionCategory) {
+        transactionCategory.setUserId(jwtUtil.getAuthenticatedUserId());
+        return transactionCategoryRepository.save(transactionCategory);
+    }
+
+    public TransactionCategory updateTransactionCategory(int id, TransactionCategory updatedTransactionCategory) {
+        TransactionCategory existingTransactionCategory = getTransactionCategoryById(id);
+
+        updatedTransactionCategory.setId(existingTransactionCategory.getId());
+        updatedTransactionCategory.setUserId(existingTransactionCategory.getUserId());
+
+        return transactionCategoryRepository.save(updatedTransactionCategory);
+    }
+
+    public void deleteTransactionCategory(int id) {
+        TransactionCategory existingTransactionCategory = getTransactionCategoryById(id);
+        transactionCategoryRepository.delete(existingTransactionCategory);
     }
 
 }

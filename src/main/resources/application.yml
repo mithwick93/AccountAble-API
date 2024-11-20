@@ -40,7 +40,7 @@ management:
 
 # Swagger
 application:
-  title: AccountAble
+  title: AccountAble-API
   description: Manage personal finances
   version: V1
 springdoc:

@@ -24,7 +24,7 @@ spring:
     init:
       platform: mysql
 application:
-  title: AccountAble
+  title: AccountAble-API
   description: Manage personal finances
   version: V1
 rsa:

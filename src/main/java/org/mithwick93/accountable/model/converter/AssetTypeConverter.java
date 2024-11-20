@@ -22,4 +22,5 @@ public class AssetTypeConverter implements AttributeConverter<AssetType, Integer
         }
         return AssetType.fromId(id);
     }
+
 }

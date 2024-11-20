@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Asset extends AuditableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -46,4 +47,5 @@ public class Asset extends AuditableEntity {
 
     @Column(name = "user_id", nullable = false, updatable = false)
     private int userId;
+
 }

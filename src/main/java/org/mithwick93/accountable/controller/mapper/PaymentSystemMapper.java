@@ -12,6 +12,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public abstract class PaymentSystemMapper {
+
     public abstract PaymentSystemCredit toPaymentSystemCredit(PaymentSystemCreditRequest request);
 
     public abstract PaymentSystemCreditResponse toPaymentSystemCreditResponse(PaymentSystemCredit model);
@@ -23,4 +24,5 @@ public abstract class PaymentSystemMapper {
     public abstract PaymentSystemDebitResponse toPaymentSystemDebitResponse(PaymentSystemDebit model);
 
     public abstract List<PaymentSystemDebitResponse> toPaymentSystemDebitResponses(List<PaymentSystemDebit> models);
+
 }

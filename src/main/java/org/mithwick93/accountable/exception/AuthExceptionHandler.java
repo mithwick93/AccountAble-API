@@ -57,4 +57,5 @@ public class AuthExceptionHandler implements AuthenticationEntryPoint, AccessDen
         final ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), problemDetail);
     }
+
 }

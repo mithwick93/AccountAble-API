@@ -18,4 +18,5 @@ public record PaymentSystemCreditResponse(
         LocalDateTime created,
         LocalDateTime modified
 ) {
+
 }

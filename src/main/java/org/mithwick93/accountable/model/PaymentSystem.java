@@ -27,6 +27,7 @@ import org.mithwick93.accountable.model.converter.CurrencyConverter;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class PaymentSystem extends AuditableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -44,4 +45,5 @@ public abstract class PaymentSystem extends AuditableEntity {
 
     @Column(name = "user_id", nullable = false, updatable = false)
     private int userId;
+
 }

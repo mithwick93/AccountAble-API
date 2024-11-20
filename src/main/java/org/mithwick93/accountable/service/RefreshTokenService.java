@@ -1,5 +1,6 @@
 package org.mithwick93.accountable.service;
 
+import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.dal.repository.RefreshTokenRepository;
 import org.mithwick93.accountable.dal.repository.UserRepository;
 import org.mithwick93.accountable.exception.AuthException;
@@ -8,26 +9,19 @@ import org.mithwick93.accountable.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
-    private final UserRepository userRepository;
-    private long refreshTokenDurationSeconds;
 
-    @Autowired
-    public RefreshTokenService(
-            RefreshTokenRepository refreshTokenRepository,
-            UserRepository userRepository
-    ) {
-        this.refreshTokenRepository = refreshTokenRepository;
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
+
+    private long refreshTokenDurationSeconds;
 
     @Value("${refresh-token.expire-in-seconds:864000}")
     public void setRefreshTokenDurationSeconds(long refreshTokenDurationSeconds) {
@@ -50,7 +44,6 @@ public class RefreshTokenService {
                 .orElseThrow(() -> new AuthException("Invalid refresh token"));
     }
 
-    @Transactional
     public void deleteByUserId(int userId) {
         userRepository
                 .findById(userId)
@@ -66,4 +59,5 @@ public class RefreshTokenService {
 
         return refreshToken;
     }
+
 }

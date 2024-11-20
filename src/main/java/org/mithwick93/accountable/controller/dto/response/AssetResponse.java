@@ -14,4 +14,5 @@ public record AssetResponse(
         LocalDateTime created,
         LocalDateTime modified
 ) {
+
 }

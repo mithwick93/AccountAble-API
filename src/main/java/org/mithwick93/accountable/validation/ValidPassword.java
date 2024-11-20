@@ -28,6 +28,7 @@ public @interface ValidPassword {
 
         private static final String PASSWORD_PATTERN =
                 "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$";
+
         private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
 
         @Override
@@ -42,5 +43,7 @@ public @interface ValidPassword {
             }
             return pattern.matcher(password).matches();
         }
+
     }
+
 }

@@ -6,4 +6,5 @@ public record CurrencyResponse(
         String name,
         String description
 ) {
+
 }

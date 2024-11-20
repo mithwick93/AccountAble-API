@@ -8,7 +8,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public abstract class UserMapper {
+
     public abstract UserResponse toUserResponse(User user);
 
     public abstract List<UserResponse> toUserResponses(List<User> users);
+
 }

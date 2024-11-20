@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
 public final class JsonUtil {
+
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     static {
@@ -28,4 +29,5 @@ public final class JsonUtil {
             return null;
         }
     }
+
 }

@@ -22,6 +22,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RefreshToken extends AuditableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -35,4 +36,5 @@ public class RefreshToken extends AuditableEntity {
 
     @Column(name = "expiry_date", nullable = false, updatable = false)
     private Instant expiryDate;
+
 }

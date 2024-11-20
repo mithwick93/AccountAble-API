@@ -1,5 +1,6 @@
 package org.mithwick93.accountable.service;
 
+import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.dal.repository.PaymentSystemDebitRepository;
 import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.model.PaymentSystemDebit;
@@ -10,18 +11,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PaymentSystemDebitService {
-    private final PaymentSystemDebitRepository debitRepository;
-    private final JwtUtil jwtUtil;
 
-    @Autowired
-    public PaymentSystemDebitService(
-            PaymentSystemDebitRepository debitRepository,
-            JwtUtil jwtUtil
-    ) {
-        this.debitRepository = debitRepository;
-        this.jwtUtil = jwtUtil;
-    }
+    private final PaymentSystemDebitRepository debitRepository;
+
+    private final JwtUtil jwtUtil;
 
     public List<PaymentSystemDebit> getAll() {
         return debitRepository.findAllByUserId(jwtUtil.getAuthenticatedUserId());
@@ -49,4 +44,5 @@ public class PaymentSystemDebitService {
         PaymentSystemDebit existingDebit = getById(id);
         debitRepository.delete(existingDebit);
     }
+
 }

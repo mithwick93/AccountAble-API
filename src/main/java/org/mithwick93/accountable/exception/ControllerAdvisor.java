@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
+
     @ExceptionHandler(value = Throwable.class)
     public ResponseEntity<ProblemDetail> handleThrowable(WebRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -84,5 +85,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(problemDetail, headers, status);
     }
+
 }
 

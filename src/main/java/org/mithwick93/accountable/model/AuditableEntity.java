@@ -13,9 +13,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class AuditableEntity {
+
     @Column(name = "created", insertable = false, updatable = false)
     private LocalDateTime created;
 
     @Column(name = "modified", insertable = false, updatable = false)
     private LocalDateTime modified;
+
 }

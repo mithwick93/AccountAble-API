@@ -29,6 +29,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction extends AuditableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -81,4 +82,5 @@ public class Transaction extends AuditableEntity {
 
     @Column(name = "user_id", nullable = false, updatable = false)
     private int userId;
+
 }

@@ -22,4 +22,5 @@ public record PaymentSystemDebitRequest(
         @DecimalMin(value = "0.0", message = "Daily limit must be non-negative")
         BigDecimal dailyLimit
 ) {
+
 }

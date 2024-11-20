@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidEnum {
+
     String message() default "must be any of enum {enumClass}";
 
     Class<?>[] groups() default {};
@@ -45,5 +46,7 @@ public @interface ValidEnum {
             }
             return validValues.contains(value);
         }
+
     }
+
 }

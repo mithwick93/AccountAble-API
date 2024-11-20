@@ -1,5 +1,6 @@
 package org.mithwick93.accountable.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.response.UserResponse;
 import org.mithwick93.accountable.controller.mapper.UserMapper;
 import org.mithwick93.accountable.model.User;
@@ -15,21 +16,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
-    private final UserService userService;
-    private final UserMapper userMapper;
-    private final JwtUtil jwtUtil;
 
-    @Autowired
-    public UserController(
-            UserService userService,
-            UserMapper userMapper,
-            JwtUtil jwtUtil
-    ) {
-        this.userService = userService;
-        this.userMapper = userMapper;
-        this.jwtUtil = jwtUtil;
-    }
+    private final UserService userService;
+
+    private final UserMapper userMapper;
+
+    private final JwtUtil jwtUtil;
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> listUsers() {
@@ -37,4 +31,5 @@ public class UserController {
         List<UserResponse> userResponses = userMapper.toUserResponses(users);
         return ResponseEntity.ok(userResponses);
     }
+
 }

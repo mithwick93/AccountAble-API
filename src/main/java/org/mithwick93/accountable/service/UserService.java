@@ -1,5 +1,6 @@
 package org.mithwick93.accountable.service;
 
+import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.dal.repository.UserRepository;
 import org.mithwick93.accountable.exception.AuthException;
 import org.mithwick93.accountable.exception.BadRequestException;
@@ -12,17 +13,15 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserService {
+
     public static final Supplier<AuthException> INVALID_USER_NAME_PASSWORD
             = AuthException.supplier("Invalid user name / password");
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     public void createUser(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
@@ -48,4 +47,5 @@ public class UserService {
         }
         return user;
     }
+
 }

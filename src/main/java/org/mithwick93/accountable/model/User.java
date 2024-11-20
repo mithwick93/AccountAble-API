@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends AuditableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -33,4 +34,5 @@ public class User extends AuditableEntity {
 
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
+
 }

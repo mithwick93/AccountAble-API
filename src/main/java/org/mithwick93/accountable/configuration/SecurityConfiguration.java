@@ -33,6 +33,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+
     @Autowired
     private RsaKeyConfigProperties rsaKeyConfigProperties;
 
@@ -107,5 +108,7 @@ public class SecurityConfiguration {
             RSAPublicKey publicKey,
             RSAPrivateKey privateKey
     ) {
+
     }
+
 }

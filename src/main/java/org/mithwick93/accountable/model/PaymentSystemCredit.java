@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentSystemCredit extends PaymentSystem {
+
     @Column(name = "credit_limit", nullable = false, precision = 19, scale = 4)
     private BigDecimal creditLimit;
 

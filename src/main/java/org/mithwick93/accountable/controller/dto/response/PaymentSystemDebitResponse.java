@@ -16,4 +16,5 @@ public record PaymentSystemDebitResponse(
         LocalDateTime created,
         LocalDateTime modified
 ) {
+
 }

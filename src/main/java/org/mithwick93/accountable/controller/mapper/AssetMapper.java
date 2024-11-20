@@ -13,6 +13,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public abstract class AssetMapper {
+
     public abstract AssetResponse toAssetResponse(Asset asset);
 
     public abstract List<AssetResponse> toAssetResponses(List<Asset> assets);
@@ -40,4 +41,5 @@ public abstract class AssetMapper {
     protected String mapCurrency(Currency currency) {
         return currency.name();
     }
+
 }

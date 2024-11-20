@@ -6,4 +6,5 @@ public record TokenRefreshRequest(
         @NotBlank
         String refreshToken
 ) {
+
 }

@@ -20,10 +20,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentSystemDebit extends PaymentSystem {
+
     @Column(name = "asset_id", nullable = false)
     private int assetId;
 
     @Column(name = "daily_limit", precision = 19, scale = 4)
     @Nullable
     private BigDecimal dailyLimit;
+
 }

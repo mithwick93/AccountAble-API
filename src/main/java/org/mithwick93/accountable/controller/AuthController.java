@@ -3,6 +3,7 @@ package org.mithwick93.accountable.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.request.LoginRequest;
 import org.mithwick93.accountable.controller.dto.request.RegistrationRequest;
 import org.mithwick93.accountable.controller.dto.request.TokenRefreshRequest;
@@ -25,24 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthController {
-    private final UserService userService;
-    private final RefreshTokenService refreshTokenService;
-    private final AuthMapper authMapper;
-    private final JwtUtil jwtUtil;
 
-    @Autowired
-    public AuthController(
-            UserService userService,
-            RefreshTokenService tokenService,
-            AuthMapper authMapper,
-            JwtUtil jwtUtil
-    ) {
-        this.userService = userService;
-        this.refreshTokenService = tokenService;
-        this.authMapper = authMapper;
-        this.jwtUtil = jwtUtil;
-    }
+    private final UserService userService;
+
+    private final RefreshTokenService refreshTokenService;
+
+    private final AuthMapper authMapper;
+
+    private final JwtUtil jwtUtil;
 
     @PostMapping("/register")
     @Operation(security = @SecurityRequirement(name = ""))
@@ -81,4 +74,5 @@ public class AuthController {
         String accessToken = jwtUtil.generateToken(refreshUser);
         return ResponseEntity.ok(TokenRefreshResponse.of(accessToken, requestRefreshToken));
     }
+
 }

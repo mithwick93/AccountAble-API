@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Mapper(componentModel = "spring")
 public abstract class AuthMapper {
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -21,4 +22,5 @@ public abstract class AuthMapper {
     protected String encodePassword(String password) {
         return passwordEncoder.encode(password);
     }
+
 }

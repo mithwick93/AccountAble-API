@@ -4,4 +4,5 @@ public record AssetTypeResponse(
         int id,
         String name
 ) {
+
 }

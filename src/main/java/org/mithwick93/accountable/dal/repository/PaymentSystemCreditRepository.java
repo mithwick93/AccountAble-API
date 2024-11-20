@@ -9,7 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface PaymentSystemCreditRepository extends JpaRepository<PaymentSystemCredit, Integer> {
+
     List<PaymentSystemCredit> findAllByUserId(int userId);
 
     Optional<PaymentSystemCredit> findByIdAndUserId(int id, int userId);
+
 }

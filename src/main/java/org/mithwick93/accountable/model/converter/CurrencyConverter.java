@@ -22,4 +22,5 @@ public class CurrencyConverter implements AttributeConverter<Currency, Integer> 
         }
         return Currency.fromId(id);
     }
+
 }

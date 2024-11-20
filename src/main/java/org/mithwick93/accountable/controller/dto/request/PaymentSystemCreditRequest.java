@@ -35,4 +35,5 @@ public record PaymentSystemCreditRequest(
         @Max(value = 31, message = "Due day should be less than or equal to 31")
         byte dueDay
 ) {
+
 }

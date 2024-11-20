@@ -9,8 +9,10 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public abstract class CurrencyMapper {
+
     @Mapping(target = "code", expression = "java(currency.toString())")
     public abstract CurrencyResponse toCurrencyResponse(Currency currency);
 
     public abstract List<CurrencyResponse> toCurrencyResponseList(List<Currency> currencies);
+
 }

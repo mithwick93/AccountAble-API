@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TransactionCategoryRepository extends JpaRepository<TransactionCategory, Integer> {
+
     List<TransactionCategory> findAllByUserId(int userId);
 
     Optional<TransactionCategory> findByIdAndUserId(int id, int userId);
+
 }

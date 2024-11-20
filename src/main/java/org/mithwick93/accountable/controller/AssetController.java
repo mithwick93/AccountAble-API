@@ -1,6 +1,7 @@
 package org.mithwick93.accountable.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.request.AssetRequest;
 import org.mithwick93.accountable.controller.dto.response.AssetResponse;
 import org.mithwick93.accountable.controller.dto.response.AssetTypeResponse;
@@ -25,16 +26,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/assets")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AssetController {
 
     private final AssetService assetService;
-    private final AssetMapper assetMapper;
 
-    @Autowired
-    public AssetController(AssetService assetService, AssetMapper assetMapper) {
-        this.assetService = assetService;
-        this.assetMapper = assetMapper;
-    }
+    private final AssetMapper assetMapper;
 
     @GetMapping
     public ResponseEntity<List<AssetResponse>> listAssets() {
@@ -81,4 +78,5 @@ public class AssetController {
         List<AssetTypeResponse> assetTypeResponseList = assetMapper.toAssetTypeResponseList(assetTypes);
         return ResponseEntity.ok(assetTypeResponseList);
     }
+
 }

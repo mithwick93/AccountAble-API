@@ -19,6 +19,7 @@ import java.util.Arrays;
 @Component
 @Slf4j
 public final class LoggingAspect {
+
     private static final String MASK = "***";
 
     private static boolean isSensitiveEndpoint(HttpServletRequest request) {
@@ -130,4 +131,5 @@ public final class LoggingAspect {
             );
         });
     }
+
 }

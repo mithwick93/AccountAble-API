@@ -1,6 +1,7 @@
 package org.mithwick93.accountable.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.request.PaymentSystemDebitRequest;
 import org.mithwick93.accountable.controller.dto.response.PaymentSystemDebitResponse;
 import org.mithwick93.accountable.controller.mapper.PaymentSystemMapper;
@@ -22,18 +23,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/payment-systems/debits")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PaymentSystemDebitController {
-    private final PaymentSystemDebitService debitService;
-    private final PaymentSystemMapper paymentSystemMapper;
 
-    @Autowired
-    public PaymentSystemDebitController(
-            PaymentSystemDebitService debitService,
-            PaymentSystemMapper paymentSystemMapper
-    ) {
-        this.debitService = debitService;
-        this.paymentSystemMapper = paymentSystemMapper;
-    }
+    private final PaymentSystemDebitService debitService;
+
+    private final PaymentSystemMapper paymentSystemMapper;
 
     @GetMapping
     public ResponseEntity<List<PaymentSystemDebitResponse>> getAll() {
@@ -71,4 +66,5 @@ public class PaymentSystemDebitController {
         debitService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
 }

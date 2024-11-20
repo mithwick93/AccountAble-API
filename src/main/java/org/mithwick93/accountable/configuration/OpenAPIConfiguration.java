@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OpenAPIConfiguration {
+
     @Bean
     public OpenAPI customOpenAPI(
             @Value("${application.title}") String title,
@@ -44,4 +45,5 @@ public class OpenAPIConfiguration {
                         .addSecuritySchemes("bearerAuth", bearerAuth)
                 );
     }
+
 }

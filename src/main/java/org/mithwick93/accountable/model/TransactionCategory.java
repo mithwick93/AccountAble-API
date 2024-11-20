@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionCategory extends AuditableEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -33,4 +34,5 @@ public class TransactionCategory extends AuditableEntity {
 
     @Column(name = "user_id", nullable = false, updatable = false)
     private int userId;
+
 }

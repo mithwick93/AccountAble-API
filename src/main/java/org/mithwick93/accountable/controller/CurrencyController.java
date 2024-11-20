@@ -1,5 +1,6 @@
 package org.mithwick93.accountable.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.response.CurrencyResponse;
 import org.mithwick93.accountable.controller.mapper.CurrencyMapper;
 import org.mithwick93.accountable.model.Currency;
@@ -14,13 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/currencies")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CurrencyController {
-    private final CurrencyMapper currencyMapper;
 
-    @Autowired
-    public CurrencyController(CurrencyMapper currencyMapper) {
-        this.currencyMapper = currencyMapper;
-    }
+    private final CurrencyMapper currencyMapper;
 
     @GetMapping
     public ResponseEntity<List<CurrencyResponse>> getCurrencies() {
@@ -28,4 +26,5 @@ public class CurrencyController {
         List<CurrencyResponse> currencyResponseList = currencyMapper.toCurrencyResponseList(currencies);
         return ResponseEntity.ok(currencyResponseList);
     }
+
 }

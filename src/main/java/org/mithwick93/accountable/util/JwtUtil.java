@@ -15,6 +15,7 @@ import java.time.Instant;
 
 @Component
 public final class JwtUtil {
+
     private final JwtEncoder jwtEncoder;
 
     private long expireInSeconds;
@@ -48,4 +49,5 @@ public final class JwtUtil {
         Jwt jwt = (Jwt) authentication.getPrincipal();
         return Integer.parseInt(jwt.getClaims().get("sub").toString());
     }
+
 }

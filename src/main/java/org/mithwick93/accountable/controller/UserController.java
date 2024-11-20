@@ -27,7 +27,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> listUsers() {
-        List<User> users = userService.listUsers(jwtUtil.getAuthenticatedUserId());
+        List<User> users = userService.getAll(jwtUtil.getAuthenticatedUserId());
         List<UserResponse> userResponses = userMapper.toUserResponses(users);
         return ResponseEntity.ok(userResponses);
     }

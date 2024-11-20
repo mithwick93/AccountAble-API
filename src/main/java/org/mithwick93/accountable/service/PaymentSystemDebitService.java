@@ -7,10 +7,12 @@ import org.mithwick93.accountable.model.PaymentSystemDebit;
 import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PaymentSystemDebitService {
 
@@ -18,10 +20,12 @@ public class PaymentSystemDebitService {
 
     private final JwtUtil jwtUtil;
 
+    @Transactional(readOnly = true)
     public List<PaymentSystemDebit> getAll() {
         return debitRepository.findAllByUserId(jwtUtil.getAuthenticatedUserId());
     }
 
+    @Transactional(readOnly = true)
     public PaymentSystemDebit getById(int id) {
         return debitRepository.findByIdAndUserId(id, jwtUtil.getAuthenticatedUserId())
                 .orElseThrow(NotFoundException.supplier("Debit payment with id " + id + " not found"));

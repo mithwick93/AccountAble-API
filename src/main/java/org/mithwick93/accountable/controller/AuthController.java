@@ -41,7 +41,7 @@ public class AuthController {
     @Operation(security = @SecurityRequirement(name = ""))
     public ResponseEntity<MessageResponse> register(@Valid @RequestBody RegistrationRequest registrationRequest) {
         User registerUser = authMapper.toUser(registrationRequest);
-        userService.createUser(registerUser);
+        userService.create(registerUser);
 
         return ResponseEntity.ok(MessageResponse.of("User registered successfully!"));
     }
@@ -50,7 +50,7 @@ public class AuthController {
     @Transactional(rollbackFor = {Throwable.class})
     @Operation(security = @SecurityRequirement(name = ""))
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
-        User user = userService.authenticateUser(loginRequest.username(), loginRequest.password());
+        User user = userService.authenticate(loginRequest.username(), loginRequest.password());
 
         String accessToken = jwtUtil.generateToken(user);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);

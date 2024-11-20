@@ -35,14 +35,14 @@ public class AssetController {
 
     @GetMapping
     public ResponseEntity<List<AssetResponse>> listAssets() {
-        List<Asset> assets = assetService.listAssets();
+        List<Asset> assets = assetService.getAll();
         List<AssetResponse> assetResponses = assetMapper.toAssetResponses(assets);
         return ResponseEntity.ok(assetResponses);
     }
 
     @GetMapping("/{assetId}")
     public ResponseEntity<AssetResponse> getAsset(@PathVariable int assetId) {
-        Asset asset = assetService.getAsset(assetId);
+        Asset asset = assetService.getById(assetId);
         AssetResponse assetResponse = assetMapper.toAssetResponse(asset);
         return ResponseEntity.ok(assetResponse);
     }
@@ -50,7 +50,7 @@ public class AssetController {
     @PostMapping
     public ResponseEntity<AssetResponse> createAsset(@Valid @RequestBody AssetRequest newAssetRequest) {
         Asset newAsset = assetMapper.toAsset(newAssetRequest);
-        Asset createdAsset = assetService.createAsset(newAsset);
+        Asset createdAsset = assetService.create(newAsset);
         AssetResponse assetResponse = assetMapper.toAssetResponse(createdAsset);
         return ResponseEntity.status(HttpStatus.CREATED).body(assetResponse);
     }
@@ -61,14 +61,14 @@ public class AssetController {
             @Valid @RequestBody AssetRequest updateAssetRequest
     ) {
         Asset updateAsset = assetMapper.toAsset(updateAssetRequest);
-        Asset updatedAsset = assetService.updateAsset(assetId, updateAsset);
+        Asset updatedAsset = assetService.update(assetId, updateAsset);
         AssetResponse updatedAssetResponse = assetMapper.toAssetResponse(updatedAsset);
         return ResponseEntity.ok(updatedAssetResponse);
     }
 
     @DeleteMapping("/{assetId}")
     public ResponseEntity<Void> deleteAsset(@PathVariable int assetId) {
-        assetService.deleteAsset(assetId);
+        assetService.delete(assetId);
         return ResponseEntity.noContent().build();
     }
 

@@ -26,8 +26,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
-    public List<User> getAll(int userId) {
-        return userRepository.findAllById(List.of(userId));
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
     public void create(User user) {

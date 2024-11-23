@@ -29,10 +29,10 @@ public class Asset extends AuditableEntity {
     private int id;
 
     @Convert(converter = AssetTypeConverter.class)
-    @Column(name = "type_id", nullable = false, length = 100)
+    @Column(name = "type_id", nullable = false)
     private AssetType type;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
     @Column(name = "description", nullable = false, length = 500)

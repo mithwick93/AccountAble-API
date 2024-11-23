@@ -42,7 +42,6 @@ public class AuthController {
     public ResponseEntity<MessageResponse> register(@Valid @RequestBody RegistrationRequest registrationRequest) {
         User registerUser = authMapper.toUser(registrationRequest);
         userService.create(registerUser);
-
         return ResponseEntity.ok(MessageResponse.of("User registered successfully!"));
     }
 
@@ -51,10 +50,8 @@ public class AuthController {
     @Operation(security = @SecurityRequirement(name = ""))
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         User user = userService.authenticate(loginRequest.username(), loginRequest.password());
-
         String accessToken = jwtUtil.generateToken(user);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
-
         return ResponseEntity.ok(LoginResponse.of(accessToken, refreshToken.getToken()));
     }
 

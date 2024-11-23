@@ -57,7 +57,6 @@ public class PaymentSystemDebitController {
         PaymentSystemDebit updatePaymentSystemDebit = paymentSystemMapper.toPaymentSystemDebit(request);
         PaymentSystemDebit updatedPaymentSystemDebit = debitService.update(id, updatePaymentSystemDebit);
         PaymentSystemDebitResponse updatedPaymentSystemDebitResponse = paymentSystemMapper.toPaymentSystemDebitResponse(updatedPaymentSystemDebit);
-
         return ResponseEntity.ok(updatedPaymentSystemDebitResponse);
     }
 

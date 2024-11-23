@@ -1,15 +1,11 @@
 package org.mithwick93.accountable.controller.dto.response;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record PaymentSystemDebitResponse(
+public record TransactionCategoryResponse(
         int id,
         String name,
-        String description,
-        String currency,
-        int assetId,
-        BigDecimal dailyLimit,
+        String type,
         int userId,
         LocalDateTime created,
         LocalDateTime modified

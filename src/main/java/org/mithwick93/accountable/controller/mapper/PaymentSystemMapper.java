@@ -11,7 +11,7 @@ import org.mithwick93.accountable.model.PaymentSystemDebit;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public abstract class PaymentSystemMapper {
+public abstract class PaymentSystemMapper extends BaseMapper {
 
     public abstract PaymentSystemCredit toPaymentSystemCredit(PaymentSystemCreditRequest request);
 

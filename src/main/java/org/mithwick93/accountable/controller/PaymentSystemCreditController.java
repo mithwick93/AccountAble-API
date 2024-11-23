@@ -57,7 +57,6 @@ public class PaymentSystemCreditController {
         PaymentSystemCredit updatePaymentSystemCredit = paymentSystemMapper.toPaymentSystemCredit(request);
         PaymentSystemCredit updatedPaymentSystemCredit = creditService.update(id, updatePaymentSystemCredit);
         PaymentSystemCreditResponse updatedPaymentSystemCreditResponse = paymentSystemMapper.toPaymentSystemCreditResponse(updatedPaymentSystemCredit);
-
         return ResponseEntity.ok(updatedPaymentSystemCreditResponse);
     }
 

@@ -32,7 +32,7 @@ public abstract class PaymentSystem extends AuditableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
     @Column(name = "description", length = 500)

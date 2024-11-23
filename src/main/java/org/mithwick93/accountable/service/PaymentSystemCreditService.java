@@ -38,7 +38,7 @@ public class PaymentSystemCreditService {
 
     public PaymentSystemCredit update(int id, PaymentSystemCredit paymentSystemCredit) {
         PaymentSystemCredit existingCredit = getById(id);
-        
+
         paymentSystemCredit.setId(existingCredit.getId());
         paymentSystemCredit.setUserId(existingCredit.getUserId());
 

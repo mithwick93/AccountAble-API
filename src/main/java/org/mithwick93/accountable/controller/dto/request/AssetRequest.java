@@ -20,6 +20,7 @@ public record AssetRequest(
         String name,
 
         @NotBlank
+        @Size(max = 500)
         String description,
 
         @NotNull

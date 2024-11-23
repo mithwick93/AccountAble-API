@@ -34,46 +34,46 @@ public class AssetController {
     private final AssetMapper assetMapper;
 
     @GetMapping
-    public ResponseEntity<List<AssetResponse>> listAssets() {
+    public ResponseEntity<List<AssetResponse>> getAll() {
         List<Asset> assets = assetService.getAll();
         List<AssetResponse> assetResponses = assetMapper.toAssetResponses(assets);
         return ResponseEntity.ok(assetResponses);
     }
 
-    @GetMapping("/{assetId}")
-    public ResponseEntity<AssetResponse> getAsset(@PathVariable int assetId) {
-        Asset asset = assetService.getById(assetId);
+    @GetMapping("/{id}")
+    public ResponseEntity<AssetResponse> getById(@PathVariable int id) {
+        Asset asset = assetService.getById(id);
         AssetResponse assetResponse = assetMapper.toAssetResponse(asset);
         return ResponseEntity.ok(assetResponse);
     }
 
     @PostMapping
-    public ResponseEntity<AssetResponse> createAsset(@Valid @RequestBody AssetRequest newAssetRequest) {
-        Asset newAsset = assetMapper.toAsset(newAssetRequest);
+    public ResponseEntity<AssetResponse> create(@Valid @RequestBody AssetRequest request) {
+        Asset newAsset = assetMapper.toAsset(request);
         Asset createdAsset = assetService.create(newAsset);
         AssetResponse assetResponse = assetMapper.toAssetResponse(createdAsset);
         return ResponseEntity.status(HttpStatus.CREATED).body(assetResponse);
     }
 
-    @PutMapping("/{assetId}")
-    public ResponseEntity<AssetResponse> updateAsset(
-            @PathVariable int assetId,
-            @Valid @RequestBody AssetRequest updateAssetRequest
+    @PutMapping("/{id}")
+    public ResponseEntity<AssetResponse> update(
+            @PathVariable int id,
+            @Valid @RequestBody AssetRequest request
     ) {
-        Asset updateAsset = assetMapper.toAsset(updateAssetRequest);
-        Asset updatedAsset = assetService.update(assetId, updateAsset);
+        Asset updateAsset = assetMapper.toAsset(request);
+        Asset updatedAsset = assetService.update(id, updateAsset);
         AssetResponse updatedAssetResponse = assetMapper.toAssetResponse(updatedAsset);
         return ResponseEntity.ok(updatedAssetResponse);
     }
 
-    @DeleteMapping("/{assetId}")
-    public ResponseEntity<Void> deleteAsset(@PathVariable int assetId) {
-        assetService.delete(assetId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        assetService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/types")
-    public ResponseEntity<List<AssetTypeResponse>> getAssetTypes() {
+    public ResponseEntity<List<AssetTypeResponse>> getTypes() {
         List<AssetType> assetTypes = Arrays.asList(AssetType.values());
         List<AssetTypeResponse> assetTypeResponseList = assetMapper.toAssetTypeResponseList(assetTypes);
         return ResponseEntity.ok(assetTypeResponseList);

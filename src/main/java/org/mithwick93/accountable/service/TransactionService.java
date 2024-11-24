@@ -42,9 +42,21 @@ public class TransactionService {
     public Transaction updateTransaction(long id, Transaction updatedTransaction) {
         Transaction existingTransaction = getTransactionById(id);
 
-        updatedTransaction.setId(existingTransaction.getId());
+        existingTransaction.setName(updatedTransaction.getName());
+        existingTransaction.setDescription(updatedTransaction.getDescription());
+        existingTransaction.setType(updatedTransaction.getType());
+        existingTransaction.setCategoryId(updatedTransaction.getCategoryId());
+        existingTransaction.setAmount(updatedTransaction.getAmount());
+        existingTransaction.setCurrency(updatedTransaction.getCurrency());
+        existingTransaction.setDate(updatedTransaction.getDate());
+        existingTransaction.setFromAssetId(updatedTransaction.getFromAssetId());
+        existingTransaction.setToAssetId(updatedTransaction.getToAssetId());
+        existingTransaction.setFromPaymentSystemId(updatedTransaction.getFromPaymentSystemId());
+        existingTransaction.setToPaymentSystemId(updatedTransaction.getToPaymentSystemId());
+        existingTransaction.setUserId(updatedTransaction.getUserId());
+        existingTransaction.setSharedTransactions(updatedTransaction.getSharedTransactions());
 
-        return transactionRepository.save(updatedTransaction);
+        return transactionRepository.save(existingTransaction);
     }
 
     public void deleteTransaction(long id) {
@@ -65,16 +77,18 @@ public class TransactionService {
 
     public TransactionCategory createTransactionCategory(TransactionCategory transactionCategory) {
         transactionCategory.setUserId(jwtUtil.getAuthenticatedUserId());
+
         return transactionCategoryRepository.save(transactionCategory);
     }
 
     public TransactionCategory updateTransactionCategory(int id, TransactionCategory updatedTransactionCategory) {
         TransactionCategory existingTransactionCategory = getTransactionCategoryById(id);
 
-        updatedTransactionCategory.setId(existingTransactionCategory.getId());
-        updatedTransactionCategory.setUserId(existingTransactionCategory.getUserId());
+        existingTransactionCategory.setName(updatedTransactionCategory.getName());
+        existingTransactionCategory.setType(updatedTransactionCategory.getType());
+        existingTransactionCategory.setUserId(jwtUtil.getAuthenticatedUserId());
 
-        return transactionCategoryRepository.save(updatedTransactionCategory);
+        return transactionCategoryRepository.save(existingTransactionCategory);
     }
 
     public void deleteTransactionCategory(int id) {

@@ -39,10 +39,15 @@ public class PaymentSystemCreditService {
     public PaymentSystemCredit update(int id, PaymentSystemCredit paymentSystemCredit) {
         PaymentSystemCredit existingCredit = getById(id);
 
-        paymentSystemCredit.setId(existingCredit.getId());
-        paymentSystemCredit.setUserId(existingCredit.getUserId());
+        existingCredit.setName(paymentSystemCredit.getName());
+        existingCredit.setDescription(paymentSystemCredit.getDescription());
+        existingCredit.setCurrency(paymentSystemCredit.getCurrency());
+        existingCredit.setCreditLimit(paymentSystemCredit.getCreditLimit());
+        existingCredit.setUtilizedAmount(paymentSystemCredit.getUtilizedAmount());
+        existingCredit.setStatementDay(paymentSystemCredit.getStatementDay());
+        existingCredit.setDueDay(paymentSystemCredit.getDueDay());
 
-        return creditRepository.save(paymentSystemCredit);
+        return creditRepository.save(existingCredit);
     }
 
     public void delete(int id) {

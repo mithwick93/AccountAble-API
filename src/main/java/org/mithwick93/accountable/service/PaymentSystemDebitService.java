@@ -38,10 +38,14 @@ public class PaymentSystemDebitService {
 
     public PaymentSystemDebit update(int id, PaymentSystemDebit paymentSystemDebit) {
         PaymentSystemDebit existingDebit = getById(id);
-        paymentSystemDebit.setId(existingDebit.getId());
-        paymentSystemDebit.setUserId(existingDebit.getUserId());
 
-        return debitRepository.save(paymentSystemDebit);
+        existingDebit.setName(paymentSystemDebit.getName());
+        existingDebit.setDescription(paymentSystemDebit.getDescription());
+        existingDebit.setCurrency(paymentSystemDebit.getCurrency());
+        existingDebit.setAssetId(paymentSystemDebit.getAssetId());
+        existingDebit.setDailyLimit(paymentSystemDebit.getDailyLimit());
+
+        return debitRepository.save(existingDebit);
     }
 
     public void delete(int id) {

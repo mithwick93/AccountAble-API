@@ -39,10 +39,13 @@ public class AssetService {
     public Asset update(int id, Asset updatedAsset) {
         Asset existingAsset = getById(id);
 
-        updatedAsset.setId(existingAsset.getId());
-        updatedAsset.setUserId(existingAsset.getUserId());
+        existingAsset.setType(updatedAsset.getType());
+        existingAsset.setName(updatedAsset.getName());
+        existingAsset.setDescription(updatedAsset.getDescription());
+        existingAsset.setBalance(updatedAsset.getBalance());
+        existingAsset.setCurrency(updatedAsset.getCurrency());
 
-        return assetRepository.save(updatedAsset);
+        return assetRepository.save(existingAsset);
     }
 
     public void delete(int id) {

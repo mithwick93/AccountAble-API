@@ -9,7 +9,7 @@ import org.mithwick93.accountable.model.TransactionType;
 import org.mithwick93.accountable.validation.ValidEnum;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public record TransactionRequest(
@@ -34,8 +34,8 @@ public record TransactionRequest(
         @ValidEnum(enumClass = Currency.class, message = "must be a valid currency")
         String currency,
 
-        @NotBlank
-        LocalDateTime date,
+        @NotNull
+        LocalDate date,
 
         Integer fromAssetId,
 
@@ -45,7 +45,7 @@ public record TransactionRequest(
 
         Integer toPaymentSystemId,
 
-        @NotBlank
+        @NotNull
         int userId,
 
         @NotNull

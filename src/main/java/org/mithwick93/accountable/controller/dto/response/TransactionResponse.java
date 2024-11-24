@@ -1,6 +1,7 @@
 package org.mithwick93.accountable.controller.dto.response;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public record TransactionResponse(
         Integer categoryId,
         BigDecimal amount,
         String currency,
-        LocalDateTime date,
+        LocalDate date,
         Integer fromAssetId,
         Integer toAssetId,
         Integer fromPaymentSystemId,

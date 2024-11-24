@@ -21,7 +21,7 @@ import lombok.Setter;
 import org.mithwick93.accountable.model.converter.CurrencyConverter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class Transaction extends AuditableEntity {
     private Currency currency;
 
     @Column(nullable = false)
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column(name = "from_asset_id")
     @Nullable

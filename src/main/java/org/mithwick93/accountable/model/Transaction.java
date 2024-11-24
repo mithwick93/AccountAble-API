@@ -1,6 +1,7 @@
 package org.mithwick93.accountable.model;
 
 import jakarta.annotation.Nullable;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -9,15 +10,20 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.mithwick93.accountable.model.converter.CurrencyConverter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "transactions")
@@ -29,7 +35,7 @@ public class Transaction extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false, length = 100)
     private String name;
@@ -72,7 +78,22 @@ public class Transaction extends AuditableEntity {
     @Nullable
     private Integer toPaymentSystemId; // For TRANSFER: credited payment system
 
-    @Column(name = "user_id", nullable = false, updatable = false)
+    @Column(name = "user_id", nullable = false)
     private int userId;
+
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter(AccessLevel.NONE)
+    private List<SharedTransaction> sharedTransactions;
+
+    public void setSharedTransactions(List<SharedTransaction> sharedTransactions) {
+        if (this.sharedTransactions == null) {
+            this.sharedTransactions = new ArrayList<>();
+        }
+
+        sharedTransactions.forEach(sharedTransaction -> sharedTransaction.setTransaction(this));
+
+        this.sharedTransactions.clear();
+        this.sharedTransactions.addAll(sharedTransactions);
+    }
 
 }

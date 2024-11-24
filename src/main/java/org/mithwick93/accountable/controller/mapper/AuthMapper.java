@@ -16,6 +16,8 @@ public abstract class AuthMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "passwordHash", source = "password", qualifiedByName = "encodePassword")
+    @Mapping(target = "created", ignore = true)
+    @Mapping(target = "modified", ignore = true)
     public abstract User toUser(RegistrationRequest registrationRequest);
 
     @Named("encodePassword")

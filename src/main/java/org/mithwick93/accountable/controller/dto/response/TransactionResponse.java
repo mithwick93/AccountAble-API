@@ -2,6 +2,7 @@ package org.mithwick93.accountable.controller.dto.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record TransactionResponse(
         long id,
@@ -17,6 +18,7 @@ public record TransactionResponse(
         Integer fromPaymentSystemId,
         Integer toPaymentSystemId,
         int userId,
+        List<SharedTransactionResponse> sharedTransactions,
         LocalDateTime created,
         LocalDateTime modified
 ) {

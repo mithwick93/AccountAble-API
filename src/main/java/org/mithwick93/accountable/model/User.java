@@ -21,7 +21,7 @@ public class User extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "first_name", length = 50, nullable = false)
     private String firstName;

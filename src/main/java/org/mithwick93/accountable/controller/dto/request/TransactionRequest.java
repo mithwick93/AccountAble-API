@@ -10,6 +10,7 @@ import org.mithwick93.accountable.validation.ValidEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record TransactionRequest(
         @NotBlank
@@ -44,7 +45,11 @@ public record TransactionRequest(
 
         Integer toPaymentSystemId,
 
-        int userId
+        @NotBlank
+        int userId,
+
+        @NotNull
+        List<SharedTransactionRequest> sharedTransactions
 ) {
 
 }

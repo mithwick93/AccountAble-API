@@ -17,6 +17,10 @@ public abstract class AssetMapper extends BaseMapper {
 
     public abstract List<AssetResponse> toAssetResponses(List<Asset> assets);
 
+    @Mapping(target = "created", ignore = true)
+    @Mapping(target = "modified", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "userId", ignore = true)
     public abstract Asset toAsset(AssetRequest assetRequest);
 
     @Mapping(target = "name", expression = "java(assetType.toString())")

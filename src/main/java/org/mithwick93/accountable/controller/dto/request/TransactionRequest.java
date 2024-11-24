@@ -7,11 +7,13 @@ import jakarta.validation.constraints.Size;
 import org.mithwick93.accountable.model.Currency;
 import org.mithwick93.accountable.model.TransactionType;
 import org.mithwick93.accountable.validation.ValidEnum;
+import org.mithwick93.accountable.validation.ValidTransaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+@ValidTransaction
 public record TransactionRequest(
         @NotBlank
         @Size(max = 100)

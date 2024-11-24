@@ -26,17 +26,16 @@ public class TransactionService {
 
     @Transactional(readOnly = true)
     public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAllByUserId(jwtUtil.getAuthenticatedUserId());
+        return transactionRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public Transaction getTransactionById(long id) {
-        return transactionRepository.findByIdAndUserId(id, jwtUtil.getAuthenticatedUserId())
+        return transactionRepository.findById(id)
                 .orElseThrow(NotFoundException.supplier("Transaction with id " + id + " not found"));
     }
 
     public Transaction createTransaction(Transaction transaction) {
-        transaction.setUserId(jwtUtil.getAuthenticatedUserId());
         return transactionRepository.save(transaction);
     }
 
@@ -44,7 +43,6 @@ public class TransactionService {
         Transaction existingTransaction = getTransactionById(id);
 
         updatedTransaction.setId(existingTransaction.getId());
-        updatedTransaction.setUserId(existingTransaction.getUserId());
 
         return transactionRepository.save(updatedTransaction);
     }
@@ -56,12 +54,12 @@ public class TransactionService {
 
     @Transactional(readOnly = true)
     public List<TransactionCategory> getAllTransactionCategories() {
-        return transactionCategoryRepository.findAllByUserId(jwtUtil.getAuthenticatedUserId());
+        return transactionCategoryRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public TransactionCategory getTransactionCategoryById(int id) {
-        return transactionCategoryRepository.findByIdAndUserId(id, jwtUtil.getAuthenticatedUserId())
+        return transactionCategoryRepository.findById(id)
                 .orElseThrow(NotFoundException.supplier("Transaction category with id " + id + " not found"));
     }
 

@@ -42,7 +42,9 @@ public record TransactionRequest(
 
         Integer fromPaymentSystemId,
 
-        Integer toPaymentSystemId
+        Integer toPaymentSystemId,
+
+        int userId
 ) {
 
 }

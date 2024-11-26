@@ -30,4 +30,13 @@ public final class JsonUtil {
         }
     }
 
+    public static boolean validateJson(String value) {
+        try {
+            OBJECT_MAPPER.readTree(value);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

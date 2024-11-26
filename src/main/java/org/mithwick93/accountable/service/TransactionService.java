@@ -39,22 +39,22 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
-    public Transaction updateTransaction(long id, Transaction updatedTransaction) {
+    public Transaction updateTransaction(long id, Transaction transaction) {
         Transaction existingTransaction = getTransactionById(id);
 
-        existingTransaction.setName(updatedTransaction.getName());
-        existingTransaction.setDescription(updatedTransaction.getDescription());
-        existingTransaction.setType(updatedTransaction.getType());
-        existingTransaction.setCategoryId(updatedTransaction.getCategoryId());
-        existingTransaction.setAmount(updatedTransaction.getAmount());
-        existingTransaction.setCurrency(updatedTransaction.getCurrency());
-        existingTransaction.setDate(updatedTransaction.getDate());
-        existingTransaction.setFromAssetId(updatedTransaction.getFromAssetId());
-        existingTransaction.setToAssetId(updatedTransaction.getToAssetId());
-        existingTransaction.setFromPaymentSystemId(updatedTransaction.getFromPaymentSystemId());
-        existingTransaction.setToPaymentSystemId(updatedTransaction.getToPaymentSystemId());
-        existingTransaction.setUserId(updatedTransaction.getUserId());
-        existingTransaction.setSharedTransactions(updatedTransaction.getSharedTransactions());
+        existingTransaction.setName(transaction.getName());
+        existingTransaction.setDescription(transaction.getDescription());
+        existingTransaction.setType(transaction.getType());
+        existingTransaction.setCategoryId(transaction.getCategoryId());
+        existingTransaction.setAmount(transaction.getAmount());
+        existingTransaction.setCurrency(transaction.getCurrency());
+        existingTransaction.setDate(transaction.getDate());
+        existingTransaction.setFromAssetId(transaction.getFromAssetId());
+        existingTransaction.setToAssetId(transaction.getToAssetId());
+        existingTransaction.setFromPaymentSystemId(transaction.getFromPaymentSystemId());
+        existingTransaction.setToPaymentSystemId(transaction.getToPaymentSystemId());
+        existingTransaction.setUserId(transaction.getUserId());
+        existingTransaction.setSharedTransactions(transaction.getSharedTransactions());
 
         return transactionRepository.save(existingTransaction);
     }
@@ -81,11 +81,11 @@ public class TransactionService {
         return transactionCategoryRepository.save(transactionCategory);
     }
 
-    public TransactionCategory updateTransactionCategory(int id, TransactionCategory updatedTransactionCategory) {
+    public TransactionCategory updateTransactionCategory(int id, TransactionCategory transactionCategory) {
         TransactionCategory existingTransactionCategory = getTransactionCategoryById(id);
 
-        existingTransactionCategory.setName(updatedTransactionCategory.getName());
-        existingTransactionCategory.setType(updatedTransactionCategory.getType());
+        existingTransactionCategory.setName(transactionCategory.getName());
+        existingTransactionCategory.setType(transactionCategory.getType());
         existingTransactionCategory.setUserId(jwtUtil.getAuthenticatedUserId());
 
         return transactionCategoryRepository.save(existingTransactionCategory);

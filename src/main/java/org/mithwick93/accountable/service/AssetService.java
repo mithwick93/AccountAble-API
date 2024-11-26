@@ -36,14 +36,14 @@ public class AssetService {
         return assetRepository.save(asset);
     }
 
-    public Asset update(int id, Asset updatedAsset) {
+    public Asset update(int id, Asset asset) {
         Asset existingAsset = getById(id);
 
-        existingAsset.setType(updatedAsset.getType());
-        existingAsset.setName(updatedAsset.getName());
-        existingAsset.setDescription(updatedAsset.getDescription());
-        existingAsset.setBalance(updatedAsset.getBalance());
-        existingAsset.setCurrency(updatedAsset.getCurrency());
+        existingAsset.setType(asset.getType());
+        existingAsset.setName(asset.getName());
+        existingAsset.setDescription(asset.getDescription());
+        existingAsset.setBalance(asset.getBalance());
+        existingAsset.setCurrency(asset.getCurrency());
 
         return assetRepository.save(existingAsset);
     }

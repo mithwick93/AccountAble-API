@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.dal.repository.UserRepository;
 import org.mithwick93.accountable.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +13,7 @@ public class UserCache {
 
     private final UserRepository userRepository;
 
+    @Cacheable(value = "user_cache")
     public User getUser(int id) {
         return userRepository.findById(id)
                 .orElse(null);

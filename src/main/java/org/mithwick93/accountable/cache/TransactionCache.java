@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.dal.repository.TransactionCategoryRepository;
 import org.mithwick93.accountable.model.TransactionCategory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +13,7 @@ public class TransactionCache {
 
     private final TransactionCategoryRepository transactionCategoryRepository;
 
+    @Cacheable(value = "transaction_category_cache")
     public TransactionCategory getTransactionCategory(int id) {
         return transactionCategoryRepository.findById(id)
                 .orElse(null);

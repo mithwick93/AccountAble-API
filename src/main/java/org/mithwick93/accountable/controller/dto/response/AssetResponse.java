@@ -10,7 +10,7 @@ public record AssetResponse(
         String description,
         BigDecimal balance,
         String currency,
-        int userId,
+        UserResponse user,
         LocalDateTime created,
         LocalDateTime modified
 ) {

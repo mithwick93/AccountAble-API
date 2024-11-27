@@ -6,7 +6,7 @@ public record TransactionCategoryResponse(
         int id,
         String name,
         String type,
-        int userId,
+        UserResponse user,
         LocalDateTime created,
         LocalDateTime modified
 ) {

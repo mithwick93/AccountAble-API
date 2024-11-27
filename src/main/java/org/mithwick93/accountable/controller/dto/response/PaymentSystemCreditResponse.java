@@ -12,7 +12,7 @@ public record PaymentSystemCreditResponse(
         BigDecimal utilizedAmount,
         byte statementDay,
         byte dueDay,
-        int userId,
+        UserResponse user,
         LocalDateTime created,
         LocalDateTime modified
 ) {

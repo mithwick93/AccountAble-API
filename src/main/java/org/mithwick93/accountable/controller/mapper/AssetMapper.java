@@ -13,6 +13,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class AssetMapper extends BaseMapper {
 
+    @Mapping(target = "user", expression = "java(mapUser(asset.getUserId()))")
     public abstract AssetResponse toAssetResponse(Asset asset);
 
     public abstract List<AssetResponse> toAssetResponses(List<Asset> assets);

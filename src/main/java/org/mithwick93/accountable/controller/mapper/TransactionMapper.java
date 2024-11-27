@@ -2,6 +2,7 @@ package org.mithwick93.accountable.controller.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mithwick93.accountable.cache.TransactionCache;
 import org.mithwick93.accountable.controller.dto.request.SharedTransactionRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionCategoryRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionRequest;
@@ -11,11 +12,15 @@ import org.mithwick93.accountable.controller.dto.response.TransactionResponse;
 import org.mithwick93.accountable.model.SharedTransaction;
 import org.mithwick93.accountable.model.Transaction;
 import org.mithwick93.accountable.model.TransactionCategory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public abstract class TransactionMapper extends BaseMapper {
+
+    @Autowired
+    private TransactionCache transactionCache;
 
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "modified", ignore = true)
@@ -23,6 +28,7 @@ public abstract class TransactionMapper extends BaseMapper {
     @Mapping(target = "userId", ignore = true)
     public abstract TransactionCategory toTransactionCategory(TransactionCategoryRequest request);
 
+    @Mapping(target = "user", expression = "java(mapUser(transactionCategory.getUserId()))")
     public abstract TransactionCategoryResponse toTransactionCategoryResponse(TransactionCategory transactionCategory);
 
     public abstract List<TransactionCategoryResponse> toTransactionCategoryResponses(List<TransactionCategory> transactionCategories);
@@ -32,6 +38,8 @@ public abstract class TransactionMapper extends BaseMapper {
     @Mapping(target = "id", ignore = true)
     public abstract Transaction toTransaction(TransactionRequest request);
 
+    @Mapping(target = "user", expression = "java(mapUser(transaction.getUserId()))")
+    @Mapping(target = "category", expression = "java(mapTransactionCategory(transaction.getCategoryId()))")
     public abstract TransactionResponse toTransactionResponse(Transaction transaction);
 
     public abstract List<TransactionResponse> toTransactionResponses(List<Transaction> transactions);
@@ -43,8 +51,14 @@ public abstract class TransactionMapper extends BaseMapper {
 
     public abstract List<SharedTransaction> toSharedTransactions(List<SharedTransactionRequest> requests);
 
+    @Mapping(target = "user", expression = "java(mapUser(sharedTransaction.getUserId()))")
     public abstract SharedTransactionResponse toSharedTransactionResponse(SharedTransaction sharedTransaction);
 
     public abstract List<SharedTransactionResponse> toSharedTransactionResponses(List<SharedTransaction> sharedTransactions);
+
+    protected TransactionCategoryResponse mapTransactionCategory(Integer categoryId) {
+        TransactionCategory category = transactionCache.getTransactionCategory(categoryId);
+        return toTransactionCategoryResponse(category);
+    }
 
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public record SharedTransactionResponse(
         long id,
-        int userId,
+        UserResponse user,
         BigDecimal share,
         BigDecimal paidAmount,
         boolean isSettled,

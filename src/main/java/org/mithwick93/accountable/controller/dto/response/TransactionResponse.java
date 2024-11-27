@@ -16,7 +16,7 @@ public record TransactionResponse(
 
         String type,
 
-        Integer categoryId,
+        TransactionCategoryResponse category,
 
         BigDecimal amount,
 
@@ -36,7 +36,7 @@ public record TransactionResponse(
         @JsonInclude(JsonInclude.Include.NON_NULL)
         Integer toPaymentSystemId,
 
-        int userId,
+        UserResponse user,
 
         List<SharedTransactionResponse> sharedTransactions,
 

@@ -9,7 +9,7 @@ import org.mithwick93.accountable.model.Setting;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public abstract class SettingMapper {
+public abstract class SettingMapper extends BaseMapper {
 
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "modified", ignore = true)
@@ -17,6 +17,7 @@ public abstract class SettingMapper {
     @Mapping(target = "userId", ignore = true)
     public abstract Setting toSetting(SettingRequest request);
 
+    @Mapping(target = "user", expression = "java(mapUser(setting.getUserId()))")
     public abstract SettingResponse toSettingResponse(Setting setting);
 
     public abstract List<SettingResponse> toSettingResponses(List<Setting> setting);

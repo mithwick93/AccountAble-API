@@ -6,7 +6,7 @@ public record SettingResponse(
         long id,
         String settingKey,
         String settingValue,
-        int userId,
+        UserResponse user,
         LocalDateTime created,
         LocalDateTime modified
 ) {

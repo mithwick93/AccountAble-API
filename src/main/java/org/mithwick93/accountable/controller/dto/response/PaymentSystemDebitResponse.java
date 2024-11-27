@@ -8,9 +8,9 @@ public record PaymentSystemDebitResponse(
         String name,
         String description,
         String currency,
-        int assetId,
+        AssetResponse asset,
         BigDecimal dailyLimit,
-        int userId,
+        UserResponse user,
         LocalDateTime created,
         LocalDateTime modified
 ) {

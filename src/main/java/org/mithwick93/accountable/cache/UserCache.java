@@ -13,7 +13,7 @@ public class UserCache {
 
     private final UserRepository userRepository;
 
-    @Cacheable(value = "user_cache")
+    @Cacheable(value = "user_cache", unless = "#result == null")
     public User getUser(int id) {
         return userRepository.findById(id)
                 .orElse(null);

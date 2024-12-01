@@ -49,7 +49,7 @@ public class TransactionController {
     @PostMapping
     public ResponseEntity<TransactionResponse> create(@Valid @RequestBody TransactionRequest request) {
         Transaction newTransaction = transactionMapper.toTransaction(request);
-        Transaction createdTransaction = transactionService.createTransaction(newTransaction);
+        Transaction createdTransaction = transactionService.createTransaction(newTransaction, request.updateAccounts());
         TransactionResponse transactionResponse = transactionMapper.toTransactionResponse(createdTransaction);
         return ResponseEntity.status(HttpStatus.CREATED).body(transactionResponse);
     }
@@ -57,7 +57,7 @@ public class TransactionController {
     @PutMapping("/{id}")
     public ResponseEntity<TransactionResponse> update(@PathVariable long id, @Valid @RequestBody TransactionRequest request) {
         Transaction updateTransaction = transactionMapper.toTransaction(request);
-        Transaction updatedTransaction = transactionService.updateTransaction(id, updateTransaction);
+        Transaction updatedTransaction = transactionService.updateTransaction(id, updateTransaction, request.updateAccounts());
         TransactionResponse transactionResponse = transactionMapper.toTransactionResponse(updatedTransaction);
         return ResponseEntity.ok(transactionResponse);
     }

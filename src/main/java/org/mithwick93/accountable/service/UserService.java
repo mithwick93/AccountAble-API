@@ -6,6 +6,7 @@ import org.mithwick93.accountable.exception.AuthException;
 import org.mithwick93.accountable.exception.BadRequestException;
 import org.mithwick93.accountable.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserService {
 
@@ -30,12 +31,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void create(User user) {
+    @CachePut(value = "user_cache", key = "#result.id")
+    public User create(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new BadRequestException("User name: %s already exists".formatted(user.getUsername()));
         }
 
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public User authenticate(String username, String password) {

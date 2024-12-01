@@ -6,21 +6,26 @@ import org.mithwick93.accountable.dal.repository.TransactionRepository;
 import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.model.Transaction;
 import org.mithwick93.accountable.model.TransactionCategory;
+import org.mithwick93.accountable.service.helper.TransactionHelper;
 import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
 
     private final TransactionCategoryRepository transactionCategoryRepository;
+
+    private final TransactionHelper transactionHelper;
 
     private final JwtUtil jwtUtil;
 
@@ -35,12 +40,20 @@ public class TransactionService {
                 .orElseThrow(NotFoundException.supplier("Transaction with id " + id + " not found"));
     }
 
-    public Transaction createTransaction(Transaction transaction) {
+    public Transaction createTransaction(Transaction transaction, boolean shouldUpdateAccounts) {
+        if (shouldUpdateAccounts) {
+            transactionHelper.updateAccounts(transaction);
+        }
+
         return transactionRepository.save(transaction);
     }
 
-    public Transaction updateTransaction(long id, Transaction transaction) {
+    public Transaction updateTransaction(long id, Transaction transaction, boolean shouldUpdateAccounts) {
         Transaction existingTransaction = getTransactionById(id);
+
+        if (shouldUpdateAccounts) {
+            transactionHelper.updateAccounts(existingTransaction, transaction);
+        }
 
         existingTransaction.setName(transaction.getName());
         existingTransaction.setDescription(transaction.getDescription());
@@ -75,12 +88,14 @@ public class TransactionService {
                 .orElseThrow(NotFoundException.supplier("Transaction category with id " + id + " not found"));
     }
 
+    @CachePut(value = "transaction_category_cache", key = "#result.id")
     public TransactionCategory createTransactionCategory(TransactionCategory transactionCategory) {
         transactionCategory.setUserId(jwtUtil.getAuthenticatedUserId());
 
         return transactionCategoryRepository.save(transactionCategory);
     }
 
+    @CachePut(value = "transaction_category_cache", key = "#transactionCategory.id")
     public TransactionCategory updateTransactionCategory(int id, TransactionCategory transactionCategory) {
         TransactionCategory existingTransactionCategory = getTransactionCategoryById(id);
 
@@ -91,6 +106,7 @@ public class TransactionService {
         return transactionCategoryRepository.save(existingTransactionCategory);
     }
 
+    @CacheEvict(value = "transaction_category_cache", key = "#id")
     public void deleteTransactionCategory(int id) {
         TransactionCategory existingTransactionCategory = getTransactionCategoryById(id);
         transactionCategoryRepository.delete(existingTransactionCategory);

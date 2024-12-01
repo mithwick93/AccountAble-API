@@ -13,7 +13,7 @@ public class TransactionCache {
 
     private final TransactionCategoryRepository transactionCategoryRepository;
 
-    @Cacheable(value = "transaction_category_cache", unless = "#result == null")
+    @Cacheable(value = "transaction_category_cache", key = "#id", unless = "#result == null")
     public TransactionCategory getTransactionCategory(int id) {
         return transactionCategoryRepository.findById(id)
                 .orElse(null);

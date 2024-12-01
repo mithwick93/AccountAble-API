@@ -51,7 +51,9 @@ public record TransactionRequest(
         int userId,
 
         @NotNull
-        List<SharedTransactionRequest> sharedTransactions
+        List<SharedTransactionRequest> sharedTransactions,
+
+        boolean updateAccounts
 ) {
 
 }

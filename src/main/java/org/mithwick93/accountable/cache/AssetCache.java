@@ -13,7 +13,7 @@ public class AssetCache {
 
     private final AssetRepository assetRepository;
 
-    @Cacheable(value = "asset_cache", unless = "#result == null")
+    @Cacheable(value = "asset_cache", key = "#id", unless = "#result == null")
     public Asset getAsset(int id) {
         return assetRepository.findById(id)
                 .orElse(null);

@@ -15,7 +15,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RefreshTokenService {
 

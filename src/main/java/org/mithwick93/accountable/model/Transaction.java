@@ -96,4 +96,16 @@ public class Transaction extends AuditableEntity {
         this.sharedTransactions.addAll(sharedTransactions);
     }
 
+    public boolean isPaymentSystemTransfer() {
+        return TransactionType.TRANSFER.equals(type) &&
+                getFromAssetId() != null &&
+                getToPaymentSystemId() != null;
+    }
+
+    public boolean isAccountToAccountTransfer() {
+        return TransactionType.TRANSFER.equals(type) &&
+                getFromAssetId() != null &&
+                getToAssetId() != null;
+    }
+
 }

@@ -26,6 +26,10 @@ spring:
     password: ${spring.datasource.password}
     baseline-on-migrate: true
     table: schema_version
+  web:
+    client:
+      connect-timeout: 5000     # Connection timeout in milliseconds
+      read-timeout: 10000       # Read timeout in milliseconds
 
 # Actuator
 management:
@@ -58,3 +62,8 @@ refresh-token:
 rsa:
   private-key: ${keyPath:classpath:certs}/private-key.pem
   public-key: ${keyPath:classpath:certs}/public-key.pem
+
+currency:
+  api:
+    url: "https://v6.exchangerate-api.com/v6/{apiKey}/latest/{baseCurrency}"
+    key: ${currencyApiKey}

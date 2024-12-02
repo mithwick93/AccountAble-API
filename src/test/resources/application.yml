@@ -23,6 +23,10 @@ spring:
   sql:
     init:
       platform: mysql
+  web:
+    client:
+      connect-timeout: 5000     # Connection timeout in milliseconds
+      read-timeout: 10000       # Read timeout in milliseconds
 application:
   title: AccountAble-API
   description: Manage personal finances
@@ -30,3 +34,8 @@ application:
 rsa:
   private-key: ${keyPath:classpath:certs}/private-test-key.pem
   public-key: ${keyPath:classpath:certs}/public-test-key.pem
+
+currency:
+  api:
+    url: "https://v6.exchangerate-api.com/v6/{apiKey}/latest/{baseCurrency}"
+    key: 12345

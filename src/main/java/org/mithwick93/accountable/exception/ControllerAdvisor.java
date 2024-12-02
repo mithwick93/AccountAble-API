@@ -48,6 +48,16 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(problemDetail, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = ExternalServiceException.class)
+    public ResponseEntity<ProblemDetail> handleBadRequestException(ExternalServiceException ex, WebRequest request) {
+        ProblemDetail problemDetail =
+                ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, ex.getMessage());
+        problemDetail.setTitle("External service error");
+        problemDetail.setInstance(URI.create(((ServletWebRequest) request).getRequest().getRequestURI()));
+
+        return new ResponseEntity<>(problemDetail, HttpStatus.BAD_GATEWAY);
+    }
+
     @ExceptionHandler(value = AuthException.class)
     public ResponseEntity<ProblemDetail> handleAuthException(AuthException ex, WebRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.getMessage());

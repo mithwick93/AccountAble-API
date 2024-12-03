@@ -36,13 +36,13 @@ public class AssetService {
                 .orElseThrow(NotFoundException.supplier("Asset with id " + id + " not found"));
     }
 
-    @CachePut(value = "asset_cache", key = "#result.id")
+    @CachePut(value = "asset_cache", key = "#result.id", unless = "#result == null")
     public Asset create(Asset asset) {
         asset.setUserId(jwtUtil.getAuthenticatedUserId());
         return assetRepository.save(asset);
     }
 
-    @CachePut(value = "asset_cache", key = "#asset.id")
+    @CachePut(value = "asset_cache", key = "#result.id", unless = "#result == null")
     public Asset update(int id, Asset asset) {
         Asset existingAsset = getById(id);
 
@@ -55,7 +55,7 @@ public class AssetService {
         return assetRepository.save(existingAsset);
     }
 
-    @CachePut(value = "asset_cache", key = "#result.id")
+    @CachePut(value = "asset_cache", key = "#result.id", unless = "#result == null")
     public Asset updateBalance(int id, BigDecimal amount, Currency currency) {
         Asset existingAsset = getById(id);
 

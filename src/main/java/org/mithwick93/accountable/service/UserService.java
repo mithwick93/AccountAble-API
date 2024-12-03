@@ -31,7 +31,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    @CachePut(value = "user_cache", key = "#result.id")
+    @CachePut(value = "user_cache", key = "#result.id", unless = "#result == null")
     public User create(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new BadRequestException("User name: %s already exists".formatted(user.getUsername()));

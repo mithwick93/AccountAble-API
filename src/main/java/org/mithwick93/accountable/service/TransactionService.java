@@ -88,14 +88,14 @@ public class TransactionService {
                 .orElseThrow(NotFoundException.supplier("Transaction category with id " + id + " not found"));
     }
 
-    @CachePut(value = "transaction_category_cache", key = "#result.id")
+    @CachePut(value = "transaction_category_cache", key = "#result.id", unless = "#result == null")
     public TransactionCategory createTransactionCategory(TransactionCategory transactionCategory) {
         transactionCategory.setUserId(jwtUtil.getAuthenticatedUserId());
 
         return transactionCategoryRepository.save(transactionCategory);
     }
 
-    @CachePut(value = "transaction_category_cache", key = "#transactionCategory.id")
+    @CachePut(value = "transaction_category_cache", key = "#result.id", unless = "#result == null")
     public TransactionCategory updateTransactionCategory(int id, TransactionCategory transactionCategory) {
         TransactionCategory existingTransactionCategory = getTransactionCategoryById(id);
 

@@ -25,8 +25,11 @@ public class CurrencyConversionGateway {
     @Value("${currency.api.key}")
     private String apiKey;
 
+    @Value("${currency.api.base:USD}")
+    private String baseCurrency;
+
     @Cacheable(value = "exchange_rate_cache", unless = "#result == null")
-    public Map<String, Double> getExchangeRates(String baseCurrency) {
+    public Map<String, Double> getExchangeRates() {
         try {
             URI uri = UriComponentsBuilder
                     .fromUriString(apiUrl)

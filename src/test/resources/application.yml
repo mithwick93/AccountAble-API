@@ -40,3 +40,8 @@ currency:
     url: "https://v6.exchangerate-api.com/v6/{apiKey}/latest/{baseCurrency}"
     key: 12345
     base: USD
+
+metal:
+  gold:
+    url: "https://goldceylon.lk/today-gold-price-sri-lanka/"
+    xpath: "//*[@id=\"content\"]/div/div/div/div/div/section/div/div/div/strong/div[2]/div/div/p/span/strong"

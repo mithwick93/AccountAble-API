@@ -6,14 +6,14 @@ import org.mithwick93.accountable.gateway.dto.response.CurrencyConversionRespons
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Map;
 
-@Service
+@Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CurrencyConversionGateway {
 

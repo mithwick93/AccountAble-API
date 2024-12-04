@@ -3,6 +3,7 @@ package org.mithwick93.accountable.controller;
 import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.response.ExchangeRateResponse;
 import org.mithwick93.accountable.controller.mapper.ExchangeRateMapper;
+import org.mithwick93.accountable.model.Currency;
 import org.mithwick93.accountable.service.ExchangeRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,11 @@ public class ExchangeRateController {
 
     @GetMapping
     public ResponseEntity<ExchangeRateResponse> getAll(
-            @RequestParam(name = "onlySupported", required = false, defaultValue = "false") boolean onlySupported
+            @RequestParam(name = "baseCurrency", required = false, defaultValue = "USD") Currency baseCurrency,
+            @RequestParam(name = "onlySupported", required = false, defaultValue = "true") boolean onlySupported
     ) {
-        Map<String, Double> currencyExchangeRates = exchangeRateService.getCurrencyExchangeRates(onlySupported);
-        ExchangeRateResponse exchangeRateResponse = exchangeRateMapper.toExchangeRateResponse(currencyExchangeRates);
+        Map<String, Double> exchangeRates = exchangeRateService.getExchangeRates(baseCurrency, onlySupported);
+        ExchangeRateResponse exchangeRateResponse = exchangeRateMapper.toExchangeRateResponse(exchangeRates);
         return ResponseEntity.ok(exchangeRateResponse);
     }
 

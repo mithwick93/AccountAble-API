@@ -1,5 +1,6 @@
 package org.mithwick93.accountable.gateway.helper;
 
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -23,6 +24,7 @@ public class GoldPriceExtractor {
     private String xpath;
 
     @Cacheable(value = "gold_rate_cache", unless = "#result == null")
+    @Nullable
     public Double extractGoldRate() {
         try {
             Elements elements = Jsoup.connect(url)

@@ -1,5 +1,6 @@
 package org.mithwick93.accountable.service;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.dal.repository.TransactionCategoryRepository;
 import org.mithwick93.accountable.dal.repository.TransactionRepository;
@@ -75,6 +76,15 @@ public class TransactionService {
     public void deleteTransaction(long id) {
         Transaction existingTransaction = getTransactionById(id);
         transactionRepository.delete(existingTransaction);
+    }
+
+    public List<Transaction> markTransactionsAsPaid(int requestUserId, @NotEmpty List<Long> transactionIds) {
+        transactionRepository.markTransactionsAsPaidByCreatorAndParticipant(
+                jwtUtil.getAuthenticatedUserId(),
+                requestUserId,
+                transactionIds
+        );
+        return transactionRepository.findAllById(transactionIds);
     }
 
     @Transactional(readOnly = true)

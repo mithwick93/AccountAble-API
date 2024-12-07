@@ -2,6 +2,7 @@ package org.mithwick93.accountable.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.mithwick93.accountable.controller.dto.request.MarkTransactionsPaidRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionRequest;
 import org.mithwick93.accountable.controller.dto.response.TransactionResponse;
 import org.mithwick93.accountable.controller.mapper.TransactionMapper;
@@ -71,6 +72,13 @@ public class TransactionController {
     @GetMapping("/types")
     public ResponseEntity<List<String>> getTypes() {
         return ResponseEntity.ok(TRANSACTION_TYPES);
+    }
+
+    @PutMapping("/mark-as-paid")
+    public ResponseEntity<List<TransactionResponse>> markTransactionsAsPaid(@RequestBody MarkTransactionsPaidRequest request) {
+        List<Transaction> allTransactions = transactionService.markTransactionsAsPaid(request.userId(), request.transactionIds());
+        List<TransactionResponse> transactionResponses = transactionMapper.toTransactionResponses(allTransactions);
+        return ResponseEntity.ok(transactionResponses);
     }
 
 }

@@ -39,3 +39,4 @@ out/
 ### Secrets ###
 SECRETS.md
 src/main/resources/certs/
+infrastructure/.env

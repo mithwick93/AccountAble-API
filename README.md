@@ -33,6 +33,11 @@ Java Spring Boot REST application for Personal finance management.
     ./gradlew clean build -x test
     ```
 
+3. The JWT authentication requires RSA public and private key pairs
+   * Provide your own key pair location using env variable KEY_PATH
+   * Or generate and place them under "src/main/resources/certs"
+   * Example key can be found in "src/test/resources/certs"
+
 #### Run API with docker compose
 
 * This is the recommended approach for consuming the API locally.
@@ -40,47 +45,15 @@ Java Spring Boot REST application for Personal finance management.
 1. MAC / LINUX
     ```
     export DB_PASSWORD=password 
-    docker-compose -f infrastructure/docker-compose.yml up --build --force-recreate
-    ```
-2. WINDOWS (Powershell)
-   ```
-   $env:DB_PASSWORD="password"
+    export DB_URL="jdbc:mysql://db:3306/accountable-db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+    export DB_NAME=accountable-db
+    export DB_USERNAME=accountable
+    export DB_PASSWORD=####
+    export MYSQL_ROOT_PASSWORD=####
+    export KEY_PATH=classpath:
+   
    docker-compose -f infrastructure/docker-compose.yml up --build --force-recreate
    ```
-
-#### Run API without Docker
-
-* This is the recommended approach for developing the API locally. Docker is still needed to host the database.
-
-1. Setup a postgres database locally.
-    1. MAC / LINUX
-        ```
-        export DB_PASSWORD=password 
-        docker-compose -f infrastructure/common-services.yml up
-        ```
-
-    2. WINDOWS (Powershell)
-       ```
-        $env:DB_PASSWORD="password"
-        docker-compose -f infrastructure/common-services.yml up
-       ```
-
-2. Run the application using maven pointing to local database.
-    1. MAC / LINUX
-       ```
-       export dbUrl=jdbc:postgresql://localhost:5432/stock-db 
-       export dbUsername=postgres 
-       export dbPassword=password 
-       ./gradlew bootRun
-       ```
-
-    2. WINDOWS (Powershell)
-       ```
-       $env:dbUrl="jdbc:postgresql://localhost:5432/stock-db"
-       $env:dbUsername="postgres"
-       $env:dbPassword="password"
-       ./gradlew bootRun
-       ```
 
 ## REST API
 

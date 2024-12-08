@@ -52,7 +52,7 @@ Java Spring Boot REST application for Personal finance management.
     export MYSQL_ROOT_PASSWORD=####
     export KEY_PATH=classpath:
    
-   docker-compose -f infrastructure/docker-compose.yml up --build --force-recreate
+   docker-compose -p accountable -f infrastructure/docker-compose.yml up --build --force-recreate
    ```
 
 ## REST API

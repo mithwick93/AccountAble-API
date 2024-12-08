@@ -10,6 +10,10 @@ Java Spring Boot REST application for Personal finance management.
 4. Transactions
 5. Split transactions
 
+## ER diagram
+
+![](documentation/AccountAble.drawio.svg)
+
 ## How to run the application
 
 ### Installation

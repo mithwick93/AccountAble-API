@@ -4,11 +4,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.request.MarkTransactionsPaidRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionRequest;
+import org.mithwick93.accountable.controller.dto.request.TransactionSearchRequest;
 import org.mithwick93.accountable.controller.dto.response.TransactionResponse;
 import org.mithwick93.accountable.controller.mapper.TransactionMapper;
 import org.mithwick93.accountable.model.Transaction;
+import org.mithwick93.accountable.model.TransactionSearch;
 import org.mithwick93.accountable.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -79,6 +83,19 @@ public class TransactionController {
         List<Transaction> allTransactions = transactionService.markTransactionsAsPaid(request.userId(), request.transactionIds());
         List<TransactionResponse> transactionResponses = transactionMapper.toTransactionResponses(allTransactions);
         return ResponseEntity.ok(transactionResponses);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<Page<TransactionResponse>> searchTransactions(
+            @RequestBody TransactionSearchRequest searchRequest,
+            Pageable pageable
+    ) {
+        TransactionSearch transactionSearch = transactionMapper.toTransactionSearch(searchRequest);
+
+        Page<TransactionResponse> transactionResponsesPage = transactionService.searchTransactions(transactionSearch, pageable)
+                .map(transactionMapper::toTransactionResponse);
+
+        return ResponseEntity.ok(transactionResponsesPage);
     }
 
 }

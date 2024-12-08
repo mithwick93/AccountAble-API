@@ -6,15 +6,18 @@ import org.mithwick93.accountable.cache.TransactionCache;
 import org.mithwick93.accountable.controller.dto.request.SharedTransactionRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionCategoryRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionRequest;
+import org.mithwick93.accountable.controller.dto.request.TransactionSearchRequest;
 import org.mithwick93.accountable.controller.dto.response.SharedTransactionResponse;
 import org.mithwick93.accountable.controller.dto.response.TransactionCategoryResponse;
 import org.mithwick93.accountable.controller.dto.response.TransactionResponse;
 import org.mithwick93.accountable.model.SharedTransaction;
 import org.mithwick93.accountable.model.Transaction;
 import org.mithwick93.accountable.model.TransactionCategory;
+import org.mithwick93.accountable.model.TransactionSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public abstract class TransactionMapper extends BaseMapper {
@@ -55,6 +58,22 @@ public abstract class TransactionMapper extends BaseMapper {
     public abstract SharedTransactionResponse toSharedTransactionResponse(SharedTransaction sharedTransaction);
 
     public abstract List<SharedTransactionResponse> toSharedTransactionResponses(List<SharedTransaction> sharedTransactions);
+
+    public TransactionSearch toTransactionSearch(TransactionSearchRequest request) {
+        return new TransactionSearch(
+                Optional.ofNullable(request.userIds()),
+                Optional.ofNullable(request.dateFrom()),
+                Optional.ofNullable(request.dateTo()),
+                Optional.ofNullable(request.types()),
+                Optional.ofNullable(request.categoryIds()),
+                Optional.ofNullable(request.fromAssetIds()),
+                Optional.ofNullable(request.toAssetIds()),
+                Optional.ofNullable(request.fromPaymentSystemIds()),
+                Optional.ofNullable(request.toPaymentSystemIds()),
+                Optional.ofNullable(request.hasPendingSettlements()),
+                Optional.ofNullable(request.hasSharedTransactions())
+        );
+    }
 
     protected TransactionCategoryResponse mapTransactionCategory(Integer categoryId) {
         TransactionCategory category = transactionCache.getTransactionCategory(categoryId);

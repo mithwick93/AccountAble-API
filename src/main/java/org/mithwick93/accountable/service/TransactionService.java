@@ -4,14 +4,18 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.dal.repository.TransactionCategoryRepository;
 import org.mithwick93.accountable.dal.repository.TransactionRepository;
+import org.mithwick93.accountable.dal.repository.specification.TransactionSpecification;
 import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.model.Transaction;
 import org.mithwick93.accountable.model.TransactionCategory;
+import org.mithwick93.accountable.model.TransactionSearch;
 import org.mithwick93.accountable.service.helper.TransactionHelper;
 import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,11 +32,18 @@ public class TransactionService {
 
     private final TransactionHelper transactionHelper;
 
+    private final TransactionSpecification transactionSpecification;
+
     private final JwtUtil jwtUtil;
 
     @Transactional(readOnly = true)
     public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Transaction> searchTransactions(TransactionSearch transactionSearch, Pageable pageable) {
+        return transactionRepository.findAll(transactionSpecification.withFilters(transactionSearch), pageable);
     }
 
     @Transactional(readOnly = true)
@@ -79,11 +90,7 @@ public class TransactionService {
     }
 
     public List<Transaction> markTransactionsAsPaid(int requestUserId, @NotEmpty List<Long> transactionIds) {
-        transactionRepository.markTransactionsAsPaidByCreatorAndParticipant(
-                jwtUtil.getAuthenticatedUserId(),
-                requestUserId,
-                transactionIds
-        );
+        transactionRepository.markTransactionsAsPaidByCreatorAndParticipant(requestUserId, transactionIds);
         return transactionRepository.findAllById(transactionIds);
     }
 

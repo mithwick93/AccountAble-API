@@ -34,9 +34,7 @@ Java Spring Boot REST application for Personal finance management.
     ```
 
 3. The JWT authentication requires RSA public and private key pairs
-   * Provide your own key pair location using env variable KEY_PATH
-   * Or generate and place them under "src/main/resources/certs"
-   * Example key can be found in "src/test/resources/certs"
+   * Provide your own key pair in the RSA_PRIVATE_KEY and RSA_PUBLIC_KEY env variables in single line without new lines
 
 #### Run API with docker compose
 
@@ -50,7 +48,8 @@ Java Spring Boot REST application for Personal finance management.
     export DB_USERNAME=accountable
     export DB_PASSWORD=####
     export MYSQL_ROOT_PASSWORD=####
-    export KEY_PATH=classpath:
+    export RSA_PRIVATE_KEY=#
+    export RSA_PUBLIC_KEY=#
    
    docker-compose -p accountable -f infrastructure/docker-compose.yml up --build --force-recreate
    ```

@@ -24,8 +24,9 @@ services:
       DB_URL: "${DB_URL}"
       DB_USERNAME: "${DB_USERNAME}"
       DB_PASSWORD: "${DB_PASSWORD}"
-      KEY_PATH: "${KEY_PATH}"
       CURRENCY_API_KEY: "${CURRENCY_API_KEY}"
+      RSA_PRIVATE_KEY: "${RSA_PRIVATE_KEY}"
+      RSA_PUBLIC_KEY: "${RSA_PUBLIC_KEY}"
 
 volumes:
   accountable-mysql-data:

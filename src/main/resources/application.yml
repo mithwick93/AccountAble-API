@@ -61,8 +61,8 @@ jwt:
 refresh-token:
   expire-in-seconds: 864000
 rsa:
-  private-key: ${keyPath:classpath:certs}/private-key.pem
-  public-key: ${keyPath:classpath:certs}/public-key.pem
+  private-key: ${rsaPrivateKey}
+  public-key: ${rsaPublicKey}
 
 currency:
   api:

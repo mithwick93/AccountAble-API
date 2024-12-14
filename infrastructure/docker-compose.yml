@@ -8,6 +8,15 @@ services:
     networks:
       - accountable-app-network
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2G"
+        reservations:
+          cpus: "0.5"
+          memory: "512M"
+
   app:
     container_name: accountable-api
     image: mithwick93/accountable-api
@@ -28,6 +37,14 @@ services:
       CURRENCY_API_KEY: "${CURRENCY_API_KEY}"
       RSA_PRIVATE_KEY: "${RSA_PRIVATE_KEY}"
       RSA_PUBLIC_KEY: "${RSA_PUBLIC_KEY}"
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: "4G"
+        reservations:
+          cpus: "0.5"
+          memory: "2G"
 
 volumes:
   accountable-mysql-data:

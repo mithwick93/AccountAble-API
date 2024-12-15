@@ -4,6 +4,7 @@ import org.mithwick93.accountable.cache.UserCache;
 import org.mithwick93.accountable.controller.dto.response.UserResponse;
 import org.mithwick93.accountable.model.AssetType;
 import org.mithwick93.accountable.model.Currency;
+import org.mithwick93.accountable.model.LiabilityType;
 import org.mithwick93.accountable.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,12 +20,20 @@ public abstract class BaseMapper {
         return AssetType.valueOf(type.toUpperCase());
     }
 
-    protected Currency mapCurrencyString(String currency) {
-        return Currency.valueOf(currency.toUpperCase());
+    protected String mapAssetType(AssetType type) {
+        return type.name();
     }
 
-    protected String mapType(AssetType type) {
+    protected LiabilityType mapLiabilityTypeString(String type) {
+        return LiabilityType.valueOf(type.toUpperCase());
+    }
+
+    protected String mapLiabilityType(LiabilityType type) {
         return type.name();
+    }
+
+    protected Currency mapCurrencyString(String currency) {
+        return Currency.valueOf(currency.toUpperCase());
     }
 
     protected String mapCurrency(Currency currency) {

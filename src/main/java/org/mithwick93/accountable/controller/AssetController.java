@@ -75,8 +75,8 @@ public class AssetController {
     @GetMapping("/types")
     public ResponseEntity<List<AssetTypeResponse>> getTypes() {
         List<AssetType> assetTypes = Arrays.asList(AssetType.values());
-        List<AssetTypeResponse> assetTypeResponseList = assetMapper.toAssetTypeResponseList(assetTypes);
-        return ResponseEntity.ok(assetTypeResponseList);
+        List<AssetTypeResponse> assetTypeResponses = assetMapper.toAssetTypeResponses(assetTypes);
+        return ResponseEntity.ok(assetTypeResponses);
     }
 
 }

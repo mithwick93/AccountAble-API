@@ -27,6 +27,6 @@ public abstract class AssetMapper extends BaseMapper {
     @Mapping(target = "name", expression = "java(assetType.toString())")
     public abstract AssetTypeResponse toAssetTypeResponse(AssetType assetType);
 
-    public abstract List<AssetTypeResponse> toAssetTypeResponseList(List<AssetType> assetTypes);
+    public abstract List<AssetTypeResponse> toAssetTypeResponses(List<AssetType> assetTypes);
 
 }

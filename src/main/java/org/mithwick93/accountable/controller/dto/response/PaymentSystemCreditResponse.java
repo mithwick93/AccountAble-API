@@ -1,6 +1,5 @@
 package org.mithwick93.accountable.controller.dto.response;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record PaymentSystemCreditResponse(
@@ -8,10 +7,7 @@ public record PaymentSystemCreditResponse(
         String name,
         String description,
         String currency,
-        BigDecimal creditLimit,
-        BigDecimal utilizedAmount,
-        byte statementDay,
-        byte dueDay,
+        LiabilityResponse liability,
         UserResponse user,
         LocalDateTime created,
         LocalDateTime modified

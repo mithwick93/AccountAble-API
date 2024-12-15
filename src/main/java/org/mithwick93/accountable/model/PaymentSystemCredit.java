@@ -9,8 +9,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Entity
 @DiscriminatorValue("2")
 @Table(name = "payment_system_credits")
@@ -20,16 +18,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class PaymentSystemCredit extends PaymentSystem {
 
-    @Column(name = "credit_limit", nullable = false, precision = 19, scale = 4)
-    private BigDecimal creditLimit;
-
-    @Column(name = "utilized_amount", precision = 19, scale = 4)
-    private BigDecimal utilizedAmount;
-
-    @Column(name = "statement_day", nullable = false)
-    private byte statementDay;
-
-    @Column(name = "due_day", nullable = false)
-    private byte dueDay;
+    @Column(name = "liability_id", nullable = false)
+    private int liabilityId;
 
 }

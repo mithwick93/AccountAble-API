@@ -3,12 +3,15 @@ package org.mithwick93.accountable.controller.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mithwick93.accountable.cache.AssetCache;
+import org.mithwick93.accountable.cache.LiabilityCache;
 import org.mithwick93.accountable.controller.dto.request.PaymentSystemCreditRequest;
 import org.mithwick93.accountable.controller.dto.request.PaymentSystemDebitRequest;
 import org.mithwick93.accountable.controller.dto.response.AssetResponse;
+import org.mithwick93.accountable.controller.dto.response.LiabilityResponse;
 import org.mithwick93.accountable.controller.dto.response.PaymentSystemCreditResponse;
 import org.mithwick93.accountable.controller.dto.response.PaymentSystemDebitResponse;
 import org.mithwick93.accountable.model.Asset;
+import org.mithwick93.accountable.model.Liability;
 import org.mithwick93.accountable.model.PaymentSystemCredit;
 import org.mithwick93.accountable.model.PaymentSystemDebit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,12 @@ public abstract class PaymentSystemMapper extends BaseMapper {
     @Autowired
     private AssetCache assetCache;
 
+    @Autowired
+    private LiabilityMapper liabilityMapper;
+
+    @Autowired
+    private LiabilityCache liabilityCache;
+
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "modified", ignore = true)
     @Mapping(target = "id", ignore = true)
@@ -31,6 +40,7 @@ public abstract class PaymentSystemMapper extends BaseMapper {
     public abstract PaymentSystemCredit toPaymentSystemCredit(PaymentSystemCreditRequest request);
 
     @Mapping(target = "user", expression = "java(mapUser(model.getUserId()))")
+    @Mapping(target = "liability", expression = "java(mapLiability(model.getLiabilityId()))")
     public abstract PaymentSystemCreditResponse toPaymentSystemCreditResponse(PaymentSystemCredit model);
 
     public abstract List<PaymentSystemCreditResponse> toPaymentSystemCreditResponses(List<PaymentSystemCredit> models);
@@ -50,6 +60,11 @@ public abstract class PaymentSystemMapper extends BaseMapper {
     protected AssetResponse mapAsset(int assetId) {
         Asset asset = assetCache.getAsset(assetId);
         return assetMapper.toAssetResponse(asset);
+    }
+
+    protected LiabilityResponse mapLiability(int liabilityId) {
+        Liability liability = liabilityCache.getLiability(liabilityId);
+        return liabilityMapper.toLiabilityResponse(liability);
     }
 
 }

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record AssetResponse(
-        Long id,
+        int id,
         String type,
         String name,
         String description,

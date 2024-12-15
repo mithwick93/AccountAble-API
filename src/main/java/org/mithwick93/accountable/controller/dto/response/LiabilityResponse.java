@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record LiabilityResponse(
-        Integer id,
+        int id,
         String name,
         String description,
         String type,

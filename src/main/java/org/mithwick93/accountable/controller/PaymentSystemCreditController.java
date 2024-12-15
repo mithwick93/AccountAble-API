@@ -44,6 +44,13 @@ public class PaymentSystemCreditController {
         return ResponseEntity.ok(paymentSystemCreditResponse);
     }
 
+    @GetMapping("/liability/{liabilityId}")
+    public ResponseEntity<List<PaymentSystemCreditResponse>> getByAssetId(@PathVariable int liabilityId) {
+        List<PaymentSystemCredit> paymentSystemCredits = creditService.getByLiabilityId(liabilityId);
+        List<PaymentSystemCreditResponse> paymentSystemCreditResponses = paymentSystemMapper.toPaymentSystemCreditResponses(paymentSystemCredits);
+        return ResponseEntity.ok(paymentSystemCreditResponses);
+    }
+
     @PostMapping
     public ResponseEntity<PaymentSystemCreditResponse> create(@Valid @RequestBody PaymentSystemCreditRequest request) {
         PaymentSystemCredit newPaymentSystemCredit = paymentSystemMapper.toPaymentSystemCredit(request);

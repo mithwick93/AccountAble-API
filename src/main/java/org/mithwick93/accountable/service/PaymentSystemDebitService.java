@@ -31,6 +31,11 @@ public class PaymentSystemDebitService {
                 .orElseThrow(NotFoundException.supplier("Debit payment with id " + id + " not found"));
     }
 
+    @Transactional(readOnly = true)
+    public List<PaymentSystemDebit> getByAssetId(int assetId) {
+        return debitRepository.findByAssetIdAndUserId(assetId, jwtUtil.getAuthenticatedUserId());
+    }
+
     public PaymentSystemDebit create(PaymentSystemDebit paymentSystemDebit) {
         paymentSystemDebit.setUserId(jwtUtil.getAuthenticatedUserId());
         return debitRepository.save(paymentSystemDebit);

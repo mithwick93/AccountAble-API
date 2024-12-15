@@ -31,6 +31,11 @@ public class PaymentSystemCreditService {
                 .orElseThrow(NotFoundException.supplier("Credit payment with id " + id + " not found"));
     }
 
+    @Transactional(readOnly = true)
+    public List<PaymentSystemCredit> getByLiabilityId(int liabilityId) {
+        return creditRepository.findByLiabilityIdAndUserId(liabilityId, jwtUtil.getAuthenticatedUserId());
+    }
+
     public PaymentSystemCredit create(PaymentSystemCredit paymentSystemCredit) {
         paymentSystemCredit.setUserId(jwtUtil.getAuthenticatedUserId());
         return creditRepository.save(paymentSystemCredit);

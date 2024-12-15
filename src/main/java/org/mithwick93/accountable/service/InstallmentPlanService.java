@@ -31,6 +31,11 @@ public class InstallmentPlanService {
                 .orElseThrow(NotFoundException.supplier("InstallmentPlan with id " + id + " not found"));
     }
 
+    @Transactional(readOnly = true)
+    public List<InstallmentPlan> getByLiabilityId(int liabilityId) {
+        return installmentPlanRepository.findByLiabilityIdAndUserId(liabilityId, jwtUtil.getAuthenticatedUserId());
+    }
+
     public InstallmentPlan create(InstallmentPlan installmentPlan) {
         installmentPlan.setUserId(jwtUtil.getAuthenticatedUserId());
         return installmentPlanRepository.save(installmentPlan);

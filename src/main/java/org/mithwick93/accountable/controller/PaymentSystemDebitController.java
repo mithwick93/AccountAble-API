@@ -44,6 +44,13 @@ public class PaymentSystemDebitController {
         return ResponseEntity.ok(paymentSystemDebitResponse);
     }
 
+    @GetMapping("/assets/{assetId}")
+    public ResponseEntity<List<PaymentSystemDebitResponse>> getByAssetId(@PathVariable int assetId) {
+        List<PaymentSystemDebit> paymentSystemDebits = debitService.getByAssetId(assetId);
+        List<PaymentSystemDebitResponse> paymentSystemDebitResponses = paymentSystemMapper.toPaymentSystemDebitResponses(paymentSystemDebits);
+        return ResponseEntity.ok(paymentSystemDebitResponses);
+    }
+
     @PostMapping
     public ResponseEntity<PaymentSystemDebitResponse> create(@Valid @RequestBody PaymentSystemDebitRequest request) {
         PaymentSystemDebit newPaymentSystemDebit = paymentSystemMapper.toPaymentSystemDebit(request);

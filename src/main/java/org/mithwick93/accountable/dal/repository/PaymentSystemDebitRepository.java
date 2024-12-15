@@ -12,6 +12,8 @@ public interface PaymentSystemDebitRepository extends JpaRepository<PaymentSyste
 
     List<PaymentSystemDebit> findAllByUserId(int userId);
 
+    List<PaymentSystemDebit> findByAssetIdAndUserId(int assetId, int userId);
+
     Optional<PaymentSystemDebit> findByIdAndUserId(int id, int userId);
 
 }

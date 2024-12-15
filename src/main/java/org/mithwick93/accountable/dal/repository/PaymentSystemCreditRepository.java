@@ -12,6 +12,8 @@ public interface PaymentSystemCreditRepository extends JpaRepository<PaymentSyst
 
     List<PaymentSystemCredit> findAllByUserId(int userId);
 
+    List<PaymentSystemCredit> findByLiabilityIdAndUserId(int liabilityId, int userId);
+
     Optional<PaymentSystemCredit> findByIdAndUserId(int id, int userId);
 
 }

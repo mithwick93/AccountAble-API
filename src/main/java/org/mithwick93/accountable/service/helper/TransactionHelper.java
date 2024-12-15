@@ -2,9 +2,11 @@ package org.mithwick93.accountable.service.helper;
 
 import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.model.Currency;
+import org.mithwick93.accountable.model.PaymentSystemCredit;
 import org.mithwick93.accountable.model.PaymentSystemType;
 import org.mithwick93.accountable.model.Transaction;
 import org.mithwick93.accountable.service.AssetService;
+import org.mithwick93.accountable.service.LiabilityService;
 import org.mithwick93.accountable.service.PaymentSystemCreditService;
 import org.mithwick93.accountable.service.PaymentSystemDebitService;
 import org.mithwick93.accountable.service.PaymentSystemService;
@@ -19,6 +21,8 @@ import java.util.Objects;
 public class TransactionHelper {
 
     private final AssetService assetService;
+
+    private final LiabilityService liabilityService;
 
     private final PaymentSystemService paymentSystemService;
 
@@ -135,12 +139,20 @@ public class TransactionHelper {
     }
 
     private void handleCreditPayment(final int paymentSystemId, final BigDecimal amount, final Currency currency) {
-        paymentSystemCreditService.updateUtilizedAmount(paymentSystemId, amount, currency);
+        PaymentSystemCredit paymentSystemCredit = paymentSystemCreditService.getById(paymentSystemId);
+        int liabilityId = paymentSystemCredit.getLiabilityId();
+
+        liabilityService.updateBalance(liabilityId, amount, currency);
     }
 
+    //TODO: this should be from asset to liability
     private void processAccountToPaymentSystem(final int assetId, final int paymentSystemId, final BigDecimal amount, final Currency currency) {
         assetService.updateBalance(assetId, amount.negate(), currency);
-        paymentSystemCreditService.updateUtilizedAmount(paymentSystemId, amount, currency);
+
+        PaymentSystemCredit paymentSystemCredit = paymentSystemCreditService.getById(paymentSystemId);
+        int liabilityId = paymentSystemCredit.getLiabilityId();
+
+        liabilityService.updateBalance(liabilityId, amount, currency);
     }
 
     private void processAccountToAccount(final int fromAssetId, final int toAssetId, final BigDecimal amount, final Currency currency) {

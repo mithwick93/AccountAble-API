@@ -13,7 +13,7 @@ public enum InstallmentPlanStatus {
     OVERDUE,
     RESTRUCTURED;
 
-    public static final List<String> INSTALLMENT_PLAN_STATUS = Arrays.stream(InstallmentPlanStatus.values())
+    public static final List<String> INSTALLMENT_PLAN_STATUSES = Arrays.stream(InstallmentPlanStatus.values())
             .map(InstallmentPlanStatus::name)
             .collect(Collectors.toList());
 

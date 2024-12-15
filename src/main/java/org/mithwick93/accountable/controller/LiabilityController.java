@@ -82,7 +82,7 @@ public class LiabilityController {
 
     @GetMapping("/statuses")
     public ResponseEntity<List<String>> getStatuses() {
-        return ResponseEntity.ok(LiabilityStatus.LIABILITY_STATUS);
+        return ResponseEntity.ok(LiabilityStatus.LIABILITY_STATUSES);
     }
 
 }

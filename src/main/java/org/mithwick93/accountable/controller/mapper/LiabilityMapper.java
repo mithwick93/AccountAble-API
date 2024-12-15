@@ -13,16 +13,16 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class LiabilityMapper extends BaseMapper {
 
-    @Mapping(target = "user", expression = "java(mapUser(liability.getUserId()))")
-    public abstract LiabilityResponse toLiabilityResponse(Liability liability);
-
-    public abstract List<LiabilityResponse> toLiabilityResponses(List<Liability> liabilities);
-
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "modified", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "userId", ignore = true)
     public abstract Liability toLiability(LiabilityRequest liabilityRequest);
+
+    @Mapping(target = "user", expression = "java(mapUser(liability.getUserId()))")
+    public abstract LiabilityResponse toLiabilityResponse(Liability liability);
+
+    public abstract List<LiabilityResponse> toLiabilityResponses(List<Liability> liabilities);
 
     @Mapping(target = "name", expression = "java(liabilityType.toString())")
     public abstract LiabilityTypeResponse toLiabilityTypeResponse(LiabilityType liabilityType);

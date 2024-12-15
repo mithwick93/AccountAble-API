@@ -13,7 +13,7 @@ public enum LiabilityStatus {
     SUSPENDED,
     PENDING_ACTIVATION;
 
-    public static final List<String> LIABILITY_STATUS = Arrays.stream(LiabilityStatus.values())
+    public static final List<String> LIABILITY_STATUSES = Arrays.stream(LiabilityStatus.values())
             .map(LiabilityStatus::name)
             .collect(Collectors.toList());
 

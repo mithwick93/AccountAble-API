@@ -39,6 +39,12 @@ public @interface ValidTransaction {
         private final Predicate<TransactionRequest> toPaymentSystemPresent =
                 transactionRequest -> transactionRequest.toPaymentSystemId() != null;
 
+        private final Predicate<TransactionRequest> fromLiabilityPresent =
+                transactionRequest -> transactionRequest.fromLiabilityId() != null;
+
+        private final Predicate<TransactionRequest> toLiabilityPresent =
+                transactionRequest -> transactionRequest.toLiabilityId() != null;
+
         private final Predicate<TransactionRequest> sharedTransactionsPresent =
                 transactionRequest -> transactionRequest.sharedTransactions() != null && !transactionRequest.sharedTransactions().isEmpty();
 
@@ -59,6 +65,8 @@ public @interface ValidTransaction {
                     toAssetPresent.test(transactionRequest) &&
                     !fromPaymentSystemPresent.test(transactionRequest) &&
                     !toPaymentSystemPresent.test(transactionRequest) &&
+                    !fromLiabilityPresent.test(transactionRequest) &&
+                    !toLiabilityPresent.test(transactionRequest) &&
                     !sharedTransactionsPresent.test(transactionRequest);
         }
 
@@ -66,7 +74,9 @@ public @interface ValidTransaction {
             return !fromAssetPresent.test(transactionRequest) &&
                     !toAssetPresent.test(transactionRequest) &&
                     fromPaymentSystemPresent.test(transactionRequest) &&
-                    !toPaymentSystemPresent.test(transactionRequest);
+                    !toPaymentSystemPresent.test(transactionRequest) &&
+                    !fromLiabilityPresent.test(transactionRequest) &&
+                    !toLiabilityPresent.test(transactionRequest);
         }
 
         private boolean validateTransfer(TransactionRequest transactionRequest) {
@@ -74,10 +84,13 @@ public @interface ValidTransaction {
             boolean isToAssetPresent = toAssetPresent.test(transactionRequest);
             boolean isFromPaymentSystemPresent = fromPaymentSystemPresent.test(transactionRequest);
             boolean isToPaymentSystemPresent = toPaymentSystemPresent.test(transactionRequest);
+            boolean isFromLiabilityPresent = fromLiabilityPresent.test(transactionRequest);
+            boolean isToLiabilityPresent = toLiabilityPresent.test(transactionRequest);
             boolean isSharedTransactionsPresent = sharedTransactionsPresent.test(transactionRequest);
 
-            return (isFromAssetPresent && isToAssetPresent && !isFromPaymentSystemPresent && !isToPaymentSystemPresent && !isSharedTransactionsPresent) ||
-                    (isFromAssetPresent && isToPaymentSystemPresent && !isToAssetPresent && !isFromPaymentSystemPresent && !isSharedTransactionsPresent);
+            return (isFromAssetPresent && isToAssetPresent && !isFromPaymentSystemPresent && !isToPaymentSystemPresent && !isSharedTransactionsPresent && !isFromLiabilityPresent && !isToLiabilityPresent) ||
+                    (isFromAssetPresent && isToPaymentSystemPresent && !isToAssetPresent && !isFromPaymentSystemPresent && !isSharedTransactionsPresent && !isFromLiabilityPresent && !isToLiabilityPresent) ||
+                    (isFromAssetPresent && isToLiabilityPresent && !isToAssetPresent && !isFromPaymentSystemPresent && !isSharedTransactionsPresent && !isFromLiabilityPresent && !isToPaymentSystemPresent);
         }
 
     }

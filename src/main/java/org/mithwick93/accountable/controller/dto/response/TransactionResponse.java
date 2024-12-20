@@ -25,16 +25,28 @@ public record TransactionResponse(
         LocalDate date,
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        Integer fromAssetId,
+        AssetResponse fromAsset,
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        Integer toAssetId,
+        AssetResponse toAsset,
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        Integer fromPaymentSystemId,
+        PaymentSystemCreditResponse fromPaymentSystemCredit,
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        Integer toPaymentSystemId,
+        PaymentSystemCreditResponse toPaymentSystemCredit,
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        PaymentSystemDebitResponse fromPaymentSystemDebit,
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        PaymentSystemDebitResponse toPaymentSystemDebit,
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        LiabilityResponse fromLiability,
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        LiabilityResponse toLiability,
 
         UserResponse user,
 

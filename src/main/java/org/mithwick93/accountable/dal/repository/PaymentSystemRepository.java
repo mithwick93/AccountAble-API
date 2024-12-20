@@ -19,4 +19,7 @@ public interface PaymentSystemRepository extends JpaRepository<PaymentSystem, In
     @Query(value = "SELECT type_id FROM payment_systems WHERE id = :id AND user_id = :userId", nativeQuery = true)
     Optional<Integer> findTypeIdById(@Param("id") int id, @Param("userId") int userId);
 
+    @Query(value = "SELECT type_id FROM payment_systems WHERE id = :id", nativeQuery = true)
+    Optional<Integer> findTypeIdById(@Param("id") int id);
+
 }

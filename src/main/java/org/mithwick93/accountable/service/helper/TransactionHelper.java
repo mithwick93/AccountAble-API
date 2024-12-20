@@ -68,6 +68,8 @@ public class TransactionHelper {
     private void reverseTransfer(final Transaction transaction) {
         if (transaction.isPaymentSystemTransfer()) {
             reverseAccountToPaymentSystem(transaction);
+        } else if (transaction.isLiabilitySettlementTransfer()) {
+            reverseAccountToLiability(transaction);
         } else if (transaction.isAccountToAccountTransfer()) {
             reverseAccountToAccount(transaction);
         } else {
@@ -76,9 +78,15 @@ public class TransactionHelper {
     }
 
     private void reverseAccountToPaymentSystem(final Transaction transaction) {
-        Integer fromAssetId = Objects.requireNonNull(transaction.getFromAssetId(), "From Asset ID is required for Payment System Transfer");
-        Integer toPaymentSystemId = Objects.requireNonNull(transaction.getToPaymentSystemId(), "To Payment System ID is required for Payment System Transfer");
+        Integer fromAssetId = Objects.requireNonNull(transaction.getFromAssetId(), "From Asset ID is required for Account-to-Payment System Transfer");
+        Integer toPaymentSystemId = Objects.requireNonNull(transaction.getToPaymentSystemId(), "To Payment System ID is required for Account-to-Payment System Transfer");
         processAccountToPaymentSystem(fromAssetId, toPaymentSystemId, transaction.getAmount().negate(), transaction.getCurrency());
+    }
+
+    private void reverseAccountToLiability(final Transaction transaction) {
+        Integer fromAssetId = Objects.requireNonNull(transaction.getFromAssetId(), "From Asset ID is required for Account-to-Liability Transfer");
+        Integer toLiabilityId = Objects.requireNonNull(transaction.getToLiabilityId(), "To Liability ID is required for Account-to-Liability Transfer");
+        processAccountToLiability(fromAssetId, toLiabilityId, transaction.getAmount().negate(), transaction.getCurrency());
     }
 
     private void reverseAccountToAccount(final Transaction transaction) {
@@ -100,8 +108,16 @@ public class TransactionHelper {
     private void handleTransfer(final Transaction transaction) {
         if (transaction.isPaymentSystemTransfer()) {
             processAccountToPaymentSystem(
-                    Objects.requireNonNull(transaction.getFromAssetId(), "From Asset ID is required for Payment System Transfer"),
-                    Objects.requireNonNull(transaction.getToPaymentSystemId(), "To Payment System ID is required for Payment System Transfer"),
+                    Objects.requireNonNull(transaction.getFromAssetId(), "From Asset ID is required for Account-to-Payment System Transfer"),
+                    Objects.requireNonNull(transaction.getToPaymentSystemId(), "To Payment System ID is required for Account-to-Payment System Transfer"),
+                    transaction.getAmount(),
+                    transaction.getCurrency()
+            );
+
+        } else if (transaction.isLiabilitySettlementTransfer()) {
+            processAccountToLiability(
+                    Objects.requireNonNull(transaction.getFromAssetId(), "From Asset ID is required for Account-to-Liability Transfer"),
+                    Objects.requireNonNull(transaction.getToLiabilityId(), "To Liability ID is required for Account-to-Liability Transfer"),
                     transaction.getAmount(),
                     transaction.getCurrency()
             );
@@ -139,19 +155,21 @@ public class TransactionHelper {
     }
 
     private void handleCreditPayment(final int paymentSystemId, final BigDecimal amount, final Currency currency) {
-        PaymentSystemCredit paymentSystemCredit = paymentSystemCreditService.getById(paymentSystemId);
-        int liabilityId = paymentSystemCredit.getLiabilityId();
-
+        int liabilityId = paymentSystemCreditService.getById(paymentSystemId).getLiabilityId();
         liabilityService.updateBalance(liabilityId, amount, currency);
     }
 
-    //TODO: this should be from asset to liability
     private void processAccountToPaymentSystem(final int assetId, final int paymentSystemId, final BigDecimal amount, final Currency currency) {
         assetService.updateBalance(assetId, amount.negate(), currency);
 
         PaymentSystemCredit paymentSystemCredit = paymentSystemCreditService.getById(paymentSystemId);
         int liabilityId = paymentSystemCredit.getLiabilityId();
 
+        liabilityService.updateBalance(liabilityId, amount, currency);
+    }
+
+    private void processAccountToLiability(final int assetId, final int liabilityId, final BigDecimal amount, final Currency currency) {
+        assetService.updateBalance(assetId, amount.negate(), currency);
         liabilityService.updateBalance(liabilityId, amount, currency);
     }
 

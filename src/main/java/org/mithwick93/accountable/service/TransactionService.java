@@ -78,6 +78,8 @@ public class TransactionService {
         existingTransaction.setToAssetId(transaction.getToAssetId());
         existingTransaction.setFromPaymentSystemId(transaction.getFromPaymentSystemId());
         existingTransaction.setToPaymentSystemId(transaction.getToPaymentSystemId());
+        existingTransaction.setFromLiabilityId(transaction.getFromLiabilityId());
+        existingTransaction.setToLiabilityId(transaction.getToLiabilityId());
         existingTransaction.setUserId(transaction.getUserId());
         existingTransaction.setSharedTransactions(transaction.getSharedTransactions());
 

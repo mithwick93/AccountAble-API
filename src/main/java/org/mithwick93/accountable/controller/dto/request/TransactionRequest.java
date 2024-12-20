@@ -47,6 +47,10 @@ public record TransactionRequest(
 
         Integer toPaymentSystemId,
 
+        Integer fromLiabilityId,
+
+        Integer toLiabilityId,
+
         @NotNull
         int userId,
 

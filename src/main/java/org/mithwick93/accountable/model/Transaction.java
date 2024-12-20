@@ -78,6 +78,14 @@ public class Transaction extends AuditableEntity {
     @Nullable
     private Integer toPaymentSystemId; // For TRANSFER: credited payment system
 
+    @Column(name = "from_liability_id")
+    @Nullable
+    private Integer fromLiabilityId; // For TRANSFER: liability being transferred from
+
+    @Column(name = "to_liability_id")
+    @Nullable
+    private Integer toLiabilityId; // For TRANSFER: liability being transferred to
+
     @Column(name = "user_id", nullable = false)
     private int userId;
 
@@ -100,6 +108,12 @@ public class Transaction extends AuditableEntity {
         return TransactionType.TRANSFER.equals(type) &&
                 getFromAssetId() != null &&
                 getToPaymentSystemId() != null;
+    }
+
+    public boolean isLiabilitySettlementTransfer() {
+        return TransactionType.TRANSFER.equals(type) &&
+                getFromAssetId() != null &&
+                getToLiabilityId() != null;
     }
 
     public boolean isAccountToAccountTransfer() {

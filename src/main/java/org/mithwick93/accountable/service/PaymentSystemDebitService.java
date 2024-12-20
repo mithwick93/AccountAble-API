@@ -6,6 +6,8 @@ import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.model.PaymentSystemDebit;
 import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,11 +38,13 @@ public class PaymentSystemDebitService {
         return debitRepository.findByAssetIdAndUserId(assetId, jwtUtil.getAuthenticatedUserId());
     }
 
+    @CachePut(value = "payment_system_debit_cache", key = "#result.id", unless = "#result == null")
     public PaymentSystemDebit create(PaymentSystemDebit paymentSystemDebit) {
         paymentSystemDebit.setUserId(jwtUtil.getAuthenticatedUserId());
         return debitRepository.save(paymentSystemDebit);
     }
 
+    @CachePut(value = "payment_system_debit_cache", key = "#result.id", unless = "#result == null")
     public PaymentSystemDebit update(int id, PaymentSystemDebit paymentSystemDebit) {
         PaymentSystemDebit existingDebit = getById(id);
 
@@ -53,6 +57,7 @@ public class PaymentSystemDebitService {
         return debitRepository.save(existingDebit);
     }
 
+    @CacheEvict(value = "payment_system_debit_cache", key = "#id")
     public void delete(int id) {
         PaymentSystemDebit existingDebit = getById(id);
         debitRepository.delete(existingDebit);

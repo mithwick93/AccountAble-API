@@ -62,6 +62,14 @@ public class TransactionSpecification {
                     .filter(toPaymentSystemIds -> !toPaymentSystemIds.isEmpty())
                     .ifPresent(toPaymentSystemIds -> predicates.add(root.get("toPaymentSystemId").in(toPaymentSystemIds)));
 
+            // Filter by liability IDs
+            search.fromLiabilityIds()
+                    .filter(fromLiabilityIds -> !fromLiabilityIds.isEmpty())
+                    .ifPresent(fromLiabilityIds -> predicates.add(root.get("fromLiabilityId").in(fromLiabilityIds)));
+            search.toLiabilityIds()
+                    .filter(toLiabilityIds -> !toLiabilityIds.isEmpty())
+                    .ifPresent(toLiabilityIds -> predicates.add(root.get("toLiabilityId").in(toLiabilityIds)));
+
             // Handle unsettled shared transactions
             search.hasPendingSettlements().ifPresent(hasPendingSettlements -> {
                 Join<Transaction, SharedTransaction> sharedTransactionJoin = root.join("sharedTransactions", JoinType.LEFT);

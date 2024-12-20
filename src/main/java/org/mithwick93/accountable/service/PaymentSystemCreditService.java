@@ -6,6 +6,8 @@ import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.model.PaymentSystemCredit;
 import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,11 +38,13 @@ public class PaymentSystemCreditService {
         return creditRepository.findByLiabilityIdAndUserId(liabilityId, jwtUtil.getAuthenticatedUserId());
     }
 
+    @CachePut(value = "payment_system_credit_cache", key = "#result.id", unless = "#result == null")
     public PaymentSystemCredit create(PaymentSystemCredit paymentSystemCredit) {
         paymentSystemCredit.setUserId(jwtUtil.getAuthenticatedUserId());
         return creditRepository.save(paymentSystemCredit);
     }
 
+    @CachePut(value = "payment_system_credit_cache", key = "#result.id", unless = "#result == null")
     public PaymentSystemCredit update(int id, PaymentSystemCredit paymentSystemCredit) {
         PaymentSystemCredit existingCredit = getById(id);
 
@@ -52,6 +56,7 @@ public class PaymentSystemCreditService {
         return creditRepository.save(existingCredit);
     }
 
+    @CacheEvict(value = "payment_system_credit_cache", key = "#id")
     public void delete(int id) {
         PaymentSystemCredit existingCredit = getById(id);
         creditRepository.delete(existingCredit);

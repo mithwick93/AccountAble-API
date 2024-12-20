@@ -13,6 +13,8 @@ public record TransactionSearchRequest(
         List<Integer> toAssetIds,
         List<Integer> fromPaymentSystemIds,
         List<Integer> toPaymentSystemIds,
+        List<Integer> fromLiabilityIds,
+        List<Integer> toLiabilityIds,
         Boolean hasPendingSettlements,
         Boolean hasSharedTransactions
 ) {

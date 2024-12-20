@@ -23,6 +23,10 @@ public record TransactionSearch(
 
         Optional<List<Integer>> toPaymentSystemIds,
 
+        Optional<List<Integer>> fromLiabilityIds,
+
+        Optional<List<Integer>> toLiabilityIds,
+
         Optional<Boolean> hasPendingSettlements,
 
         Optional<Boolean> hasSharedTransactions

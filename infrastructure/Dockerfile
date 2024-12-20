@@ -9,4 +9,4 @@ COPY ${JAR_FILE} app.jar
 
 ENTRYPOINT ["java", "-jar", "-DdbUrl=${DB_URL}", "-DdbUsername=${DB_USERNAME}", "-DdbPassword=${DB_PASSWORD}", "-DrsaPrivateKey=${RSA_PRIVATE_KEY}", "-DrsaPublicKey=${RSA_PUBLIC_KEY}", "-DcurrencyApiKey=${CURRENCY_API_KEY}", "-DkeyStorePassword=${KEY_STORE_PASSWORD}", "app.jar"]
 
-EXPOSE 8080
+EXPOSE 8443

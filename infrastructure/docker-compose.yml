@@ -25,7 +25,7 @@ services:
     networks:
       - accountable-app-network
     ports:
-      - "8080:8080"
+      - "8443:8443"
     depends_on:
       db:
         condition: service_healthy

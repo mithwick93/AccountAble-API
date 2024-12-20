@@ -60,7 +60,6 @@ Java Spring Boot REST application for Personal finance management.
    
    docker-compose -p accountable -f infrastructure/docker-compose.yml build --no-cache && docker-compose -p accountable -f infrastructure/docker-compose.yml up --force-recreate -d && docker image prune -a -f
     ```
-   ```
 
 ## REST API
 

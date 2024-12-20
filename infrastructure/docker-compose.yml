@@ -36,6 +36,7 @@ services:
       CURRENCY_API_KEY: "${CURRENCY_API_KEY}"
       RSA_PRIVATE_KEY: "${RSA_PRIVATE_KEY}"
       RSA_PUBLIC_KEY: "${RSA_PUBLIC_KEY}"
+    restart: always
     deploy:
       resources:
         limits:

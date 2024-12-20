@@ -19,7 +19,6 @@ services:
 
   app:
     container_name: accountable-api
-    image: mithwick93/accountable-api
     build:
       context: ../
       dockerfile: ./infrastructure/Dockerfile

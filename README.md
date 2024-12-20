@@ -51,7 +51,7 @@ Java Spring Boot REST application for Personal finance management.
     export RSA_PRIVATE_KEY=#
     export RSA_PUBLIC_KEY=#
    
-   docker-compose -p accountable -f infrastructure/docker-compose.yml up --build --force-recreate -d
+   docker-compose -p accountable -f infrastructure/docker-compose.yml up --build --force-recreate --no-cache -d
    ```
 
 ## REST API

@@ -64,7 +64,7 @@ Java Spring Boot REST application for Personal finance management.
 
 ## REST API
 
-* Swagger UI is available at http://localhost:8080/swagger-ui/index.html#/
+* Swagger UI is available at https://localhost:8443/swagger-ui/index.html#/
 
 ## License Information
 

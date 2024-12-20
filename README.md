@@ -36,8 +36,10 @@ Java Spring Boot REST application for Personal finance management.
 3. The JWT authentication requires RSA public and private key pairs
    * Provide your own key pair in the RSA_PRIVATE_KEY and RSA_PUBLIC_KEY env variables in single line without new lines
 4. HTTPS requires a valid SSL certificate
-   * Provide your own *.p12 certificate in the resources folder and provide the password in the application.properties
-     fills as `server.ssl.key-store-password=####`
+   * Provide your own *.p12 certificate in the resources folder and provide the password in the KEY_STORE_PASSWORD env
+     variable
+5. Currency conversion requires a valid API key from https://www.exchangerate-api.com/
+   * Provide your own API key in the CURRENCY_API_KEY env variable
 
 #### Run API with docker compose
 
@@ -53,6 +55,8 @@ Java Spring Boot REST application for Personal finance management.
     export MYSQL_ROOT_PASSWORD=####
     export RSA_PRIVATE_KEY=#
     export RSA_PUBLIC_KEY=#
+    export KEY_STORE_PASSWORD=####
+    export CURRENCY_API_KEY=####
    
    docker-compose -p accountable -f infrastructure/docker-compose.yml build --no-cache && docker-compose -p accountable -f infrastructure/docker-compose.yml up --force-recreate -d && docker image prune -a -f
     ```

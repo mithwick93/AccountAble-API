@@ -1,3 +1,11 @@
+server:
+  port: 8443
+  address: 0.0.0.0
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: msw15931
+    key-store-type: PKCS12
 spring:
   profiles:
     active: test

@@ -40,3 +40,4 @@ out/
 SECRETS.md
 src/main/resources/certs/
 infrastructure/.env
+src/main/resources/*.p12

@@ -1,7 +1,12 @@
 # Server
 server:
-  port: 8080
+  port: 8443
   address: 0.0.0.0
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: ${keyStorePassword}
+    key-store-type: PKCS12
 spring:
   profiles:
     active: production

@@ -35,6 +35,9 @@ Java Spring Boot REST application for Personal finance management.
 
 3. The JWT authentication requires RSA public and private key pairs
    * Provide your own key pair in the RSA_PRIVATE_KEY and RSA_PUBLIC_KEY env variables in single line without new lines
+4. HTTPS requires a valid SSL certificate
+   * Provide your own *.p12 certificate in the resources folder and provide the password in the application.properties
+     fills as `server.ssl.key-store-password=####`
 
 #### Run API with docker compose
 

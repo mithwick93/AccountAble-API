@@ -102,7 +102,7 @@ public class SecurityConfiguration {
                 "http://localhost:3000",
                 "https://localhost:3000",
                 "https://localhost:3443",
-                "https://mithwick.com"
+                "https://*.mithwick.com"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));

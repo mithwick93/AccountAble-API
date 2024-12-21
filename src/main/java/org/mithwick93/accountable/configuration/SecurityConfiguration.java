@@ -101,6 +101,7 @@ public class SecurityConfiguration {
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "https://localhost:3000",
+                "https://localhost:3443",
                 "https://mithwick.com"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

@@ -14,4 +14,6 @@ public interface SettingsRepository extends JpaRepository<Setting, Long> {
 
     Optional<Setting> findBySettingKeyAndUserId(String settingKey, int userId);
 
+    boolean existsBySettingKeyAndUserId(String settingKey, int userId);
+
 }

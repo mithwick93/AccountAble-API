@@ -32,6 +32,10 @@ public class SettingsService {
     }
 
     public Setting save(Setting setting) {
+        if (settingsRepository.existsBySettingKeyAndUserId(setting.getSettingKey(), jwtUtil.getAuthenticatedUserId())) {
+            return update(setting);
+        }
+
         setting.setUserId(jwtUtil.getAuthenticatedUserId());
         return settingsRepository.save(setting);
     }

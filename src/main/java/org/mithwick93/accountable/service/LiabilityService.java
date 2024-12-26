@@ -55,6 +55,7 @@ public class LiabilityService {
         existingLiability.setInterestRate(liability.getInterestRate());
         existingLiability.setStatementDay(liability.getStatementDay());
         existingLiability.setDueDay(liability.getDueDay());
+        existingLiability.setStatus(liability.getStatus());
 
         return liabilityRepository.save(existingLiability);
     }

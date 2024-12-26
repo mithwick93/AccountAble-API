@@ -78,4 +78,4 @@ currency:
 metal:
   gold:
     url: "https://goldceylon.lk/today-gold-price-sri-lanka/"
-    xpath: "//*[@id=\"content\"]/div/div/div/div/div/section/div/div/div/strong/div[2]/div/div/p/span/strong"
+    xpath: "/html/body/div/main/div/div/div/div/div/section[1]/div/div[1]/div/div[9]/div/div/p/strong/span/strong"

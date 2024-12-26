@@ -46,15 +46,15 @@ public class LiabilityService {
     public Liability update(int id, Liability liability) {
         Liability existingLiability = getById(id);
 
-        liability.setName(liability.getName());
-        liability.setDescription(liability.getDescription());
-        liability.setType(liability.getType());
-        liability.setCurrency(liability.getCurrency());
-        liability.setAmount(liability.getAmount());
-        liability.setBalance(liability.getBalance());
-        liability.setInterestRate(liability.getInterestRate());
-        liability.setStatementDay(liability.getStatementDay());
-        liability.setDueDay(liability.getDueDay());
+        existingLiability.setName(liability.getName());
+        existingLiability.setDescription(liability.getDescription());
+        existingLiability.setType(liability.getType());
+        existingLiability.setCurrency(liability.getCurrency());
+        existingLiability.setAmount(liability.getAmount());
+        existingLiability.setBalance(liability.getBalance());
+        existingLiability.setInterestRate(liability.getInterestRate());
+        existingLiability.setStatementDay(liability.getStatementDay());
+        existingLiability.setDueDay(liability.getDueDay());
 
         return liabilityRepository.save(existingLiability);
     }

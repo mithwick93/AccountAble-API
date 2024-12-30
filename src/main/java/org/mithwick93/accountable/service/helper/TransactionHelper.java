@@ -165,12 +165,12 @@ public class TransactionHelper {
         PaymentSystemCredit paymentSystemCredit = paymentSystemCreditService.getById(paymentSystemId);
         int liabilityId = paymentSystemCredit.getLiabilityId();
 
-        liabilityService.updateBalance(liabilityId, amount, currency);
+        liabilityService.updateBalance(liabilityId, amount.negate(), currency);
     }
 
     private void processAccountToLiability(final int assetId, final int liabilityId, final BigDecimal amount, final Currency currency) {
         assetService.updateBalance(assetId, amount.negate(), currency);
-        liabilityService.updateBalance(liabilityId, amount, currency);
+        liabilityService.updateBalance(liabilityId, amount.negate(), currency);
     }
 
     private void processAccountToAccount(final int fromAssetId, final int toAssetId, final BigDecimal amount, final Currency currency) {

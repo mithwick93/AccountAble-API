@@ -120,17 +120,26 @@ public abstract class TransactionMapper extends BaseMapper {
         return toTransactionCategoryResponse(category);
     }
 
-    protected AssetResponse mapAsset(int assetId) {
+    protected AssetResponse mapAsset(Integer assetId) {
+        if (assetId == null) {
+            return null;
+        }
         Asset asset = assetCache.getAsset(assetId);
         return assetMapper.toAssetResponse(asset);
     }
 
-    protected LiabilityResponse mapLiability(int liabilityId) {
+    protected LiabilityResponse mapLiability(Integer liabilityId) {
+        if (liabilityId == null) {
+            return null;
+        }
         Liability liability = liabilityCache.getLiability(liabilityId);
         return liabilityMapper.toLiabilityResponse(liability);
     }
 
-    protected PaymentSystemCreditResponse mapPaymentSystemCredit(int paymentSystemId) {
+    protected PaymentSystemCreditResponse mapPaymentSystemCredit(Integer paymentSystemId) {
+        if (paymentSystemId == null) {
+            return null;
+        }
         if (paymentSystemCache.getPaymentSystemTypeById(paymentSystemId) != PaymentSystemType.CREDIT) {
             return null;
         }
@@ -139,7 +148,10 @@ public abstract class TransactionMapper extends BaseMapper {
         return paymentSystemMapper.toPaymentSystemCreditResponse(paymentSystemCredit);
     }
 
-    protected PaymentSystemDebitResponse mapPaymentSystemDebit(int paymentSystemId) {
+    protected PaymentSystemDebitResponse mapPaymentSystemDebit(Integer paymentSystemId) {
+        if (paymentSystemId == null) {
+            return null;
+        }
         if (paymentSystemCache.getPaymentSystemTypeById(paymentSystemId) != PaymentSystemType.DEBIT) {
             return null;
         }

@@ -26,6 +26,7 @@ import org.mithwick93.accountable.model.SharedTransaction;
 import org.mithwick93.accountable.model.Transaction;
 import org.mithwick93.accountable.model.TransactionCategory;
 import org.mithwick93.accountable.model.TransactionSearch;
+import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -54,6 +55,9 @@ public abstract class TransactionMapper extends BaseMapper {
 
     @Autowired
     private PaymentSystemCache paymentSystemCache;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "modified", ignore = true)
@@ -98,8 +102,12 @@ public abstract class TransactionMapper extends BaseMapper {
     public abstract List<SharedTransactionResponse> toSharedTransactionResponses(List<SharedTransaction> sharedTransactions);
 
     public TransactionSearch toTransactionSearch(TransactionSearchRequest request) {
+        List<Integer> userIdFallback = request.userIds() == null || request.userIds().isEmpty()
+                ? List.of(jwtUtil.getAuthenticatedUserId())
+                : request.userIds();
+        
         return new TransactionSearch(
-                Optional.ofNullable(request.userIds()),
+                Optional.of(userIdFallback),
                 Optional.ofNullable(request.dateFrom()),
                 Optional.ofNullable(request.dateTo()),
                 Optional.ofNullable(request.types()),

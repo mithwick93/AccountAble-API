@@ -11,7 +11,7 @@ public record SharedTransactionRequest(
         @NotNull
         int userId,
 
-        @DecimalMin(value = "0.0", inclusive = false, message = "Share amount must be greater than zero")
+        @DecimalMin(value = "0.0", message = "Share amount must be non negative")
         @NotNull
         BigDecimal share,
 

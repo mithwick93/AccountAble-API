@@ -91,9 +91,8 @@ public class TransactionService {
         transactionRepository.delete(existingTransaction);
     }
 
-    public List<Transaction> markTransactionsAsPaid(int requestUserId, @NotEmpty List<Long> transactionIds) {
-        transactionRepository.markTransactionsAsPaidByCreatorAndParticipant(requestUserId, transactionIds);
-        return transactionRepository.findAllById(transactionIds);
+    public int markTransactionsAsPaid(@NotEmpty List<Long> sharedTransactionIds) {
+        return transactionRepository.markSharedTransactionsAsPaid(sharedTransactionIds);
     }
 
     @Transactional(readOnly = true)

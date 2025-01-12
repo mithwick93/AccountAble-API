@@ -17,10 +17,10 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long>,
             value = """
                     UPDATE shared_transactions st
                     SET st.is_settled = 1, st.paid_amount = st.share
-                    WHERE st.user_id = :participantId AND st.transaction_id IN (:transactionIds)
+                    WHERE st.id IN (:sharedTransactionIds)
                     """,
             nativeQuery = true
     )
-    void markTransactionsAsPaidByCreatorAndParticipant(int participantId, List<Long> transactionIds);
+    int markSharedTransactionsAsPaid(List<Long> sharedTransactionIds);
 
 }

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.request.MarkTransactionsPaidRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionSearchRequest;
+import org.mithwick93.accountable.controller.dto.response.MessageResponse;
 import org.mithwick93.accountable.controller.dto.response.TransactionResponse;
 import org.mithwick93.accountable.controller.mapper.TransactionMapper;
 import org.mithwick93.accountable.model.Transaction;
@@ -79,10 +80,9 @@ public class TransactionController {
     }
 
     @PutMapping("/mark-as-paid")
-    public ResponseEntity<List<TransactionResponse>> markTransactionsAsPaid(@RequestBody MarkTransactionsPaidRequest request) {
-        List<Transaction> allTransactions = transactionService.markTransactionsAsPaid(request.userId(), request.transactionIds());
-        List<TransactionResponse> transactionResponses = transactionMapper.toTransactionResponses(allTransactions);
-        return ResponseEntity.ok(transactionResponses);
+    public ResponseEntity<MessageResponse> markTransactionsAsPaid(@RequestBody MarkTransactionsPaidRequest request) {
+        int updatedRowCount = transactionService.markTransactionsAsPaid(request.sharedTransactionIds());
+        return ResponseEntity.ok(MessageResponse.of(updatedRowCount + "shared transactions marked as paid"));
     }
 
     @PostMapping("/search")

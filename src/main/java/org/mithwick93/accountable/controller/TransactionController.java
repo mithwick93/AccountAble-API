@@ -82,7 +82,7 @@ public class TransactionController {
     @PutMapping("/mark-as-paid")
     public ResponseEntity<MessageResponse> markTransactionsAsPaid(@RequestBody MarkTransactionsPaidRequest request) {
         int updatedRowCount = transactionService.markTransactionsAsPaid(request.sharedTransactionIds());
-        return ResponseEntity.ok(MessageResponse.of(updatedRowCount + "shared transactions marked as paid"));
+        return ResponseEntity.ok(MessageResponse.of(updatedRowCount + " shared transactions marked as paid"));
     }
 
     @PostMapping("/search")

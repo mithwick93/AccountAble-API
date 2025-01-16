@@ -46,4 +46,22 @@ public abstract class PaymentSystem extends AuditableEntity {
     @Column(name = "user_id", nullable = false)
     private int userId;
 
+    @Column(name = "active", nullable = false)
+    private boolean active;
+
+    @Column(name = "card_holder_name")
+    private String cardHolderName;
+
+    @Column(name = "card_number")
+    private String cardNumber;
+
+    @Column(name = "security_code")
+    private String securityCode;
+
+    @Column(name = "expiry_date")
+    private String expiryDate;
+
+    @Column(name = "additional_note")
+    private String additionalNote;
+
 }

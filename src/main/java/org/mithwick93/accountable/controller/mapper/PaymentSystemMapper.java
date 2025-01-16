@@ -37,6 +37,7 @@ public abstract class PaymentSystemMapper extends BaseMapper {
     @Mapping(target = "modified", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "active", defaultValue = "true")
     public abstract PaymentSystemCredit toPaymentSystemCredit(PaymentSystemCreditRequest request);
 
     @Mapping(target = "user", expression = "java(mapUser(model.getUserId()))")
@@ -49,6 +50,7 @@ public abstract class PaymentSystemMapper extends BaseMapper {
     @Mapping(target = "modified", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "active", defaultValue = "true")
     public abstract PaymentSystemDebit toPaymentSystemDebit(PaymentSystemDebitRequest request);
 
     @Mapping(target = "user", expression = "java(mapUser(model.getUserId()))")

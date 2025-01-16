@@ -52,6 +52,12 @@ public class PaymentSystemCreditService {
         existingCredit.setDescription(paymentSystemCredit.getDescription());
         existingCredit.setCurrency(paymentSystemCredit.getCurrency());
         existingCredit.setLiabilityId(paymentSystemCredit.getLiabilityId());
+        existingCredit.setActive(paymentSystemCredit.isActive());
+        existingCredit.setCardHolderName(paymentSystemCredit.getCardHolderName());
+        existingCredit.setCardNumber(paymentSystemCredit.getCardNumber());
+        existingCredit.setSecurityCode(paymentSystemCredit.getSecurityCode());
+        existingCredit.setExpiryDate(paymentSystemCredit.getExpiryDate());
+        existingCredit.setAdditionalNote(paymentSystemCredit.getAdditionalNote());
 
         return creditRepository.save(existingCredit);
     }

@@ -9,6 +9,12 @@ public record PaymentSystemCreditResponse(
         String currency,
         LiabilityResponse liability,
         UserResponse user,
+        boolean active,
+        String cardHolderName,
+        String cardNumber,
+        String securityCode,
+        String expiryDate,
+        String additionalNote,
         LocalDateTime created,
         LocalDateTime modified
 ) {

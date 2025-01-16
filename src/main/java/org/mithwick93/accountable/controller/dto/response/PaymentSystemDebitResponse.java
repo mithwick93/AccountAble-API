@@ -11,6 +11,12 @@ public record PaymentSystemDebitResponse(
         AssetResponse asset,
         BigDecimal dailyLimit,
         UserResponse user,
+        boolean active,
+        String cardHolderName,
+        String cardNumber,
+        String securityCode,
+        String expiryDate,
+        String additionalNote,
         LocalDateTime created,
         LocalDateTime modified
 ) {

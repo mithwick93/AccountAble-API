@@ -19,7 +19,19 @@ public record PaymentSystemCreditRequest(
         String currency,
 
         @NotNull
-        int liabilityId
+        int liabilityId,
+
+        Boolean active,
+
+        String cardHolderName,
+
+        String cardNumber,
+
+        String securityCode,
+
+        String expiryDate,
+
+        String additionalNote
 ) {
 
 }

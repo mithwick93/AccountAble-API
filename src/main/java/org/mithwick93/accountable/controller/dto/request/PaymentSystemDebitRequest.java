@@ -25,7 +25,19 @@ public record PaymentSystemDebitRequest(
         int assetId,
 
         @DecimalMin(value = "0.0", message = "Daily limit must be non-negative")
-        BigDecimal dailyLimit
+        BigDecimal dailyLimit,
+
+        Boolean active,
+
+        String cardHolderName,
+
+        String cardNumber,
+
+        String securityCode,
+
+        String expiryDate,
+
+        String additionalNote
 ) {
 
 }

@@ -53,6 +53,12 @@ public class PaymentSystemDebitService {
         existingDebit.setCurrency(paymentSystemDebit.getCurrency());
         existingDebit.setAssetId(paymentSystemDebit.getAssetId());
         existingDebit.setDailyLimit(paymentSystemDebit.getDailyLimit());
+        existingDebit.setCardHolderName(paymentSystemDebit.getCardHolderName());
+        existingDebit.setCardNumber(paymentSystemDebit.getCardNumber());
+        existingDebit.setSecurityCode(paymentSystemDebit.getSecurityCode());
+        existingDebit.setExpiryDate(paymentSystemDebit.getExpiryDate());
+        existingDebit.setAdditionalNote(paymentSystemDebit.getAdditionalNote());
+        existingDebit.setActive(paymentSystemDebit.isActive());
 
         return debitRepository.save(existingDebit);
     }

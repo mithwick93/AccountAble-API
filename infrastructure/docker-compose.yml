@@ -30,6 +30,7 @@ services:
       db:
         condition: service_healthy
     environment:
+      APP_PORT: "${APP_PORT}"
       DB_URL: "${DB_URL}"
       DB_USERNAME: "${DB_USERNAME}"
       DB_PASSWORD: "${DB_PASSWORD}"

@@ -1,6 +1,6 @@
 # Server
 server:
-  port: 8443
+  port: ${appPort}
   address: 0.0.0.0
   ssl:
     enabled: true

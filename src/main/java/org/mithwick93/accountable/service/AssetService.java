@@ -51,6 +51,7 @@ public class AssetService {
         existingAsset.setDescription(asset.getDescription());
         existingAsset.setBalance(asset.getBalance());
         existingAsset.setCurrency(asset.getCurrency());
+        existingAsset.setActive(asset.isActive());
 
         return assetRepository.save(existingAsset);
     }

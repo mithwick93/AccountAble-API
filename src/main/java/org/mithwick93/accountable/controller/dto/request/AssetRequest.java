@@ -29,7 +29,9 @@ public record AssetRequest(
 
         @NotBlank
         @ValidEnum(enumClass = Currency.class, message = "must be a valid currency")
-        String currency
+        String currency,
+
+        Boolean active
 ) {
 
 }

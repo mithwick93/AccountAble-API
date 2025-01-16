@@ -17,6 +17,7 @@ public abstract class AssetMapper extends BaseMapper {
     @Mapping(target = "modified", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "active", defaultValue = "true")
     public abstract Asset toAsset(AssetRequest assetRequest);
 
     @Mapping(target = "user", expression = "java(mapUser(asset.getUserId()))")

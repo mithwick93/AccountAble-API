@@ -11,6 +11,7 @@ public record AssetResponse(
         BigDecimal balance,
         String currency,
         UserResponse user,
+        boolean active,
         LocalDateTime created,
         LocalDateTime modified
 ) {

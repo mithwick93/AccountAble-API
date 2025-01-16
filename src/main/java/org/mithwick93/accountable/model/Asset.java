@@ -48,4 +48,7 @@ public class Asset extends AuditableEntity {
     @Column(name = "user_id", nullable = false)
     private int userId;
 
+    @Column(name = "active", nullable = false)
+    private boolean active;
+
 }

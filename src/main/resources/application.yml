@@ -68,6 +68,8 @@ refresh-token:
 rsa:
   private-key: ${rsaPrivateKey}
   public-key: ${rsaPublicKey}
+encryption:
+  aes-secret-key: ${aesSecretKey}
 
 currency:
   api:

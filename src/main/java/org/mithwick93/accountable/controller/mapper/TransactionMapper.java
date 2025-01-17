@@ -105,7 +105,7 @@ public abstract class TransactionMapper extends BaseMapper {
         List<Integer> userIdFallback = request.userIds() == null || request.userIds().isEmpty()
                 ? List.of(jwtUtil.getAuthenticatedUserId())
                 : request.userIds();
-        
+
         return new TransactionSearch(
                 Optional.of(userIdFallback),
                 Optional.ofNullable(request.dateFrom()),

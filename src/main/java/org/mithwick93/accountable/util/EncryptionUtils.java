@@ -16,10 +16,12 @@ public class EncryptionUtils {
 
     @Autowired
     public EncryptionUtils(@Value("${encryption.aes-secret-key}") String key) {
-        this.secretKey = new SecretKeySpec(key.getBytes(), "AES");
+        byte[] decodedKey = Base64.getDecoder().decode(key);
+        this.secretKey = new SecretKeySpec(decodedKey, "AES");
     }
 
     public String encrypt(String plainText) {
+        if (plainText == null) return null;
         try {
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
@@ -31,6 +33,7 @@ public class EncryptionUtils {
     }
 
     public String decrypt(String encryptedText) {
+        if (encryptedText == null) return null;
         try {
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.DECRYPT_MODE, secretKey);

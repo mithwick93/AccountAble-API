@@ -24,7 +24,8 @@ public final class LoggingAspect {
 
     private static boolean isSensitiveEndpoint(HttpServletRequest request) {
         return request.getRequestURI().contains("/login")
-                || request.getRequestURI().contains("/register");
+                || request.getRequestURI().contains("/register")
+                || request.getRequestURI().contains("/payment-systems");
     }
 
     private static void executeWithExceptionHandling(Runnable runnable) {

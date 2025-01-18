@@ -102,7 +102,8 @@ public class SecurityConfiguration {
                 "http://localhost:3000",
                 "https://localhost:3000",
                 "https://localhost:3443",
-                "https://accountable.mithwick.com"
+                "https://accountable.mithwick.com",
+                "https://mithwick.cloudflareaccess.com"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));

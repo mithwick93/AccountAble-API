@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -69,8 +70,8 @@ public class TransactionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id) {
-        transactionService.deleteTransaction(id);
+    public ResponseEntity<Void> delete(@PathVariable long id, @RequestParam("updateAccounts") boolean updateAccounts) {
+        transactionService.deleteTransaction(id, updateAccounts);
         return ResponseEntity.noContent().build();
     }
 

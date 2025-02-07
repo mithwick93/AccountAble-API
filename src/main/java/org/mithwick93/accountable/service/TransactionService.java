@@ -86,8 +86,13 @@ public class TransactionService {
         return transactionRepository.save(existingTransaction);
     }
 
-    public void deleteTransaction(long id) {
+    public void deleteTransaction(long id, boolean shouldUpdateAccounts) {
         Transaction existingTransaction = getTransactionById(id);
+
+        if (shouldUpdateAccounts) {
+            transactionHelper.reverseTransaction(existingTransaction);
+        }
+
         transactionRepository.delete(existingTransaction);
     }
 

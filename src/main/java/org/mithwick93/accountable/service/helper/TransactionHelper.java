@@ -35,7 +35,7 @@ public class TransactionHelper {
         updateAccounts(newTransaction);
     }
 
-    private void reverseTransaction(final Transaction transaction) {
+    public void reverseTransaction(final Transaction transaction) {
         switch (transaction.getType()) {
             case INCOME -> reverseIncome(transaction);
             case EXPENSE -> reverseExpense(transaction);

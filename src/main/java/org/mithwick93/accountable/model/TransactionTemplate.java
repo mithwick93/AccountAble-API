@@ -82,7 +82,7 @@ public class TransactionTemplate extends AuditableEntity {
 
     @Column(name = "day_of_month")
     @Nullable
-    private Integer dayOfMonth;
+    private Byte dayOfMonth;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "day_of_week")
@@ -91,7 +91,7 @@ public class TransactionTemplate extends AuditableEntity {
 
     @Column(name = "month_of_year")
     @Nullable
-    private Integer monthOfYear;
+    private Byte monthOfYear;
 
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;

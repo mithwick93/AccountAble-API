@@ -6,7 +6,7 @@ import org.mithwick93.accountable.controller.dto.request.CurrencyConvertRequests
 import org.mithwick93.accountable.controller.dto.response.CurrencyConvertResponses;
 import org.mithwick93.accountable.controller.dto.response.ExchangeRateResponse;
 import org.mithwick93.accountable.controller.mapper.ExchangeRateMapper;
-import org.mithwick93.accountable.model.Currency;
+import org.mithwick93.accountable.model.enums.Currency;
 import org.mithwick93.accountable.service.ExchangeRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

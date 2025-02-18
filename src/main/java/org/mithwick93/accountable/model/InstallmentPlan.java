@@ -14,6 +14,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.mithwick93.accountable.model.converter.CurrencyConverter;
+import org.mithwick93.accountable.model.enums.Currency;
+import org.mithwick93.accountable.model.enums.InstallmentPlanStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -1,10 +1,10 @@
 package org.mithwick93.accountable.service.helper;
 
 import lombok.RequiredArgsConstructor;
-import org.mithwick93.accountable.model.Currency;
 import org.mithwick93.accountable.model.PaymentSystemCredit;
-import org.mithwick93.accountable.model.PaymentSystemType;
 import org.mithwick93.accountable.model.Transaction;
+import org.mithwick93.accountable.model.enums.Currency;
+import org.mithwick93.accountable.model.enums.PaymentSystemType;
 import org.mithwick93.accountable.service.AssetService;
 import org.mithwick93.accountable.service.LiabilityService;
 import org.mithwick93.accountable.service.PaymentSystemCreditService;

@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.mithwick93.accountable.model.enums.TransactionType;
 
 @Entity
 @Table(name = "transaction_categories")

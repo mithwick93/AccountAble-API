@@ -6,7 +6,7 @@ import org.mithwick93.accountable.controller.dto.response.CurrencyConvertRespons
 import org.mithwick93.accountable.controller.dto.response.CurrencyConvertResponses;
 import org.mithwick93.accountable.gateway.CurrencyConversionGateway;
 import org.mithwick93.accountable.gateway.GoldConversionGateway;
-import org.mithwick93.accountable.model.Currency;
+import org.mithwick93.accountable.model.enums.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

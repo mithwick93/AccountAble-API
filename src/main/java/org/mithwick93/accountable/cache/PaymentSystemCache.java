@@ -6,7 +6,7 @@ import org.mithwick93.accountable.dal.repository.PaymentSystemDebitRepository;
 import org.mithwick93.accountable.dal.repository.PaymentSystemRepository;
 import org.mithwick93.accountable.model.PaymentSystemCredit;
 import org.mithwick93.accountable.model.PaymentSystemDebit;
-import org.mithwick93.accountable.model.PaymentSystemType;
+import org.mithwick93.accountable.model.enums.PaymentSystemType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package org.mithwick93.accountable.model.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import org.mithwick93.accountable.model.Currency;
+import org.mithwick93.accountable.model.enums.Currency;
 
 @Converter(autoApply = true)
 public class CurrencyConverter implements AttributeConverter<Currency, Integer> {

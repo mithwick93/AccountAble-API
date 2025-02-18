@@ -2,7 +2,7 @@ package org.mithwick93.accountable.controller.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.mithwick93.accountable.model.TransactionType;
+import org.mithwick93.accountable.model.enums.TransactionType;
 import org.mithwick93.accountable.validation.ValidEnum;
 
 public record TransactionCategoryRequest(

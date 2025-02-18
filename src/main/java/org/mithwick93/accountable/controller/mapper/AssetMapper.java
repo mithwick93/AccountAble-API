@@ -6,7 +6,7 @@ import org.mithwick93.accountable.controller.dto.request.AssetRequest;
 import org.mithwick93.accountable.controller.dto.response.AssetResponse;
 import org.mithwick93.accountable.controller.dto.response.AssetTypeResponse;
 import org.mithwick93.accountable.model.Asset;
-import org.mithwick93.accountable.model.AssetType;
+import org.mithwick93.accountable.model.enums.AssetType;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package org.mithwick93.accountable.model.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import org.mithwick93.accountable.model.LiabilityType;
+import org.mithwick93.accountable.model.enums.LiabilityType;
 
 @Converter(autoApply = true)
 public class LiabilityTypeConverter implements AttributeConverter<LiabilityType, Integer> {

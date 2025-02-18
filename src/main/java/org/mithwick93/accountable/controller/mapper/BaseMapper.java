@@ -2,10 +2,10 @@ package org.mithwick93.accountable.controller.mapper;
 
 import org.mithwick93.accountable.cache.UserCache;
 import org.mithwick93.accountable.controller.dto.response.UserResponse;
-import org.mithwick93.accountable.model.AssetType;
-import org.mithwick93.accountable.model.Currency;
-import org.mithwick93.accountable.model.LiabilityType;
 import org.mithwick93.accountable.model.User;
+import org.mithwick93.accountable.model.enums.AssetType;
+import org.mithwick93.accountable.model.enums.Currency;
+import org.mithwick93.accountable.model.enums.LiabilityType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class BaseMapper {

@@ -2,7 +2,7 @@ package org.mithwick93.accountable.model.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import org.mithwick93.accountable.model.AssetType;
+import org.mithwick93.accountable.model.enums.AssetType;
 
 @Converter(autoApply = true)
 public class AssetTypeConverter implements AttributeConverter<AssetType, Integer> {

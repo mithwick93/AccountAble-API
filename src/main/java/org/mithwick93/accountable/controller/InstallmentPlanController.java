@@ -6,7 +6,7 @@ import org.mithwick93.accountable.controller.dto.request.InstallmentPlanRequest;
 import org.mithwick93.accountable.controller.dto.response.InstallmentPlanResponse;
 import org.mithwick93.accountable.controller.mapper.InstallmentPlanMapper;
 import org.mithwick93.accountable.model.InstallmentPlan;
-import org.mithwick93.accountable.model.InstallmentPlanStatus;
+import org.mithwick93.accountable.model.enums.InstallmentPlanStatus;
 import org.mithwick93.accountable.service.InstallmentPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

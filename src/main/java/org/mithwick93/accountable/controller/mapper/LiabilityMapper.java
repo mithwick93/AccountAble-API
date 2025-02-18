@@ -6,7 +6,7 @@ import org.mithwick93.accountable.controller.dto.request.LiabilityRequest;
 import org.mithwick93.accountable.controller.dto.response.LiabilityResponse;
 import org.mithwick93.accountable.controller.dto.response.LiabilityTypeResponse;
 import org.mithwick93.accountable.model.Liability;
-import org.mithwick93.accountable.model.LiabilityType;
+import org.mithwick93.accountable.model.enums.LiabilityType;
 
 import java.util.List;
 

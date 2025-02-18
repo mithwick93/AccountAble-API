@@ -13,6 +13,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.mithwick93.accountable.model.converter.AssetTypeConverter;
 import org.mithwick93.accountable.model.converter.CurrencyConverter;
+import org.mithwick93.accountable.model.enums.AssetType;
+import org.mithwick93.accountable.model.enums.Currency;
 
 import java.math.BigDecimal;
 

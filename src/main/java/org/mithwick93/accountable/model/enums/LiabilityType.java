@@ -1,4 +1,4 @@
-package org.mithwick93.accountable.model;
+package org.mithwick93.accountable.model.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

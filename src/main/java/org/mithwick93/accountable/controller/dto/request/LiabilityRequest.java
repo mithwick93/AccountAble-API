@@ -6,9 +6,9 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.mithwick93.accountable.model.Currency;
-import org.mithwick93.accountable.model.LiabilityStatus;
-import org.mithwick93.accountable.model.LiabilityType;
+import org.mithwick93.accountable.model.enums.Currency;
+import org.mithwick93.accountable.model.enums.LiabilityStatus;
+import org.mithwick93.accountable.model.enums.LiabilityType;
 import org.mithwick93.accountable.validation.ValidEnum;
 
 import java.math.BigDecimal;

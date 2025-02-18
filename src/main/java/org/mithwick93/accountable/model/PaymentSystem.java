@@ -17,6 +17,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.mithwick93.accountable.model.converter.CurrencyConverter;
+import org.mithwick93.accountable.model.enums.Currency;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

@@ -21,11 +21,11 @@ import org.mithwick93.accountable.model.Asset;
 import org.mithwick93.accountable.model.Liability;
 import org.mithwick93.accountable.model.PaymentSystemCredit;
 import org.mithwick93.accountable.model.PaymentSystemDebit;
-import org.mithwick93.accountable.model.PaymentSystemType;
 import org.mithwick93.accountable.model.SharedTransaction;
 import org.mithwick93.accountable.model.Transaction;
 import org.mithwick93.accountable.model.TransactionCategory;
 import org.mithwick93.accountable.model.TransactionSearch;
+import org.mithwick93.accountable.model.enums.PaymentSystemType;
 import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 

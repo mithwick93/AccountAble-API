@@ -4,7 +4,7 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.mithwick93.accountable.model.Currency;
+import org.mithwick93.accountable.model.enums.Currency;
 import org.mithwick93.accountable.validation.ValidEnum;
 
 import java.math.BigDecimal;

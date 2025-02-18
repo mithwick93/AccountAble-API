@@ -15,6 +15,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.mithwick93.accountable.model.converter.CurrencyConverter;
 import org.mithwick93.accountable.model.converter.LiabilityTypeConverter;
+import org.mithwick93.accountable.model.enums.Currency;
+import org.mithwick93.accountable.model.enums.LiabilityStatus;
+import org.mithwick93.accountable.model.enums.LiabilityType;
 
 import java.math.BigDecimal;
 

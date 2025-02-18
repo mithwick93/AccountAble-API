@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static org.mithwick93.accountable.model.TransactionType.TRANSACTION_TYPES;
+import static org.mithwick93.accountable.model.enums.TransactionType.TRANSACTION_TYPES;
 
 @RestController
 @RequestMapping("/api/transactions")

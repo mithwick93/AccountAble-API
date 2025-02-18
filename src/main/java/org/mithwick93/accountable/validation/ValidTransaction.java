@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.Payload;
 import org.mithwick93.accountable.controller.dto.request.TransactionRequest;
-import org.mithwick93.accountable.model.TransactionType;
+import org.mithwick93.accountable.model.enums.TransactionType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

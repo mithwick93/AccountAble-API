@@ -5,7 +5,7 @@ import org.mithwick93.accountable.dal.repository.AssetRepository;
 import org.mithwick93.accountable.exception.BadRequestException;
 import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.model.Asset;
-import org.mithwick93.accountable.model.Currency;
+import org.mithwick93.accountable.model.enums.Currency;
 import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;

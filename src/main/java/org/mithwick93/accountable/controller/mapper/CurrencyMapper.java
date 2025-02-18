@@ -3,7 +3,7 @@ package org.mithwick93.accountable.controller.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mithwick93.accountable.controller.dto.response.CurrencyResponse;
-import org.mithwick93.accountable.model.Currency;
+import org.mithwick93.accountable.model.enums.Currency;
 
 import java.util.List;
 

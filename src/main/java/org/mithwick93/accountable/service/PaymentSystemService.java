@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.dal.repository.PaymentSystemRepository;
 import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.model.PaymentSystem;
-import org.mithwick93.accountable.model.PaymentSystemType;
+import org.mithwick93.accountable.model.enums.PaymentSystemType;
 import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

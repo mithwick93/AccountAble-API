@@ -3,7 +3,7 @@ package org.mithwick93.accountable.controller;
 import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.response.CurrencyResponse;
 import org.mithwick93.accountable.controller.mapper.CurrencyMapper;
-import org.mithwick93.accountable.model.Currency;
+import org.mithwick93.accountable.model.enums.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

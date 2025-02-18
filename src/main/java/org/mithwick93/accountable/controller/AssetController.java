@@ -7,7 +7,7 @@ import org.mithwick93.accountable.controller.dto.response.AssetResponse;
 import org.mithwick93.accountable.controller.dto.response.AssetTypeResponse;
 import org.mithwick93.accountable.controller.mapper.AssetMapper;
 import org.mithwick93.accountable.model.Asset;
-import org.mithwick93.accountable.model.AssetType;
+import org.mithwick93.accountable.model.enums.AssetType;
 import org.mithwick93.accountable.service.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

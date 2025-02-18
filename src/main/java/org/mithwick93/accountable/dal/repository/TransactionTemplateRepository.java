@@ -12,6 +12,6 @@ public interface TransactionTemplateRepository extends JpaRepository<Transaction
 
     List<TransactionTemplate> findAllByUserId(int userId);
 
-    Optional<TransactionTemplate> findByIdAndUserId(long id, int userId);
+    Optional<TransactionTemplate> findByIdAndUserId(int id, int userId);
 
 }

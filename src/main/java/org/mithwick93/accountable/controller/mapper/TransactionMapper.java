@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 import org.mithwick93.accountable.cache.AssetCache;
 import org.mithwick93.accountable.cache.LiabilityCache;
 import org.mithwick93.accountable.cache.PaymentSystemCache;
-import org.mithwick93.accountable.cache.TransactionCache;
+import org.mithwick93.accountable.cache.TransactionCategoryCache;
 import org.mithwick93.accountable.controller.dto.request.SharedTransactionRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionCategoryRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionRequest;
@@ -36,7 +36,7 @@ import java.util.Optional;
 public abstract class TransactionMapper extends BaseMapper {
 
     @Autowired
-    private TransactionCache transactionCache;
+    private TransactionCategoryCache transactionCategoryCache;
 
     @Autowired
     private AssetMapper assetMapper;
@@ -124,7 +124,7 @@ public abstract class TransactionMapper extends BaseMapper {
     }
 
     protected TransactionCategoryResponse mapTransactionCategory(Integer categoryId) {
-        TransactionCategory category = transactionCache.getTransactionCategory(categoryId);
+        TransactionCategory category = transactionCategoryCache.getTransactionCategory(categoryId);
         return toTransactionCategoryResponse(category);
     }
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class TransactionCache {
+public class TransactionCategoryCache {
 
     private final TransactionCategoryRepository transactionCategoryRepository;
 

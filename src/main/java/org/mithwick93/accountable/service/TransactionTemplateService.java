@@ -50,8 +50,8 @@ public class TransactionTemplateService {
         existingTransactionTemplate.setFromPaymentSystemId(transactionTemplate.getFromPaymentSystemId());
         existingTransactionTemplate.setToPaymentSystemId(transactionTemplate.getToPaymentSystemId());
         existingTransactionTemplate.setFrequency(transactionTemplate.getFrequency());
-        existingTransactionTemplate.setDayOfMonth(transactionTemplate.getDayOfMonth());
         existingTransactionTemplate.setDayOfWeek(transactionTemplate.getDayOfWeek());
+        existingTransactionTemplate.setDayOfMonth(transactionTemplate.getDayOfMonth());
         existingTransactionTemplate.setMonthOfYear(transactionTemplate.getMonthOfYear());
         existingTransactionTemplate.setStartDate(transactionTemplate.getStartDate());
         existingTransactionTemplate.setEndDate(transactionTemplate.getEndDate());

@@ -77,23 +77,25 @@ public class TransactionTemplate extends AuditableEntity {
     private Integer toPaymentSystemId;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Frequency frequency;
-
-    @Column(name = "day_of_month")
+    @Column(name = "frequency")
     @Nullable
-    private Byte dayOfMonth;
+    private Frequency frequency;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "day_of_week")
     @Nullable
     private DayOfWeek dayOfWeek;
 
+    @Column(name = "day_of_month")
+    @Nullable
+    private Byte dayOfMonth;
+
     @Column(name = "month_of_year")
     @Nullable
     private Byte monthOfYear;
 
-    @Column(name = "start_date", nullable = false)
+    @Column(name = "start_date")
+    @Nullable
     private LocalDate startDate;
 
     @Column(name = "end_date")

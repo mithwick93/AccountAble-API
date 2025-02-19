@@ -2,30 +2,17 @@ package org.mithwick93.accountable.controller.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mithwick93.accountable.cache.AssetCache;
-import org.mithwick93.accountable.cache.LiabilityCache;
-import org.mithwick93.accountable.cache.PaymentSystemCache;
-import org.mithwick93.accountable.cache.TransactionCategoryCache;
 import org.mithwick93.accountable.controller.dto.request.SharedTransactionRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionCategoryRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionSearchRequest;
-import org.mithwick93.accountable.controller.dto.response.AssetResponse;
-import org.mithwick93.accountable.controller.dto.response.LiabilityResponse;
-import org.mithwick93.accountable.controller.dto.response.PaymentSystemCreditResponse;
-import org.mithwick93.accountable.controller.dto.response.PaymentSystemDebitResponse;
 import org.mithwick93.accountable.controller.dto.response.SharedTransactionResponse;
 import org.mithwick93.accountable.controller.dto.response.TransactionCategoryResponse;
 import org.mithwick93.accountable.controller.dto.response.TransactionResponse;
-import org.mithwick93.accountable.model.Asset;
-import org.mithwick93.accountable.model.Liability;
-import org.mithwick93.accountable.model.PaymentSystemCredit;
-import org.mithwick93.accountable.model.PaymentSystemDebit;
 import org.mithwick93.accountable.model.SharedTransaction;
 import org.mithwick93.accountable.model.Transaction;
 import org.mithwick93.accountable.model.TransactionCategory;
 import org.mithwick93.accountable.model.TransactionSearch;
-import org.mithwick93.accountable.model.enums.PaymentSystemType;
 import org.mithwick93.accountable.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,28 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mapper(componentModel = "spring")
-public abstract class TransactionMapper extends BaseMapper {
-
-    @Autowired
-    private TransactionCategoryCache transactionCategoryCache;
-
-    @Autowired
-    private AssetMapper assetMapper;
-
-    @Autowired
-    private AssetCache assetCache;
-
-    @Autowired
-    private LiabilityMapper liabilityMapper;
-
-    @Autowired
-    private LiabilityCache liabilityCache;
-
-    @Autowired
-    private PaymentSystemMapper paymentSystemMapper;
-
-    @Autowired
-    private PaymentSystemCache paymentSystemCache;
+public abstract class TransactionMapper extends TransactionBaseMapper {
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -64,9 +30,6 @@ public abstract class TransactionMapper extends BaseMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "userId", ignore = true)
     public abstract TransactionCategory toTransactionCategory(TransactionCategoryRequest request);
-
-    @Mapping(target = "user", expression = "java(mapUser(transactionCategory.getUserId()))")
-    public abstract TransactionCategoryResponse toTransactionCategoryResponse(TransactionCategory transactionCategory);
 
     public abstract List<TransactionCategoryResponse> toTransactionCategoryResponses(List<TransactionCategory> transactionCategories);
 
@@ -121,51 +84,6 @@ public abstract class TransactionMapper extends BaseMapper {
                 Optional.ofNullable(request.hasPendingSettlements()),
                 Optional.ofNullable(request.hasSharedTransactions())
         );
-    }
-
-    protected TransactionCategoryResponse mapTransactionCategory(Integer categoryId) {
-        TransactionCategory category = transactionCategoryCache.getTransactionCategory(categoryId);
-        return toTransactionCategoryResponse(category);
-    }
-
-    protected AssetResponse mapAsset(Integer assetId) {
-        if (assetId == null) {
-            return null;
-        }
-        Asset asset = assetCache.getAsset(assetId);
-        return assetMapper.toAssetResponse(asset);
-    }
-
-    protected LiabilityResponse mapLiability(Integer liabilityId) {
-        if (liabilityId == null) {
-            return null;
-        }
-        Liability liability = liabilityCache.getLiability(liabilityId);
-        return liabilityMapper.toLiabilityResponse(liability);
-    }
-
-    protected PaymentSystemCreditResponse mapPaymentSystemCredit(Integer paymentSystemId) {
-        if (paymentSystemId == null) {
-            return null;
-        }
-        if (paymentSystemCache.getPaymentSystemTypeById(paymentSystemId) != PaymentSystemType.CREDIT) {
-            return null;
-        }
-
-        PaymentSystemCredit paymentSystemCredit = paymentSystemCache.getPaymentSystemCredit(paymentSystemId);
-        return paymentSystemMapper.toPaymentSystemCreditResponse(paymentSystemCredit);
-    }
-
-    protected PaymentSystemDebitResponse mapPaymentSystemDebit(Integer paymentSystemId) {
-        if (paymentSystemId == null) {
-            return null;
-        }
-        if (paymentSystemCache.getPaymentSystemTypeById(paymentSystemId) != PaymentSystemType.DEBIT) {
-            return null;
-        }
-
-        PaymentSystemDebit paymentSystemDebit = paymentSystemCache.getPaymentSystemDebit(paymentSystemId);
-        return paymentSystemMapper.toPaymentSystemDebitResponse(paymentSystemDebit);
     }
 
 }

@@ -79,5 +79,5 @@ currency:
 
 metal:
   gold:
-    url: "https://goldceylon.lk/today-gold-price-sri-lanka/"
-    xpath: "/html/body/div/main/div/div/div/div/div/section[1]/div/div[1]/div/div[9]/div/div/p/strong/span/strong"
+    url: "https://www.ideabeam.com/finance/rates/goldprice.php"
+    xpath: "/html/body/div[2]/div[3]/div[3]/div/table/tbody/tr[4]/td[2]"

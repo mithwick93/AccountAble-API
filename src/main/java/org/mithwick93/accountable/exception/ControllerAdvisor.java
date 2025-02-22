@@ -1,6 +1,7 @@
 package org.mithwick93.accountable.exception;
 
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,13 +20,18 @@ import java.net.URI;
 import java.util.List;
 
 @RestControllerAdvice
+@Slf4j
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = Throwable.class)
-    public ResponseEntity<ProblemDetail> handleThrowable(WebRequest request) {
+    public ResponseEntity<ProblemDetail> handleThrowable(Throwable ex, WebRequest request) {
+        String requestUri = ((ServletWebRequest) request).getRequest().getRequestURI();
+
+        log.error("Unhandled exception occurred at [{}]: {}", requestUri, ex.getMessage(), ex);
+
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         problemDetail.setTitle("Internal server error");
-        problemDetail.setInstance(URI.create(((ServletWebRequest) request).getRequest().getRequestURI()));
+        problemDetail.setInstance(URI.create(requestUri));
 
         return new ResponseEntity<>(problemDetail, HttpStatus.INTERNAL_SERVER_ERROR);
     }

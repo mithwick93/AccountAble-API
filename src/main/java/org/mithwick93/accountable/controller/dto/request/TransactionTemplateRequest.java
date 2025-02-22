@@ -8,13 +8,11 @@ import org.mithwick93.accountable.model.enums.Currency;
 import org.mithwick93.accountable.model.enums.Frequency;
 import org.mithwick93.accountable.model.enums.TransactionType;
 import org.mithwick93.accountable.validation.ValidEnum;
-import org.mithwick93.accountable.validation.ValidTransaction;
 
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-@ValidTransaction
 public record TransactionTemplateRequest(
         @NotBlank
         @Size(max = 100)
@@ -47,7 +45,7 @@ public record TransactionTemplateRequest(
 
         @ValidEnum(enumClass = Frequency.class, message = "must be a valid frequency")
         String frequency,
-        
+
         @ValidEnum(enumClass = DayOfWeek.class, message = "must be a valid day of week")
         String dayOfWeek,
 

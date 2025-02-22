@@ -28,7 +28,7 @@ public record TransactionTemplateRequest(
         Integer categoryId,
 
         @NotNull(message = "Transaction amount is required")
-        @DecimalMin(value = "0.0", inclusive = false, message = "Transaction amount must be greater than zero")
+        @DecimalMin(value = "0.0", message = "Transaction amount must be non negative")
         BigDecimal amount,
 
         @NotBlank

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.dal.repository.TransactionCategoryRepository;
 import org.mithwick93.accountable.dal.repository.TransactionRepository;
 import org.mithwick93.accountable.dal.repository.specification.TransactionSpecification;
+import org.mithwick93.accountable.exception.AuthException;
 import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.model.Transaction;
 import org.mithwick93.accountable.model.TransactionCategory;
@@ -53,6 +54,10 @@ public class TransactionService {
     }
 
     public Transaction createTransaction(Transaction transaction, boolean shouldUpdateAccounts) {
+        if (transaction.getUserId() != jwtUtil.getAuthenticatedUserId()) {
+            throw new AuthException("Creating transactions for other users is not supported");
+        }
+
         if (shouldUpdateAccounts) {
             transactionHelper.updateAccounts(transaction);
         }
@@ -62,6 +67,10 @@ public class TransactionService {
 
     public Transaction updateTransaction(long id, Transaction transaction, boolean shouldUpdateAccounts) {
         Transaction existingTransaction = getTransactionById(id);
+
+        if (existingTransaction.getUserId() != jwtUtil.getAuthenticatedUserId()) {
+            throw new AuthException("Updating transactions for other users is not supported");
+        }
 
         if (shouldUpdateAccounts) {
             transactionHelper.updateAccounts(existingTransaction, transaction);
@@ -88,6 +97,10 @@ public class TransactionService {
 
     public void deleteTransaction(long id, boolean shouldUpdateAccounts) {
         Transaction existingTransaction = getTransactionById(id);
+
+        if (existingTransaction.getUserId() != jwtUtil.getAuthenticatedUserId()) {
+            throw new AuthException("Deleting transactions from other users is not supported");
+        }
 
         if (shouldUpdateAccounts) {
             transactionHelper.reverseTransaction(existingTransaction);

@@ -13,9 +13,12 @@ import org.mithwick93.accountable.model.SharedTransaction;
 import org.mithwick93.accountable.model.Transaction;
 import org.mithwick93.accountable.model.TransactionCategory;
 import org.mithwick93.accountable.model.TransactionSearch;
+import org.mithwick93.accountable.model.enums.Currency;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public abstract class TransactionMapper extends TransactionBaseMapper {
@@ -60,11 +63,23 @@ public abstract class TransactionMapper extends TransactionBaseMapper {
     public abstract List<SharedTransactionResponse> toSharedTransactionResponses(List<SharedTransaction> sharedTransactions);
 
     public TransactionSearch toTransactionSearch(TransactionSearchRequest request) {
+        List<Currency> currencyEnums = Optional.ofNullable(request.currencies())
+                .map(currencies -> currencies.stream()
+                        .filter(Objects::nonNull)
+                        .map(currency -> Currency.valueOf(currency.toUpperCase()))
+                        .collect(Collectors.toList())
+                )
+                .orElse(null);
 
         return new TransactionSearch(
                 Optional.ofNullable(request.userIds()),
+                Optional.ofNullable(request.name()),
+                Optional.ofNullable(request.description()),
                 Optional.ofNullable(request.dateFrom()),
                 Optional.ofNullable(request.dateTo()),
+                Optional.ofNullable(currencyEnums),
+                Optional.ofNullable(request.amountFrom()),
+                Optional.ofNullable(request.amountTo()),
                 Optional.ofNullable(request.types()),
                 Optional.ofNullable(request.categoryIds()),
                 Optional.ofNullable(request.fromAssetIds()),

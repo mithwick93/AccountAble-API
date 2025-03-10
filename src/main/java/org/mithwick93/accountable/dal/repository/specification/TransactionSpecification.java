@@ -28,12 +28,35 @@ public class TransactionSpecification {
                     .filter(userIds -> !userIds.isEmpty())
                     .ifPresent(userIds -> predicates.add(root.get("userId").in(userIds)));
 
+            // Filter by name
+            search.name().ifPresent(name ->
+                    predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + name.toLowerCase() + "%"))
+            );
+
+            //Filter by description
+            search.description().ifPresent(description ->
+                    predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), "%" + description.toLowerCase() + "%"))
+            );
+
             // Date filters
             search.dateFrom().ifPresent(dateFrom ->
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("date"), dateFrom))
             );
             search.dateTo().ifPresent(dateTo ->
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("date"), dateTo))
+            );
+
+            // Filter by currencies
+            search.currencies()
+                    .filter(currencies -> !currencies.isEmpty())
+                    .ifPresent(currencies -> predicates.add(root.get("currency").in(currencies)));
+
+            // Filter by amount from
+            search.amountFrom().ifPresent(amountFrom ->
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("amount"), amountFrom))
+            );
+            search.amountTo().ifPresent(amountTo ->
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("amount"), amountTo))
             );
 
             // Filter by transaction types

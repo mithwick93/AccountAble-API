@@ -48,9 +48,31 @@ services:
         reservations:
           cpus: "0.5"
           memory: "2G"
+  prometheus:
+    image: prom/prometheus:v3.2.0
+    container_name: prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - accountable-app-network
+    restart: always
+
+  grafana:
+    image: grafana/grafana:11.5.2
+    container_name: grafana
+    ports:
+      - "7000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - accountable-app-network
+    restart: always
 
 volumes:
   accountable-mysql-data:
+  grafana-storage:
 
 networks:
   accountable-app-network:

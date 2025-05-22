@@ -70,7 +70,7 @@ Java Spring Boot REST application for Personal finance management.
 - Apache v2 License
 
 <pre>
-Copyright(c) 2024 M.S. Wickramarathne
+Copyright(c) 2025 M.S. Wickramarathne
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

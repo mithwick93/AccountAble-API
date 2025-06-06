@@ -58,6 +58,14 @@ services:
     networks:
       - accountable-app-network
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: "4G"
+        reservations:
+          cpus: "0.5"
+          memory: "2G"
 
   grafana:
     image: grafana/grafana:11.5.2
@@ -69,6 +77,14 @@ services:
     networks:
       - accountable-app-network
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: "4G"
+        reservations:
+          cpus: "0.5"
+          memory: "2G"
 
 volumes:
   accountable-mysql-data:

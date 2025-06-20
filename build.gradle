@@ -39,7 +39,7 @@ dependencies {
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
     implementation 'org.jsoup:jsoup:1.18.3'
     implementation 'org.mapstruct:mapstruct:1.6.2'
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
     implementation 'com.mailersend:java-sdk:1.1.3'
     implementation 'com.bucket4j:bucket4j_jdk17-core:8.14.0'
     implementation 'io.micrometer:micrometer-registry-prometheus'

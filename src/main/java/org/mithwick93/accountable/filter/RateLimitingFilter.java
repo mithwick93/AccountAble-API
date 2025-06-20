@@ -20,7 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class RateLimitingFilter extends OncePerRequestFilter {
 
-    private static final int MAX_REQUESTS_PER_MINUTE = 50;
+    private static final int MAX_CAPACITY_PER_CLIENT = 100;
+
+    private static final int TOKENS_TO_REFILL = 25;
 
     private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();
 
@@ -44,8 +46,8 @@ public class RateLimitingFilter extends OncePerRequestFilter {
 
     private Bucket resolveBucket(String clientIp) {
         Bandwidth limit = Bandwidth.builder()
-                .capacity(MAX_REQUESTS_PER_MINUTE)
-                .refillIntervally(MAX_REQUESTS_PER_MINUTE, Duration.ofMinutes(1))
+                .capacity(MAX_CAPACITY_PER_CLIENT)
+                .refillIntervally(TOKENS_TO_REFILL, Duration.ofSeconds(10))
                 .build();
         return buckets.computeIfAbsent(clientIp, k -> Bucket.builder().addLimit(limit).build());
     }

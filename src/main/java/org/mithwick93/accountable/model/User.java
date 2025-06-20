@@ -32,6 +32,9 @@ public class User extends AuditableEntity {
     @Column(name = "user_name", length = 50, unique = true, nullable = false, updatable = false)
     private String username;
 
+    @Column(name = "email", length = 100, unique = true, nullable = false, updatable = false)
+    private String email;
+
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 

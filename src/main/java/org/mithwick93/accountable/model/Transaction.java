@@ -7,6 +7,7 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +19,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 import org.mithwick93.accountable.model.converter.CurrencyConverter;
 import org.mithwick93.accountable.model.enums.Currency;
 import org.mithwick93.accountable.model.enums.TransactionType;
@@ -91,7 +93,13 @@ public class Transaction extends AuditableEntity {
     @Column(name = "user_id", nullable = false)
     private int userId;
 
-    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(
+            mappedBy = "transaction",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    @BatchSize(size = 500)
     @Setter(AccessLevel.NONE)
     private List<SharedTransaction> sharedTransactions;
 

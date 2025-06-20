@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.mithwick93.accountable.controller.dto.request.ChangePasswordRequest;
 import org.mithwick93.accountable.controller.dto.request.LoginRequest;
 import org.mithwick93.accountable.controller.dto.request.RegistrationRequest;
 import org.mithwick93.accountable.controller.dto.request.TokenRefreshRequest;
@@ -68,6 +69,13 @@ public class AuthController {
         int userId = jwtUtil.getAuthenticatedUserId();
         refreshTokenService.deleteByUserId(userId);
         return ResponseEntity.ok(MessageResponse.of("Log out successful!"));
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<MessageResponse> changePassword(@Valid @RequestBody ChangePasswordRequest request) {
+        int userId = jwtUtil.getAuthenticatedUserId();
+        userService.changePassword(userId, request.oldPassword(), request.newPassword());
+        return ResponseEntity.ok(MessageResponse.of("Password changed successfully!"));
     }
 
     @PostMapping("/refresh-token")

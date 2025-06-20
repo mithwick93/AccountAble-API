@@ -104,6 +104,22 @@ public class UserService {
                 .orElseThrow(INVALID_USER_NAME_PASSWORD);
     }
 
+    public void changePassword(int userId, String oldPassword, String newPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+        if (!passwordEncoder.matches(oldPassword, user.getPasswordHash())) {
+            throw new BadRequestException("Old password is incorrect");
+        }
+
+        if (passwordEncoder.matches(newPassword, user.getPasswordHash())) {
+            throw new BadRequestException("New password must be different from the old password");
+        }
+
+        user.setPasswordHash(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
     private User validate(User user, String password) {
         if (!passwordEncoder.matches(password, user.getPasswordHash())) {
             throw INVALID_USER_NAME_PASSWORD.get();

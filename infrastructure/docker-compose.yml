@@ -39,6 +39,10 @@ services:
       AES_SECRET_KEY: "${AES_SECRET_KEY}"
       RSA_PRIVATE_KEY: "${RSA_PRIVATE_KEY}"
       RSA_PUBLIC_KEY: "${RSA_PUBLIC_KEY}"
+      FRONTEND_URL: "${FRONTEND_URL}"
+      MAILERSEND_TOKEN: "${MAILERSEND_TOKEN}"
+      EMAIL_SENDER_NAME: "${EMAIL_SENDER_NAME}"
+      EMAIL_SENDER_EMAIL: "${EMAIL_SENDER_EMAIL}"
     restart: always
     deploy:
       resources:

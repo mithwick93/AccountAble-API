@@ -54,6 +54,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/auth/register",
+                                "/api/auth/verify-email",
                                 "/api/auth/login",
                                 "/api/auth/refresh-token",
                                 "/v3/api-docs/**",

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.request.LoginRequest;
 import org.mithwick93.accountable.controller.dto.request.RegistrationRequest;
 import org.mithwick93.accountable.controller.dto.request.TokenRefreshRequest;
+import org.mithwick93.accountable.controller.dto.request.VerifyEmailRequest;
 import org.mithwick93.accountable.controller.dto.response.LoginResponse;
 import org.mithwick93.accountable.controller.dto.response.MessageResponse;
 import org.mithwick93.accountable.controller.dto.response.TokenRefreshResponse;
@@ -43,6 +44,13 @@ public class AuthController {
         User registerUser = authMapper.toUser(registrationRequest);
         userService.create(registerUser);
         return ResponseEntity.ok(MessageResponse.of("User registered successfully!"));
+    }
+
+    @PostMapping("/verify-email")
+    @Operation(security = @SecurityRequirement(name = ""))
+    public ResponseEntity<MessageResponse> verifyEmail(@Valid @RequestBody VerifyEmailRequest verifyEmailRequest) {
+        userService.validateEmail(verifyEmailRequest.token());
+        return ResponseEntity.ok(MessageResponse.of("Email validated successfully!"));
     }
 
     @PostMapping("/login")

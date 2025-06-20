@@ -55,3 +55,13 @@ metal:
   gold:
     url: "https://www.ideabeam.com/finance/rates/goldprice.php"
     xpath: "/html/body/div[2]/div[3]/div[3]/div/table/tbody/tr[4]/td[2]"
+
+frontend:
+  url: "https://test.com"
+
+email:
+  mailersend:
+    api-token: "test-api-token"
+  sender:
+    name: "AccountAble"
+    email: "test@test.com"

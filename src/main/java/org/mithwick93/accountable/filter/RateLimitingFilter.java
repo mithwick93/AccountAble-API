@@ -21,13 +21,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class RateLimitingFilter extends OncePerRequestFilter {
 
-    private static final int MAX_CAPACITY_PER_CLIENT = 200;
+    private static final int MAX_CAPACITY_PER_CLIENT = 100;
 
-    private static final int TOKENS_TO_REFILL = 50;
+    private static final int TOKENS_TO_REFILL = 25;
 
-    private static final int MAX_CAPACITY_UNAUTHENTICATED = 20;
+    private static final int MAX_CAPACITY_UNAUTHENTICATED = 5;
 
-    private static final int TOKENS_TO_REFILL_UNAUTHENTICATED = 5;
+    private static final int TOKENS_TO_REFILL_UNAUTHENTICATED = 1;
 
     private static final String[] UNAUTHENTICATED_ENDPOINTS = {
             "/api/auth/register",

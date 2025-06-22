@@ -1,4 +1,4 @@
-package org.mithwick93.accountable.dal.repository.specification;
+package org.mithwick93.accountable.dal.repository;
 
 import org.mithwick93.accountable.model.UserRegistration;
 import org.springframework.data.jpa.repository.JpaRepository;

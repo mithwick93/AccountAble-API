@@ -5,8 +5,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.request.ChangePasswordRequest;
+import org.mithwick93.accountable.controller.dto.request.ForgotPasswordRequest;
 import org.mithwick93.accountable.controller.dto.request.LoginRequest;
 import org.mithwick93.accountable.controller.dto.request.RegistrationRequest;
+import org.mithwick93.accountable.controller.dto.request.ResetPasswordRequest;
 import org.mithwick93.accountable.controller.dto.request.TokenRefreshRequest;
 import org.mithwick93.accountable.controller.dto.request.VerifyEmailRequest;
 import org.mithwick93.accountable.controller.dto.response.LoginResponse;
@@ -76,6 +78,22 @@ public class AuthController {
         int userId = jwtUtil.getAuthenticatedUserId();
         userService.changePassword(userId, request.oldPassword(), request.newPassword());
         return ResponseEntity.ok(MessageResponse.of("Password changed successfully!"));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<MessageResponse> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        try {
+            userService.initiatePasswordReset(request.email());
+        } catch (Exception ignored) {
+            // Ignore the exception to prevent revealing whether the email exists or not
+        }
+        return ResponseEntity.ok(MessageResponse.of("If the email exists, a password reset link has been sent."));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<MessageResponse> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        userService.resetPassword(request.token(), request.newPassword());
+        return ResponseEntity.ok(MessageResponse.of("Password reset successfully!"));
     }
 
     @PostMapping("/refresh-token")

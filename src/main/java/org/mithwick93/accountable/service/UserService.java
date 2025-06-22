@@ -1,13 +1,15 @@
 package org.mithwick93.accountable.service;
 
 import lombok.RequiredArgsConstructor;
+import org.mithwick93.accountable.dal.repository.PasswordResetTokenRepository;
+import org.mithwick93.accountable.dal.repository.UserRegistrationRepository;
 import org.mithwick93.accountable.dal.repository.UserRepository;
-import org.mithwick93.accountable.dal.repository.specification.UserRegistrationRepository;
 import org.mithwick93.accountable.exception.AuthException;
 import org.mithwick93.accountable.exception.BadRequestException;
 import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.gateway.EmailGateway;
 import org.mithwick93.accountable.gateway.dto.request.EmailRequest;
+import org.mithwick93.accountable.model.PasswordResetToken;
 import org.mithwick93.accountable.model.User;
 import org.mithwick93.accountable.model.UserRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -34,6 +37,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
+
     private final EmailGateway emailGateway;
 
     private final PasswordEncoder passwordEncoder;
@@ -47,7 +52,7 @@ public class UserService {
     }
 
     @CachePut(value = "user_cache", key = "#result.id", unless = "#result == null")
-    public UserRegistration create(User user) {
+    public void create(User user) {
         if (userRepository.existsByUsernameOrEmail(user.getUsername(), user.getEmail())) {
             throw new BadRequestException(
                     "User name: %s or email: %s already exists".formatted(user.getUsername(), user.getEmail())
@@ -72,11 +77,9 @@ public class UserService {
 
         UserRegistration saved = registrationRepository.save(pending);
         sendVerificationEmail(saved);
-
-        return saved;
     }
 
-    public User validateEmail(String token) {
+    public void validateEmail(String token) {
         UserRegistration registration = registrationRepository.findByToken(token)
                 .orElseThrow(() -> new NotFoundException("Invalid Request. Please register again"));
 
@@ -92,10 +95,8 @@ public class UserService {
         user.setEmail(registration.getEmail());
         user.setPasswordHash(registration.getPasswordHash());
 
-        User savedUser = userRepository.save(user);
+        userRepository.save(user);
         registrationRepository.delete(registration);
-
-        return savedUser;
     }
 
     public User authenticate(String username, String password) {
@@ -118,6 +119,40 @@ public class UserService {
 
         user.setPasswordHash(passwordEncoder.encode(newPassword));
         userRepository.save(user);
+    }
+
+    public void initiatePasswordReset(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isEmpty()) {
+            return;
+        }
+        User user = userOptional.get();
+
+        passwordResetTokenRepository.deleteByUser(user);
+
+        String token = UUID.randomUUID().toString();
+        PasswordResetToken resetToken = new PasswordResetToken();
+        resetToken.setUser(user);
+        resetToken.setToken(token);
+        resetToken.setExpiresAt(LocalDateTime.now().plusMinutes(30));
+
+        passwordResetTokenRepository.save(resetToken);
+        sendPasswordResetEmail(resetToken);
+    }
+
+    public void resetPassword(String token, String newPassword) {
+        PasswordResetToken reset = passwordResetTokenRepository.findByToken(token)
+                .orElseThrow(() -> new NotFoundException("Invalid Request. Please request a new password reset"));
+
+        if (reset.getExpiresAt().isBefore(LocalDateTime.now())) {
+            passwordResetTokenRepository.delete(reset);
+            throw new BadRequestException("Token expired");
+        }
+
+        User user = reset.getUser();
+        user.setPasswordHash(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        passwordResetTokenRepository.delete(reset);
     }
 
     private User validate(User user, String password) {
@@ -153,6 +188,37 @@ public class UserService {
                         fullName,
                         registration.getEmail(),
                         "AccountAble Email Verification",
+                        null,
+                        htmlContent
+                )
+        );
+    }
+
+    private void sendPasswordResetEmail(PasswordResetToken resetToken) {
+        String fullName = resetToken.getUser().getFirstName() + " " + resetToken.getUser().getLastName();
+        String resetLink = frontendDomain + "/reset-password?token=" + resetToken.getToken();
+        String htmlContent = """
+                <html>
+                    <body>
+                        <h2>Password Reset Request</h2>
+                        <p>Dear %s,</p>
+                        <p>We received a request to reset your password. Please click the link below to reset your password:</p>
+                        <p>
+                            <a href="%s">Reset Password</a>
+                        </p>
+                        <p>This link will expire in 30 minutes from the time you received this email.</p>
+                        <p>If you did not request this, please ignore this email.</p>
+                        <br>
+                        <p>Best regards,<br>AccountAble Team</p>
+                    </body>
+                </html>
+                """.formatted(fullName, resetLink);
+
+        emailGateway.sendEmail(
+                new EmailRequest(
+                        fullName,
+                        resetToken.getUser().getEmail(),
+                        "AccountAble Password Reset",
                         null,
                         htmlContent
                 )

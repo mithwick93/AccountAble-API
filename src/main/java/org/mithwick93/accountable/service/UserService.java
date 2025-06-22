@@ -1,6 +1,7 @@
 package org.mithwick93.accountable.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.mithwick93.accountable.dal.repository.PasswordResetTokenRepository;
 import org.mithwick93.accountable.dal.repository.UserRegistrationRepository;
 import org.mithwick93.accountable.dal.repository.UserRepository;
@@ -28,6 +29,7 @@ import java.util.function.Supplier;
 @Service
 @Transactional(rollbackFor = Exception.class)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Slf4j
 public class UserService {
 
     public static final Supplier<AuthException> INVALID_USER_NAME_PASSWORD
@@ -124,6 +126,7 @@ public class UserService {
     public void initiatePasswordReset(String email) {
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isEmpty()) {
+            log.warn("No user found with email {} for password reset", email);
             return;
         }
         User user = userOptional.get();

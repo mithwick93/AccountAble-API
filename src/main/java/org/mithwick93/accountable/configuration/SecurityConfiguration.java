@@ -103,9 +103,6 @@ public class SecurityConfiguration {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(List.of(
-                "http://localhost:3000",
-                "https://localhost:3000",
-                "https://localhost:3443",
                 "https://accountable.mithwick.com",
                 "https://mithwick.cloudflareaccess.com"
         ));

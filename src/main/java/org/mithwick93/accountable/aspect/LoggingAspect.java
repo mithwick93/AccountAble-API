@@ -20,14 +20,6 @@ import java.util.Arrays;
 @Slf4j
 public final class LoggingAspect {
 
-    private static final String MASK = "***";
-
-    private static boolean isSensitiveEndpoint(HttpServletRequest request) {
-        return request.getRequestURI().contains("/login")
-                || request.getRequestURI().contains("/register")
-                || request.getRequestURI().contains("/payment-systems");
-    }
-
     private static void executeWithExceptionHandling(Runnable runnable) {
         try {
             runnable.run();
@@ -57,13 +49,8 @@ public final class LoggingAspect {
     public void beforeEndpoint(JoinPoint joinPoint) {
         executeWithExceptionHandling(() -> {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-            boolean isSensitiveEndpoints = isSensitiveEndpoint(request);
-            String params = isSensitiveEndpoints
-                    ? MASK
-                    : JsonUtil.getJsonString(request.getParameterMap());
-            String args = isSensitiveEndpoints
-                    ? MASK
-                    : Arrays.toString(joinPoint.getArgs());
+            String params = JsonUtil.getJsonString(request.getParameterMap());
+            String args = Arrays.toString(joinPoint.getArgs());
 
             log.info(
                     "[Request] Endpoint: [{}] {}, Params: {}, Args: {}",
@@ -82,9 +69,7 @@ public final class LoggingAspect {
     public void afterEndpoint(Object returnValue) {
         executeWithExceptionHandling(() -> {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-            String responseBody = isSensitiveEndpoint(request)
-                    ? MASK
-                    : JsonUtil.getJsonString(returnValue);
+            String responseBody = JsonUtil.getJsonString(returnValue);
 
             log.info(
                     "[Response] Endpoint: [{}] {}, Returned: {}",

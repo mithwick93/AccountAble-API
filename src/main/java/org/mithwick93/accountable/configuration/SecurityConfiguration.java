@@ -56,6 +56,7 @@ public class SecurityConfiguration {
                                 "/api/auth/register",
                                 "/api/auth/verify-email",
                                 "/api/auth/login",
+                                "/api/auth/google-login",
                                 "/api/auth/refresh-token",
                                 "/api/auth/forgot-password",
                                 "/api/auth/reset-password",

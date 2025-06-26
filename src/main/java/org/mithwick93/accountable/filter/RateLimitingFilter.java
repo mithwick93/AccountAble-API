@@ -30,12 +30,7 @@ public class RateLimitingFilter extends OncePerRequestFilter {
     private static final int TOKENS_TO_REFILL_UNAUTHENTICATED = 1;
 
     private static final String[] UNAUTHENTICATED_ENDPOINTS = {
-            "/api/auth/register",
-            "/api/auth/verify-email",
-            "/api/auth/login",
-            "/api/auth/refresh-token",
-            "/api/auth/forgot-password",
-            "/api/auth/reset-password",
+            "/api/auth/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",

@@ -1,5 +1,6 @@
 package org.mithwick93.accountable.service;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mithwick93.accountable.dal.repository.PasswordResetTokenRepository;
@@ -9,6 +10,7 @@ import org.mithwick93.accountable.exception.AuthException;
 import org.mithwick93.accountable.exception.BadRequestException;
 import org.mithwick93.accountable.exception.NotFoundException;
 import org.mithwick93.accountable.gateway.EmailGateway;
+import org.mithwick93.accountable.gateway.GoogleTokenVerifier;
 import org.mithwick93.accountable.gateway.dto.request.EmailRequest;
 import org.mithwick93.accountable.model.PasswordResetToken;
 import org.mithwick93.accountable.model.User;
@@ -44,6 +46,8 @@ public class UserService {
     private final EmailGateway emailGateway;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final GoogleTokenVerifier googleTokenVerifier;
 
     @Value("${frontend.url}")
     private String frontendDomain;
@@ -105,6 +109,28 @@ public class UserService {
         return userRepository.findByUsername(username)
                 .map(user -> validate(user, password))
                 .orElseThrow(INVALID_USER_NAME_PASSWORD);
+    }
+
+    public User authenticateWithGoogle(String idToken) {
+        GoogleIdToken.Payload payload = googleTokenVerifier.verify(idToken);
+        if (payload.isEmpty()) {
+            throw new BadRequestException("Invalid Token");
+        }
+
+        String email = payload.getEmail();
+
+        return userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    log.info("User with email {} not found, creating user", email);
+
+                    User newUser = new User();
+                    newUser.setEmail(email);
+                    newUser.setFirstName((String) payload.get("given_name"));
+                    newUser.setLastName((String) payload.get("family_name"));
+                    newUser.setUsername(UUID.randomUUID().toString());
+                    newUser.setPasswordHash(passwordEncoder.encode(UUID.randomUUID().toString()));
+                    return userRepository.save(newUser);
+                });
     }
 
     public void changePassword(int userId, String oldPassword, String newPassword) {

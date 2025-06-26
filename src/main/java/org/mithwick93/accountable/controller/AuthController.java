@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.controller.dto.request.ChangePasswordRequest;
 import org.mithwick93.accountable.controller.dto.request.ForgotPasswordRequest;
+import org.mithwick93.accountable.controller.dto.request.GoogleLoginRequest;
 import org.mithwick93.accountable.controller.dto.request.LoginRequest;
 import org.mithwick93.accountable.controller.dto.request.RegistrationRequest;
 import org.mithwick93.accountable.controller.dto.request.ResetPasswordRequest;
@@ -61,6 +62,16 @@ public class AuthController {
     @Operation(security = @SecurityRequirement(name = ""))
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         User user = userService.authenticate(loginRequest.username(), loginRequest.password());
+        String accessToken = jwtUtil.generateToken(user);
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
+        return ResponseEntity.ok(LoginResponse.of(accessToken, refreshToken.getToken()));
+    }
+
+    @PostMapping("/google-login")
+    @Transactional(rollbackFor = {Throwable.class})
+    @Operation(security = @SecurityRequirement(name = ""))
+    public ResponseEntity<LoginResponse> googleLogin(@Valid @RequestBody GoogleLoginRequest googleLoginRequest) {
+        User user = userService.authenticateWithGoogle(googleLoginRequest.idToken());
         String accessToken = jwtUtil.generateToken(user);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
         return ResponseEntity.ok(LoginResponse.of(accessToken, refreshToken.getToken()));

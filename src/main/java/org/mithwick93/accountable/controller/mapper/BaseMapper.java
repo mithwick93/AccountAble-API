@@ -37,6 +37,9 @@ public abstract class BaseMapper {
     }
 
     protected String mapCurrency(Currency currency) {
+        if (currency == null) {
+            return null;
+        }
         return currency.name();
     }
 

@@ -65,3 +65,6 @@ email:
   sender:
     name: "AccountAble"
     email: "test@test.com"
+
+ocr:
+  api-url: "https://test.com"

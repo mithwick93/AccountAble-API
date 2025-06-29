@@ -59,6 +59,7 @@ services:
       MAILERSEND_TOKEN: "${MAILERSEND_TOKEN}"
       EMAIL_SENDER_NAME: "${EMAIL_SENDER_NAME}"
       EMAIL_SENDER_EMAIL: "${EMAIL_SENDER_EMAIL}"
+      OCR_API_URL: "${OCR_API_URL}"
     restart: always
     deploy:
       resources:

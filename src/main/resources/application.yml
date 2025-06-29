@@ -93,3 +93,6 @@ email:
   sender:
     name: ${emailSenderName}
     email: ${emailSenderEmail}
+
+ocr:
+  api-url: ${ocrApiUrl}

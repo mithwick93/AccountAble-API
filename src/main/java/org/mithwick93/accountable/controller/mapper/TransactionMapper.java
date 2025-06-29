@@ -6,6 +6,7 @@ import org.mithwick93.accountable.controller.dto.request.SharedTransactionReques
 import org.mithwick93.accountable.controller.dto.request.TransactionCategoryRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionRequest;
 import org.mithwick93.accountable.controller.dto.request.TransactionSearchRequest;
+import org.mithwick93.accountable.controller.dto.response.ExtractedTransaction;
 import org.mithwick93.accountable.controller.dto.response.SharedTransactionResponse;
 import org.mithwick93.accountable.controller.dto.response.TransactionCategoryResponse;
 import org.mithwick93.accountable.controller.dto.response.TransactionResponse;
@@ -61,6 +62,8 @@ public abstract class TransactionMapper extends TransactionBaseMapper {
     public abstract SharedTransactionResponse toSharedTransactionResponse(SharedTransaction sharedTransaction);
 
     public abstract List<SharedTransactionResponse> toSharedTransactionResponses(List<SharedTransaction> sharedTransactions);
+
+    public abstract ExtractedTransaction toExtractedTransaction(Transaction transaction);
 
     public TransactionSearch toTransactionSearch(TransactionSearchRequest request) {
         List<Currency> currencyEnums = Optional.ofNullable(request.currencies())

@@ -16,7 +16,23 @@ services:
         reservations:
           cpus: "0.5"
           memory: "512M"
-
+  tess4j-rest:
+    image: lgdd/tess4j-rest
+    container_name: tess4j-rest
+    restart: always
+    platform: linux/amd64
+    ports:
+      - "8001:8000"
+    networks:
+      - accountable-app-network
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1G"
+        reservations:
+          cpus: "0.25"
+          memory: "256M"
   app:
     container_name: accountable-api
     build:

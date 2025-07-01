@@ -18,9 +18,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
 
-    private final UserService userService;
-
     private final UserMapper userMapper;
+
+    private final UserService userService;
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> listUsers() {

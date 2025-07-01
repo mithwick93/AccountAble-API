@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class BaseMapper {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserCache userCache;
 
     @Autowired
-    private UserCache userCache;
+    private UserMapper userMapper;
 
     protected AssetType mapAssetTypeString(String type) {
         return AssetType.valueOf(type.toUpperCase());

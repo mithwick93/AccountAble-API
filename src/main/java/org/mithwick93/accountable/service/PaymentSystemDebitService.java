@@ -18,9 +18,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PaymentSystemDebitService {
 
-    private final PaymentSystemDebitRepository debitRepository;
-
     private final JwtUtil jwtUtil;
+
+    private final PaymentSystemDebitRepository debitRepository;
 
     @Transactional(readOnly = true)
     public List<PaymentSystemDebit> getAll() {

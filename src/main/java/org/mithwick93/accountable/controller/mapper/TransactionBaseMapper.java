@@ -21,25 +21,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class TransactionBaseMapper extends BaseMapper {
 
     @Autowired
-    private TransactionCategoryCache transactionCategoryCache;
+    private AssetCache assetCache;
 
     @Autowired
     private AssetMapper assetMapper;
 
     @Autowired
-    private AssetCache assetCache;
+    private LiabilityCache liabilityCache;
 
     @Autowired
     private LiabilityMapper liabilityMapper;
 
     @Autowired
-    private LiabilityCache liabilityCache;
+    private PaymentSystemCache paymentSystemCache;
 
     @Autowired
     private PaymentSystemMapper paymentSystemMapper;
 
     @Autowired
-    private PaymentSystemCache paymentSystemCache;
+    private TransactionCategoryCache transactionCategoryCache;
 
     @Mapping(target = "user", expression = "java(mapUser(transactionCategory.getUserId()))")
     public abstract TransactionCategoryResponse toTransactionCategoryResponse(TransactionCategory transactionCategory);

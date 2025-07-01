@@ -40,10 +40,10 @@ import java.util.List;
 public class SecurityConfiguration {
 
     @Autowired
-    private RsaKeyConfigProperties rsaKeyConfigProperties;
+    private AuthExceptionHandler authExceptionHandler;
 
     @Autowired
-    private AuthExceptionHandler authExceptionHandler;
+    private RsaKeyConfigProperties rsaKeyConfigProperties;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

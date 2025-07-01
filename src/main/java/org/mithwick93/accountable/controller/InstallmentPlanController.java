@@ -27,9 +27,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class InstallmentPlanController {
 
-    private final InstallmentPlanService installmentPlanService;
-
     private final InstallmentPlanMapper installmentPlanMapper;
+
+    private final InstallmentPlanService installmentPlanService;
 
     @GetMapping
     public ResponseEntity<List<InstallmentPlanResponse>> getAll() {

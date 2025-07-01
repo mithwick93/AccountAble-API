@@ -31,9 +31,9 @@ import static org.mithwick93.accountable.model.enums.Frequency.FREQUENCY_TYPES;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionTemplateController {
 
-    private final TransactionTemplateService transactionTemplateService;
-
     private final TransactionTemplateMapper transactionTemplateMapper;
+
+    private final TransactionTemplateService transactionTemplateService;
 
     @GetMapping
     public ResponseEntity<List<TransactionTemplateResponse>> getAll() {

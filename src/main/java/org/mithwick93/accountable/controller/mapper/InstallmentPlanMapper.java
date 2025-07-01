@@ -16,10 +16,10 @@ import java.util.List;
 public abstract class InstallmentPlanMapper extends BaseMapper {
 
     @Autowired
-    private LiabilityMapper liabilityMapper;
+    private LiabilityCache liabilityCache;
 
     @Autowired
-    private LiabilityCache liabilityCache;
+    private LiabilityMapper liabilityMapper;
 
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "modified", ignore = true)

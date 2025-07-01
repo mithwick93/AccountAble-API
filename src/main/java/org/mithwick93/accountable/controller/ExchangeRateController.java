@@ -24,9 +24,9 @@ import java.util.Map;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ExchangeRateController {
 
-    private final ExchangeRateService exchangeRateService;
-
     private final ExchangeRateMapper exchangeRateMapper;
+
+    private final ExchangeRateService exchangeRateService;
 
     @GetMapping
     public ResponseEntity<ExchangeRateResponse> getAll(

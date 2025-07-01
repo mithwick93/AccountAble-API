@@ -23,19 +23,19 @@ import java.util.List;
 public abstract class PaymentSystemMapper extends BaseMapper {
 
     @Autowired
-    private AssetMapper assetMapper;
+    protected EncryptionUtils encryptionUtils;
 
     @Autowired
     private AssetCache assetCache;
 
     @Autowired
-    private LiabilityMapper liabilityMapper;
+    private AssetMapper assetMapper;
 
     @Autowired
     private LiabilityCache liabilityCache;
 
     @Autowired
-    protected EncryptionUtils encryptionUtils;
+    private LiabilityMapper liabilityMapper;
 
     @Mapping(target = "created", ignore = true)
     @Mapping(target = "modified", ignore = true)

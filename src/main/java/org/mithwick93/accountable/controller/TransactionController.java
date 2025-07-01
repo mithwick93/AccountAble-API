@@ -39,11 +39,11 @@ import static org.mithwick93.accountable.model.enums.TransactionType.TRANSACTION
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionController {
 
-    private final TransactionService transactionService;
+    private final OcrService ocrService;
 
     private final TransactionMapper transactionMapper;
 
-    private final OcrService ocrService;
+    private final TransactionService transactionService;
 
     @GetMapping
     public ResponseEntity<List<TransactionResponse>> getAll() {

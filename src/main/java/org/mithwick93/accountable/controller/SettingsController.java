@@ -26,9 +26,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SettingsController {
 
-    private final SettingsService settingsService;
-
     private final SettingMapper settingMapper;
+
+    private final SettingsService settingsService;
 
     @GetMapping
     public ResponseEntity<List<SettingResponse>> getAll() {

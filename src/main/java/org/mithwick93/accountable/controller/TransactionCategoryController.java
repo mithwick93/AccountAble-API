@@ -26,9 +26,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionCategoryController {
 
-    private final TransactionService transactionService;
-
     private final TransactionMapper transactionMapper;
+
+    private final TransactionService transactionService;
 
     @GetMapping
     public ResponseEntity<List<TransactionCategoryResponse>> getAll() {

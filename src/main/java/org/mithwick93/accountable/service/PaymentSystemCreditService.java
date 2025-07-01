@@ -18,9 +18,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PaymentSystemCreditService {
 
-    private final PaymentSystemCreditRepository creditRepository;
-
     private final JwtUtil jwtUtil;
+
+    private final PaymentSystemCreditRepository creditRepository;
 
     @Transactional(readOnly = true)
     public List<PaymentSystemCredit> getAll() {

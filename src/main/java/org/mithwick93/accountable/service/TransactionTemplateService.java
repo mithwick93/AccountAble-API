@@ -16,9 +16,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionTemplateService {
 
-    private final TransactionTemplateRepository transactionTemplateRepository;
-
     private final JwtUtil jwtUtil;
+
+    private final TransactionTemplateRepository transactionTemplateRepository;
 
     @Transactional(readOnly = true)
     public List<TransactionTemplate> getAll() {

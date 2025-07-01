@@ -34,13 +34,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthController {
 
-    private final UserService userService;
-
-    private final RefreshTokenService refreshTokenService;
-
     private final AuthMapper authMapper;
 
     private final JwtUtil jwtUtil;
+
+    private final RefreshTokenService refreshTokenService;
+
+    private final UserService userService;
 
     @PostMapping("/register")
     @Operation(security = @SecurityRequirement(name = ""))

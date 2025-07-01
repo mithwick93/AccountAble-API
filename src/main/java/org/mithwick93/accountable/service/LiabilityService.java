@@ -21,9 +21,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LiabilityService {
 
-    private final LiabilityRepository liabilityRepository;
-
     private final JwtUtil jwtUtil;
+
+    private final LiabilityRepository liabilityRepository;
 
     @Transactional(readOnly = true)
     public List<Liability> getAll() {

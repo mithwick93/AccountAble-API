@@ -30,9 +30,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LiabilityController {
 
-    private final LiabilityService liabilityService;
-
     private final LiabilityMapper liabilityMapper;
+
+    private final LiabilityService liabilityService;
 
     @GetMapping
     public ResponseEntity<List<LiabilityResponse>> getAll() {

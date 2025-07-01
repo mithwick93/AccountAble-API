@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PaymentSystemCache {
 
-    private final PaymentSystemRepository paymentSystemRepository;
-
     private final PaymentSystemCreditRepository paymentSystemCreditRepository;
 
     private final PaymentSystemDebitRepository paymentSystemDebitRepository;
+
+    private final PaymentSystemRepository paymentSystemRepository;
 
     @Cacheable(value = "payment_system_type_cache", key = "#id", unless = "#result == null")
     public PaymentSystemType getPaymentSystemTypeById(int id) {

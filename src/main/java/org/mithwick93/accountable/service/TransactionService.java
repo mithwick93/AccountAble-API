@@ -27,15 +27,15 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionService {
 
-    private final TransactionRepository transactionRepository;
+    private final JwtUtil jwtUtil;
 
     private final TransactionCategoryRepository transactionCategoryRepository;
 
     private final TransactionHelper transactionHelper;
 
-    private final TransactionSpecification transactionSpecification;
+    private final TransactionRepository transactionRepository;
 
-    private final JwtUtil jwtUtil;
+    private final TransactionSpecification transactionSpecification;
 
     @Transactional(readOnly = true)
     public List<Transaction> getAllTransactions() {

@@ -16,9 +16,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SettingsService {
 
-    private final SettingsRepository settingsRepository;
-
     private final JwtUtil jwtUtil;
+
+    private final SettingsRepository settingsRepository;
 
     @Transactional(readOnly = true)
     public List<Setting> getAll() {

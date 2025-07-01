@@ -29,9 +29,9 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AssetController {
 
-    private final AssetService assetService;
-
     private final AssetMapper assetMapper;
+
+    private final AssetService assetService;
 
     @GetMapping
     public ResponseEntity<List<AssetResponse>> getAll() {

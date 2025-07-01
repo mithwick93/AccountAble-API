@@ -62,6 +62,8 @@ public class UserService {
 
     @CachePut(value = "user_cache", key = "#result.id", unless = "#result == null")
     public void create(User user) {
+        checkUserWhiteListed(user.getEmail());
+
         if (userRepository.existsByUsernameOrEmail(user.getUsername(), user.getEmail())) {
             throw new BadRequestException(
                     "User name: %s or email: %s already exists".formatted(user.getUsername(), user.getEmail())
@@ -91,6 +93,8 @@ public class UserService {
     public void validateEmail(String token) {
         UserRegistration registration = registrationRepository.findByToken(token)
                 .orElseThrow(() -> new NotFoundException("Invalid Request. Please register again"));
+
+        checkUserWhiteListed(registration.getEmail());
 
         if (registration.getExpiresAt().isBefore(LocalDateTime.now())) {
             registrationRepository.delete(registration);
@@ -155,6 +159,8 @@ public class UserService {
     }
 
     public void initiatePasswordReset(String email) {
+        checkUserWhiteListed(email);
+
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isEmpty()) {
             log.warn("No user found with email {} for password reset", email);

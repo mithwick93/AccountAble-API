@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mithwick93.accountable.dal.repository.PasswordResetTokenRepository;
 import org.mithwick93.accountable.dal.repository.UserRegistrationRepository;
 import org.mithwick93.accountable.dal.repository.UserRepository;
+import org.mithwick93.accountable.dal.repository.UserWhiteListRepository;
 import org.mithwick93.accountable.exception.AuthException;
 import org.mithwick93.accountable.exception.BadRequestException;
 import org.mithwick93.accountable.exception.NotFoundException;
@@ -37,17 +38,19 @@ public class UserService {
     public static final Supplier<AuthException> INVALID_USER_NAME_PASSWORD
             = AuthException.supplier("Invalid user name / password");
 
+    private final EmailGateway emailGateway;
+
+    private final GoogleTokenVerifier googleTokenVerifier;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
+
     private final UserRegistrationRepository registrationRepository;
 
     private final UserRepository userRepository;
 
-    private final PasswordResetTokenRepository passwordResetTokenRepository;
-
-    private final EmailGateway emailGateway;
-
-    private final PasswordEncoder passwordEncoder;
-
-    private final GoogleTokenVerifier googleTokenVerifier;
+    private final UserWhiteListRepository userWhiteListRepository;
 
     @Value("${frontend.url}")
     private String frontendDomain;
@@ -119,6 +122,8 @@ public class UserService {
 
         String email = payload.getEmail();
 
+        checkUserWhiteListed(email);
+
         return userRepository.findByEmail(email)
                 .orElseGet(() -> {
                     log.info("User with email {} not found, creating user", email);
@@ -185,10 +190,18 @@ public class UserService {
     }
 
     private User validate(User user, String password) {
+        checkUserWhiteListed(user.getEmail());
+
         if (!passwordEncoder.matches(password, user.getPasswordHash())) {
             throw INVALID_USER_NAME_PASSWORD.get();
         }
         return user;
+    }
+
+    private void checkUserWhiteListed(String email) {
+        if (!userWhiteListRepository.existsById(email)) {
+            throw new AuthException("Email is not whitelisted");
+        }
     }
 
     private void sendVerificationEmail(UserRegistration registration) {

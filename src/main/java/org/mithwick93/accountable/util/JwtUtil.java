@@ -1,5 +1,6 @@
 package org.mithwick93.accountable.util;
 
+import lombok.RequiredArgsConstructor;
 import org.mithwick93.accountable.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,16 +15,12 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 
 @Component
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public final class JwtUtil {
 
     private final JwtEncoder jwtEncoder;
 
     private long expireInSeconds;
-
-    @Autowired
-    public JwtUtil(JwtEncoder jwtEncoder) {
-        this.jwtEncoder = jwtEncoder;
-    }
 
     @Value("${jwt.expire-in-seconds:3600}")
     public void setExpireInSeconds(long expireInSeconds) {

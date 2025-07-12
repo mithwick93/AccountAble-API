@@ -1,0 +1,1 @@
+create fulltext index ft_transaction_name on transaction_name_to_categories (transaction_name);

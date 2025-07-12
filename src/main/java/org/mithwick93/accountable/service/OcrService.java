@@ -1,6 +1,7 @@
 package org.mithwick93.accountable.service;
 
 import lombok.RequiredArgsConstructor;
+import org.mithwick93.accountable.dal.repository.TransactionNameToCategoryRepository;
 import org.mithwick93.accountable.gateway.OcrGateway;
 import org.mithwick93.accountable.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +18,17 @@ public class OcrService {
 
     private final OcrGateway ocrGateway;
 
+    private final TransactionNameToCategoryRepository transactionNameToCategoryRepository;
+
     public Transaction extractTransactionFromImage(MultipartFile imageFile) {
         String extractedText = ocrGateway.extractText(imageFile);
 
         Transaction transaction = new Transaction();
-        setNameAndAmount(extractedText, transaction);
+        setDetails(extractedText, transaction);
         return transaction;
     }
 
-    private void setNameAndAmount(String extractedText, Transaction transaction) {
+    private void setDetails(String extractedText, Transaction transaction) {
         String[] lines = extractedText.split("\n");
         String name;
         BigDecimal amount = BigDecimal.ZERO;
@@ -69,6 +72,9 @@ public class OcrService {
                 }
             }
             transaction.setAmount(amount);
+
+            transactionNameToCategoryRepository.findMostProbableCategoryIdByTransactionName(name)
+                    .ifPresent(transaction::setCategoryId);
         }
     }
 

@@ -63,6 +63,7 @@ public abstract class TransactionMapper extends TransactionBaseMapper {
 
     public abstract List<SharedTransactionResponse> toSharedTransactionResponses(List<SharedTransaction> sharedTransactions);
 
+    @Mapping(target = "category", expression = "java(mapTransactionCategory(transaction.getCategoryId()))")
     public abstract ExtractedTransaction toExtractedTransaction(Transaction transaction);
 
     public TransactionSearch toTransactionSearch(TransactionSearchRequest request) {

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public record ExtractedTransaction(
         String name,
+        TransactionCategoryResponse category,
         BigDecimal amount
 ) {
 

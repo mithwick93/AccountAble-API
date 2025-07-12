@@ -45,6 +45,10 @@ public abstract class TransactionBaseMapper extends BaseMapper {
     public abstract TransactionCategoryResponse toTransactionCategoryResponse(TransactionCategory transactionCategory);
 
     protected TransactionCategoryResponse mapTransactionCategory(Integer categoryId) {
+        if (categoryId == null) {
+            return null;
+        }
+
         TransactionCategory category = transactionCategoryCache.getTransactionCategory(categoryId);
         return toTransactionCategoryResponse(category);
     }

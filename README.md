@@ -18,7 +18,7 @@ Java Spring Boot REST application for Personal finance management.
 
 ### Installation
 
-* This app requires Git, Java 21, Gradle and Docker to build, test and run.
+* This app requires Git, Java 25, Gradle and Docker to build, test and run.
 
 #### Clone repo
 

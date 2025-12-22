@@ -35,6 +35,9 @@ public record InstallmentPlanRequest(
         @Min(1)
         int totalInstallments,
 
+        @DecimalMin("0.0")
+        Integer fixedInstallmentAmount,
+
         @NotNull
         @Min(0)
         int installmentsPaid,

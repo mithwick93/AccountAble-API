@@ -13,6 +13,7 @@ public record InstallmentPlanResponse(
         UserResponse user,
         BigDecimal installmentAmount,
         int totalInstallments,
+        Integer fixedInstallmentAmount,
         int installmentsPaid,
         BigDecimal interestRate,
         LocalDate startDate,

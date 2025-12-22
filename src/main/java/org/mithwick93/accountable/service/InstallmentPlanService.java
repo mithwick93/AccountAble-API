@@ -51,6 +51,7 @@ public class InstallmentPlanService {
         existingInstallmentPlan.setInstallmentAmount(installmentPlan.getInstallmentAmount());
         existingInstallmentPlan.setTotalInstallments(installmentPlan.getTotalInstallments());
         existingInstallmentPlan.setInstallmentsPaid(installmentPlan.getInstallmentsPaid());
+        existingInstallmentPlan.setFixedInstallmentAmount(installmentPlan.getFixedInstallmentAmount());
         existingInstallmentPlan.setInterestRate(installmentPlan.getInterestRate());
         existingInstallmentPlan.setStartDate(installmentPlan.getStartDate());
         existingInstallmentPlan.setEndDate(installmentPlan.getEndDate());

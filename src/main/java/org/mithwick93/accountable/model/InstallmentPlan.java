@@ -54,6 +54,9 @@ public class InstallmentPlan extends AuditableEntity {
     @Column(name = "total_installments", nullable = false)
     private int totalInstallments;
 
+    @Column(name = "fixed_installment_amount")
+    private Integer fixedInstallmentAmount;
+
     @Column(name = "installments_paid", nullable = false)
     private int installmentsPaid;
 

@@ -42,7 +42,7 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14'
     implementation 'com.mailersend:java-sdk:1.4.1'
     implementation 'com.bucket4j:bucket4j_jdk17-core:8.15.0'
-    implementation 'com.google.api-client:google-api-client:2.8.1'
+    implementation 'com.google.api-client:google-api-client:2.9.0'
     implementation 'com.google.http-client:google-http-client-jackson2:2.0.2'
     implementation 'io.micrometer:micrometer-registry-prometheus'
 
